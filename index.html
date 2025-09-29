@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سیستەمی تۆمارکردنی گەیاندن</title>
+    <!-- کتێبخانەی jsPDF بۆ هەناردنی PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!-- کتێبخانەی SheetJS بۆ هەناردنی Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary: #3498db;
@@ -276,6 +281,21 @@
             border-top: 1px solid #eee;
         }
         
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -292,6 +312,10 @@
             }
             
             .filter-section {
+                flex-direction: column;
+            }
+            
+            .export-buttons {
                 flex-direction: column;
             }
         }
@@ -422,8 +446,12 @@
             </div>
             
             <div class="export-buttons">
-                <button id="exportPDF" class="btn btn-danger">هەناردن بە PDF</button>
-                <button id="exportExcel" class="btn btn-success">هەناردن بە Excel</button>
+                <button id="exportPDF" class="btn btn-danger">
+                    <span class="btn-text">هەناردن بە PDF</span>
+                </button>
+                <button id="exportExcel" class="btn btn-success">
+                    <span class="btn-text">هەناردن بە Excel</span>
+                </button>
             </div>
         </section>
         
@@ -563,12 +591,12 @@
             
             // هەناردنی PDF
             exportPDF.addEventListener('click', function() {
-                alert("هەناردنی PDF - ئەمە تەنها نموونەیە. لە سیستەمێکی ڕاستەقینەدا پێویستە کتێبخانەیەکی وەک jsPDF بەکاربهێنیت.");
+                exportToPDF();
             });
             
             // هەناردنی Excel
             exportExcel.addEventListener('click', function() {
-                alert("هەناردنی Excel - ئەمە تەنها نموونەیە. لە سیستەمێکی ڕاستەقینەدا پێویستە کتێبخانەیەکی وەک SheetJS بەکاربهێنیت.");
+                exportToExcel();
             });
         });
 
@@ -655,6 +683,153 @@
                 renderDeliveriesTable();
                 alert('گەیاندن بە سەرکەوتوویی سڕایەوە!');
             }
+        }
+
+        // هەناردنی PDF
+        function exportToPDF() {
+            // نمایشی بار
+            const btnText = exportPDF.querySelector('.btn-text');
+            const originalText = btnText.textContent;
+            btnText.innerHTML = '<span class="loading"></span> دروستکردنی PDF...';
+            exportPDF.disabled = true;
+            
+            setTimeout(() => {
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    // سەرپەڕە
+                    doc.setFontSize(20);
+                    doc.setTextColor(40, 40, 40);
+                    doc.text('ڕاپۆرتی گەیاندنەکان', 105, 15, null, null, 'center');
+                    
+                    // بەرواری ڕاپۆرت
+                    const currentDate = new Date().toLocaleDateString('ku');
+                    doc.setFontSize(12);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`بەرواری ڕاپۆرت: ${currentDate}`, 105, 25, null, null, 'center');
+                    
+                    // داتاکان
+                    const filterDate = document.getElementById('filterDate').value;
+                    const filterStatus = document.getElementById('filterStatus').value;
+                    
+                    const filteredDeliveries = deliveries.filter(delivery => {
+                        const dateMatch = !filterDate || delivery.date === filterDate;
+                        const statusMatch = filterStatus === 'all' || 
+                                          (filterStatus === 'delivered' && delivery.delivered) ||
+                                          (filterStatus === 'pending' && !delivery.delivered);
+                        
+                        return dateMatch && statusMatch;
+                    });
+                    
+                    // پێکهێنانی داتا بۆ خشتە
+                    const tableData = filteredDeliveries.map(delivery => [
+                        delivery.code,
+                        delivery.sender,
+                        delivery.recipient,
+                        delivery.phone,
+                        delivery.date,
+                        delivery.delivered ? 'گەشتووە' : 'پێش گەیاندن'
+                    ]);
+                    
+                    // زیادکردنی خشتە
+                    doc.autoTable({
+                        head: [['کۆدی بەرید', 'ناوی سیاق', 'ناوی وەرگر', 'ژمارەی موبایل', 'بەروار', 'دۆخ']],
+                        body: tableData,
+                        startY: 35,
+                        styles: { font: 'tahoma', fontStyle: 'normal', fontSize: 10, textColor: [0, 0, 0] },
+                        headStyles: { fillColor: [52, 152, 219], textColor: [255, 255, 255] },
+                        alternateRowStyles: { fillColor: [245, 247, 250] },
+                        margin: { right: 10, left: 10 }
+                    });
+                    
+                    // کۆی گشتی
+                    const totalDelivered = filteredDeliveries.filter(d => d.delivered).length;
+                    const totalPending = filteredDeliveries.filter(d => !d.delivered).length;
+                    
+                    doc.setFontSize(12);
+                    doc.setTextColor(40, 40, 40);
+                    const finalY = doc.lastAutoTable.finalY + 10;
+                    doc.text(`کۆی گشتی: ${filteredDeliveries.length} گەیاندن`, 20, finalY);
+                    doc.text(`گەشتووە: ${totalDelivered}`, 20, finalY + 7);
+                    doc.text(`پێش گەیاندن: ${totalPending}`, 20, finalY + 14);
+                    
+                    // پاشەکەوتکردنی فایل
+                    doc.save(`ڕاپۆرتی_گەیاندن_${new Date().toISOString().slice(0,10)}.pdf`);
+                    
+                    alert('ڕاپۆرتی PDF بە سەرکەوتوویی هەنرادرا!');
+                } catch (error) {
+                    console.error('هەڵە لە هەناردنی PDF:', error);
+                    alert('هەڵە لە هەناردنی PDF. تکایە دووبارە هەوڵبدەرەوە.');
+                } finally {
+                    // گەڕاندنەوەی دۆخی دوگمە
+                    btnText.textContent = originalText;
+                    exportPDF.disabled = false;
+                }
+            }, 500);
+        }
+
+        // هەناردنی Excel
+        function exportToExcel() {
+            // نمایشی بار
+            const btnText = exportExcel.querySelector('.btn-text');
+            const originalText = btnText.textContent;
+            btnText.innerHTML = '<span class="loading"></span> دروستکردنی Excel...';
+            exportExcel.disabled = true;
+            
+            setTimeout(() => {
+                try {
+                    const filterDate = document.getElementById('filterDate').value;
+                    const filterStatus = document.getElementById('filterStatus').value;
+                    
+                    const filteredDeliveries = deliveries.filter(delivery => {
+                        const dateMatch = !filterDate || delivery.date === filterDate;
+                        const statusMatch = filterStatus === 'all' || 
+                                          (filterStatus === 'delivered' && delivery.delivered) ||
+                                          (filterStatus === 'pending' && !delivery.delivered);
+                        
+                        return dateMatch && statusMatch;
+                    });
+                    
+                    // پێکهێنانی داتا
+                    const excelData = filteredDeliveries.map(delivery => ({
+                        'کۆدی بەرید': delivery.code,
+                        'ناوی سیاق': delivery.sender,
+                        'ناوی وەرگر': delivery.recipient,
+                        'ژمارەی موبایل': delivery.phone,
+                        'بەروار': delivery.date,
+                        'دۆخ': delivery.delivered ? 'گەشتووە' : 'پێش گەیاندن'
+                    }));
+                    
+                    // دروستکردنی Workbook
+                    const ws = XLSX.utils.json_to_sheet(excelData);
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, ws, 'گەیاندنەکان');
+                    
+                    // زیادکردنی کۆی گشتی
+                    const totalDelivered = filteredDeliveries.filter(d => d.delivered).length;
+                    const totalPending = filteredDeliveries.filter(d => !d.delivered).length;
+                    
+                    XLSX.utils.sheet_add_aoa(ws, [
+                        [],
+                        ['کۆی گشتی:', filteredDeliveries.length],
+                        ['گەشتووە:', totalDelivered],
+                        ['پێش گەیاندن:', totalPending]
+                    ], { origin: -1 });
+                    
+                    // پاشەکەوتکردنی فایل
+                    XLSX.writeFile(wb, `ڕاپۆرتی_گەیاندن_${new Date().toISOString().slice(0,10)}.xlsx`);
+                    
+                    alert('ڕاپۆرتی Excel بە سەرکەوتوویی هەنرادرا!');
+                } catch (error) {
+                    console.error('هەڵە لە هەناردنی Excel:', error);
+                    alert('هەڵە لە هەناردنی Excel. تکایە دووبارە هەوڵبدەرەوە.');
+                } finally {
+                    // گەڕاندنەوەی دۆخی دوگمە
+                    btnText.textContent = originalText;
+                    exportExcel.disabled = false;
+                }
+            }, 500);
         }
     </script>
 </body>
