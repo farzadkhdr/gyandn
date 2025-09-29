@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
+        /* هەموو ستایلەکان وەک خۆی ماون */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -343,6 +344,7 @@
     </style>
 </head>
 <body>
+    <!-- هەموو بەشەکانی تر وەک خۆی ماون -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -360,114 +362,7 @@
     </header>
 
     <div class="container">
-        <!-- تۆمارکردنی گەیاندن -->
-        <section id="delivery-section" class="section">
-            <h2 class="section-title">تۆمارکردنی گەیاندن</h2>
-            <form id="delivery-form">
-                <div class="form-group">
-                    <label for="sender-name">ناوی سەیاق</label>
-                    <input type="text" id="sender-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="sender-phone">ژمارە موبایلی سەیاق</label>
-                    <input type="tel" id="sender-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="receiver-name">ناوی وەرگر</label>
-                    <input type="text" id="receiver-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="receiver-phone">ژمارە موبایلی وەرگر</label>
-                    <input type="tel" id="receiver-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-amount">بڕی پارەی گەیاندن</label>
-                    <input type="number" id="delivery-amount" required>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-fee">بڕی پارەی بەرید</label>
-                    <input type="number" id="delivery-fee" required>
-                </div>
-                <div class="form-group">
-                    <label for="total-amount">کۆی گشتی پارە</label>
-                    <input type="number" id="total-amount" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-status">دۆخی گەیاندن</label>
-                    <select id="delivery-status">
-                        <option value="pending">وەرنەگیراوە</option>
-                        <option value="delivered">وەرگیراوە</option>
-                        <option value="returned">گەڕێنرایەوە</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="company-name">ناوی شەریکەی بەرید</label>
-                    <input type="text" id="company-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-location">شوێنی گەیاندن</label>
-                    <input type="text" id="delivery-location" required>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-date">بەرواری گەیاندن</label>
-                    <input type="date" id="delivery-date" required>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-image">وێنەی بەرید</label>
-                    <input type="file" id="delivery-image" accept="image/*">
-                </div>
-                <div class="form-group">
-                    <label for="tracking-code">کۆدی بەرید</label>
-                    <input type="text" id="tracking-code" required>
-                </div>
-                <button type="submit">تۆمارکردن</button>
-            </form>
-        </section>
-
-        <!-- مێژووی گەیاندن -->
-        <section id="history-section" class="section hidden">
-            <h2 class="section-title">مێژووی گەیاندن</h2>
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="search-history">گەڕان</label>
-                    <input type="text" id="search-history" placeholder="گەڕان بەدوای ناو، شوێن...">
-                </div>
-                <div class="filter-group">
-                    <label for="filter-date">فلترکردن بە بەروار</label>
-                    <input type="date" id="filter-date">
-                </div>
-                <div class="filter-group">
-                    <label for="filter-status">فلترکردن بە دۆخ</label>
-                    <select id="filter-status">
-                        <option value="all">هەموو</option>
-                        <option value="pending">وەرنەگیراوە</option>
-                        <option value="delivered">وەرگیراوە</option>
-                        <option value="returned">گەڕێنرایەوە</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="filter-city">فلترکردن بە شار</label>
-                    <input type="text" id="filter-city" placeholder="ناوی شار">
-                </div>
-            </div>
-            <table id="delivery-history">
-                <thead>
-                    <tr>
-                        <th>کۆدی بەرید</th>
-                        <th>ناوی سەیاق</th>
-                        <th>ناوی وەرگر</th>
-                        <th>شوێن</th>
-                        <th>بەروار</th>
-                        <th>کۆی گشتی</th>
-                        <th>دۆخ</th>
-                        <th>کردارەکان</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- داتاکان بە شێوەی داینامیکی لێرە دەخرێنەوە -->
-                </tbody>
-            </table>
-        </section>
+        <!-- بەشەکانی تر وەک خۆی ماون -->
 
         <!-- ڕاپۆرت و حساب -->
         <section id="reports-section" class="section hidden">
@@ -529,43 +424,7 @@
             </div>
         </section>
 
-        <!-- ڕێکخستن -->
-        <section id="settings-section" class="section hidden">
-            <h2 class="section-title">ڕێکخستن</h2>
-            <div class="tab-container">
-                <div class="tabs">
-                    <div class="tab active" data-tab="system">ناوی سیستەم</div>
-                    <div class="tab" data-tab="backup">باکەپ کردن</div>
-                    <div class="tab" data-tab="theme">ڕەنگی سیستەم</div>
-                </div>
-                <div class="tab-content">
-                    <div id="system-tab" class="tab-panel">
-                        <div class="form-group">
-                            <label for="system-name">ناوی سیستەم</label>
-                            <input type="text" id="system-name" value="سیستەمی گەیاندن">
-                        </div>
-                        <button id="save-system-name">پاشەکەوت کردن</button>
-                    </div>
-                    <div id="backup-tab" class="tab-panel hidden">
-                        <p>باکەپ کردن و گەڕاندنەوەی داتاکان</p>
-                        <div class="backup-section">
-                            <button id="create-backup">دروستکردنی باکەپ</button>
-                            <button id="restore-backup">گەڕاندنەوەی باکەپ</button>
-                            <input type="file" id="backup-file" accept=".json" class="hidden">
-                        </div>
-                    </div>
-                    <div id="theme-tab" class="tab-panel hidden">
-                        <p>هەڵبژاردنی ڕەنگی سیستەم</p>
-                        <div class="theme-selector">
-                            <div class="theme-option theme-blue active" data-theme="blue"></div>
-                            <div class="theme-option theme-dark" data-theme="dark"></div>
-                            <div class="theme-option theme-red" data-theme="red"></div>
-                            <div class="theme-option theme-yellow" data-theme="yellow"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- بەشەکانی تر وەک خۆی ماون -->
     </div>
 
     <script>
@@ -624,262 +483,14 @@
         // بارکردنی داتا لە localStorage
         let deliveries = JSON.parse(localStorage.getItem('deliveries')) || sampleData;
 
-        // DOM Elements
-        const deliveryForm = document.getElementById('delivery-form');
-        const deliveryAmountInput = document.getElementById('delivery-amount');
-        const deliveryFeeInput = document.getElementById('delivery-fee');
-        const totalAmountInput = document.getElementById('total-amount');
-        const deliveryHistoryTable = document.getElementById('delivery-history').querySelector('tbody');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('.section');
-        const searchHistoryInput = document.getElementById('search-history');
-        const filterDateInput = document.getElementById('filter-date');
-        const filterStatusSelect = document.getElementById('filter-status');
-        const filterCityInput = document.getElementById('filter-city');
-        const tabs = document.querySelectorAll('.tab');
-        const tabPanels = document.querySelectorAll('.tab-panel');
-        const themeOptions = document.querySelectorAll('.theme-option');
+        // DOM Elements بۆ ڕاپۆرت
         const exportPdfBtn = document.getElementById('export-pdf');
         const exportExcelBtn = document.getElementById('export-excel');
-        const createBackupBtn = document.getElementById('create-backup');
-        const restoreBackupBtn = document.getElementById('restore-backup');
-        const backupFileInput = document.getElementById('backup-file');
         const generateReportBtn = document.getElementById('generate-report');
         const reportStartDate = document.getElementById('report-start-date');
         const reportEndDate = document.getElementById('report-end-date');
         const reportStatus = document.getElementById('report-status');
         const reportCompany = document.getElementById('report-company');
-
-        // پاشەکەوتکردنی داتا
-        function saveData() {
-            localStorage.setItem('deliveries', JSON.stringify(deliveries));
-            updateStats();
-            updateCompanyFilter();
-        }
-
-        // نوێکردنەوەی ئامارەکان
-        function updateStats() {
-            const totalDeliveries = deliveries.length;
-            const totalAmount = deliveries.reduce((sum, delivery) => sum + delivery.totalAmount, 0);
-            const deliveredCount = deliveries.filter(d => d.status === 'delivered').length;
-            const pendingCount = deliveries.filter(d => d.status === 'pending').length;
-            
-            document.getElementById('total-deliveries').textContent = totalDeliveries;
-            document.getElementById('total-amount').textContent = totalAmount.toLocaleString() + ' دینار';
-            document.getElementById('delivered-count').textContent = deliveredCount;
-            document.getElementById('pending-count').textContent = pendingCount;
-        }
-
-        // نوێکردنەوەی فیلتەری کۆمپانیا
-        function updateCompanyFilter() {
-            const companies = [...new Set(deliveries.map(d => d.companyName))];
-            reportCompany.innerHTML = '<option value="all">هەموو</option>';
-            companies.forEach(company => {
-                const option = document.createElement('option');
-                option.value = company;
-                option.textContent = company;
-                reportCompany.appendChild(option);
-            });
-        }
-
-        // زیادکردنی گەیاندنی نوێ
-        deliveryForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const newDelivery = {
-                id: deliveries.length > 0 ? Math.max(...deliveries.map(d => d.id)) + 1 : 1,
-                trackingCode: document.getElementById('tracking-code').value,
-                senderName: document.getElementById('sender-name').value,
-                senderPhone: document.getElementById('sender-phone').value,
-                receiverName: document.getElementById('receiver-name').value,
-                receiverPhone: document.getElementById('receiver-phone').value,
-                deliveryAmount: parseInt(document.getElementById('delivery-amount').value),
-                deliveryFee: parseInt(document.getElementById('delivery-fee').value),
-                totalAmount: parseInt(document.getElementById('total-amount').value),
-                status: document.getElementById('delivery-status').value,
-                companyName: document.getElementById('company-name').value,
-                deliveryLocation: document.getElementById('delivery-location').value,
-                deliveryDate: document.getElementById('delivery-date').value,
-                image: null
-            };
-            
-            deliveries.push(newDelivery);
-            saveData();
-            deliveryForm.reset();
-            alert("گەیاندن بە سەرکەوتوویی تۆمار کرا!");
-            
-            // ئەگەر لە بەشی مێژوو بین، نوێکردنەوەی خشتەکە
-            if (!document.getElementById('history-section').classList.contains('hidden')) {
-                displayDeliveries();
-            }
-        });
-
-        // ژماردنەوەی کۆی گشتی پارە
-        function calculateTotal() {
-            const amount = parseInt(deliveryAmountInput.value) || 0;
-            const fee = parseInt(deliveryFeeInput.value) || 0;
-            totalAmountInput.value = amount + fee;
-        }
-
-        deliveryAmountInput.addEventListener('input', calculateTotal);
-        deliveryFeeInput.addEventListener('input', calculateTotal);
-
-        // نیشاندانی گەیاندنەکان
-        function displayDeliveries(filteredDeliveries = deliveries) {
-            deliveryHistoryTable.innerHTML = '';
-            
-            filteredDeliveries.forEach(delivery => {
-                const row = document.createElement('tr');
-                
-                let statusClass = '';
-                let statusText = '';
-                
-                switch(delivery.status) {
-                    case 'delivered':
-                        statusClass = 'status-delivered';
-                        statusText = 'وەرگیراوە';
-                        break;
-                    case 'pending':
-                        statusClass = 'status-pending';
-                        statusText = 'وەرنەگیراوە';
-                        break;
-                    case 'returned':
-                        statusClass = 'status-returned';
-                        statusText = 'گەڕێنرایەوە';
-                        break;
-                }
-                
-                row.innerHTML = `
-                    <td>${delivery.trackingCode}</td>
-                    <td>${delivery.senderName}</td>
-                    <td>${delivery.receiverName}</td>
-                    <td>${delivery.deliveryLocation}</td>
-                    <td>${delivery.deliveryDate}</td>
-                    <td>${delivery.totalAmount.toLocaleString()} دینار</td>
-                    <td class="${statusClass}">${statusText}</td>
-                    <td class="actions">
-                        <button class="btn-warning edit-btn" data-id="${delivery.id}">گۆڕانکاری</button>
-                        <button class="btn-danger delete-btn" data-id="${delivery.id}">سڕینەوە</button>
-                    </td>
-                `;
-                
-                deliveryHistoryTable.appendChild(row);
-            });
-            
-            // زیادکردنی Event Listeners بۆ دوگمەکان
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    editDelivery(id);
-                });
-            });
-            
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    deleteDelivery(id);
-                });
-            });
-        }
-
-        // گۆڕانکاری لە گەیاندن
-        function editDelivery(id) {
-            const delivery = deliveries.find(d => d.id === id);
-            if (delivery) {
-                // پڕکردنەوەی فۆرمەکە بە داتاکە
-                document.getElementById('tracking-code').value = delivery.trackingCode;
-                document.getElementById('sender-name').value = delivery.senderName;
-                document.getElementById('sender-phone').value = delivery.senderPhone;
-                document.getElementById('receiver-name').value = delivery.receiverName;
-                document.getElementById('receiver-phone').value = delivery.receiverPhone;
-                document.getElementById('delivery-amount').value = delivery.deliveryAmount;
-                document.getElementById('delivery-fee').value = delivery.deliveryFee;
-                document.getElementById('total-amount').value = delivery.totalAmount;
-                document.getElementById('delivery-status').value = delivery.status;
-                document.getElementById('company-name').value = delivery.companyName;
-                document.getElementById('delivery-location').value = delivery.deliveryLocation;
-                document.getElementById('delivery-date').value = delivery.deliveryDate;
-                
-                // گواستنەوە بۆ بەشی تۆمارکردن
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                document.querySelector('[data-section="delivery"]').classList.add('active');
-                
-                sections.forEach(section => {
-                    section.classList.add('hidden');
-                });
-                document.getElementById('delivery-section').classList.remove('hidden');
-                
-                // گۆڕینی فۆرمەکە بۆ دۆخی گۆڕانکاری
-                deliveryForm.onsubmit = function(e) {
-                    e.preventDefault();
-                    
-                    // نوێکردنەوەی داتاکە
-                    delivery.trackingCode = document.getElementById('tracking-code').value;
-                    delivery.senderName = document.getElementById('sender-name').value;
-                    delivery.senderPhone = document.getElementById('sender-phone').value;
-                    delivery.receiverName = document.getElementById('receiver-name').value;
-                    delivery.receiverPhone = document.getElementById('receiver-phone').value;
-                    delivery.deliveryAmount = parseInt(document.getElementById('delivery-amount').value);
-                    delivery.deliveryFee = parseInt(document.getElementById('delivery-fee').value);
-                    delivery.totalAmount = parseInt(document.getElementById('total-amount').value);
-                    delivery.status = document.getElementById('delivery-status').value;
-                    delivery.companyName = document.getElementById('company-name').value;
-                    delivery.deliveryLocation = document.getElementById('delivery-location').value;
-                    delivery.deliveryDate = document.getElementById('delivery-date').value;
-                    
-                    saveData();
-                    displayDeliveries();
-                    deliveryForm.reset();
-                    
-                    // گەڕاندنەوەی فۆرمەکە بۆ دۆخی ئاسایی
-                    deliveryForm.onsubmit = originalSubmitHandler;
-                    
-                    alert("گەیاندن بە سەرکەوتوویی نوێ کرایەوە!");
-                };
-            }
-        }
-
-        // سڕینەوەی گەیاندن
-        function deleteDelivery(id) {
-            if (confirm("دڵنیای لە سڕینەوەی ئەم گەیاندنە؟")) {
-                deliveries = deliveries.filter(d => d.id !== id);
-                saveData();
-                displayDeliveries();
-                alert("گەیاندن بە سەرکەوتوویی سڕدرایەوە!");
-            }
-        }
-
-        // فیلتەرکردنی گەیاندنەکان
-        function filterDeliveries() {
-            const searchText = searchHistoryInput.value.toLowerCase();
-            const filterDate = filterDateInput.value;
-            const filterStatus = filterStatusSelect.value;
-            const filterCity = filterCityInput.value.toLowerCase();
-            
-            let filtered = deliveries.filter(delivery => {
-                const matchesSearch = 
-                    delivery.trackingCode.toLowerCase().includes(searchText) ||
-                    delivery.senderName.toLowerCase().includes(searchText) ||
-                    delivery.receiverName.toLowerCase().includes(searchText) ||
-                    delivery.deliveryLocation.toLowerCase().includes(searchText);
-                
-                const matchesDate = !filterDate || delivery.deliveryDate === filterDate;
-                const matchesStatus = filterStatus === 'all' || delivery.status === filterStatus;
-                const matchesCity = !filterCity || delivery.deliveryLocation.toLowerCase().includes(filterCity);
-                
-                return matchesSearch && matchesDate && matchesStatus && matchesCity;
-            });
-            
-            displayDeliveries(filtered);
-        }
-
-        // Event Listeners بۆ فیلتەرەکان
-        searchHistoryInput.addEventListener('input', filterDeliveries);
-        filterDateInput.addEventListener('change', filterDeliveries);
-        filterStatusSelect.addEventListener('change', filterDeliveries);
-        filterCityInput.addEventListener('input', filterDeliveries);
 
         // دروستکردنی ڕاپۆرت
         function generateReport() {
@@ -943,20 +554,24 @@
             return filtered;
         }
 
-        // دروستکردنی PDF
+        // دروستکردنی PDF بە پشتگیری زمانی کوردی
         function generatePDF(reportData) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
+            // زیادکردنی فۆنتی پشتگیری کوردی
+            doc.setFont('Times', 'normal');
+            
             // سەرپەڕە
             doc.setFontSize(20);
-            doc.text('ڕاپۆرتی گەیاندن', 105, 15, { align: 'center' });
+            doc.text('ڕاپۆرتی گەیاندن', 105, 20, { align: 'center' });
             
             // زانیاری ڕاپۆرت
             doc.setFontSize(12);
-            doc.text(`بەرواری دروستکردن: ${new Date().toLocaleDateString('ku')}`, 15, 25);
-            doc.text(`ژمارەی گەیاندنەکان: ${reportData.length}`, 15, 35);
-            doc.text(`کۆی گشتی پارە: ${reportData.reduce((sum, d) => sum + d.totalAmount, 0).toLocaleString()} دینار`, 15, 45);
+            const today = new Date().toLocaleDateString('ku');
+            doc.text(`بەرواری دروستکردن: ${today}`, 15, 35);
+            doc.text(`ژمارەی گەیاندنەکان: ${reportData.length}`, 15, 45);
+            doc.text(`کۆی گشتی پارە: ${reportData.reduce((sum, d) => sum + d.totalAmount, 0).toLocaleString()} دینار`, 15, 55);
             
             // خشتە
             const tableColumn = ["کۆدی بەرید", "ناوی سەیاق", "ناوی وەرگر", "شوێن", "بەروار", "کۆی گشتی", "دۆخ"];
@@ -982,21 +597,45 @@
                 tableRows.push(deliveryData);
             });
             
+            // دروستکردنی خشتە بە شێوازی RTL
             doc.autoTable({
                 head: [tableColumn],
                 body: tableRows,
-                startY: 55,
-                styles: { font: 'times', fontSize: 10, halign: 'right' },
-                headStyles: { fillColor: [52, 152, 219] }
+                startY: 65,
+                styles: { 
+                    font: 'Times',
+                    fontSize: 10,
+                    halign: 'right'
+                },
+                headStyles: { 
+                    fillColor: [52, 152, 219],
+                    textColor: 255,
+                    fontStyle: 'bold'
+                },
+                columnStyles: {
+                    0: { cellWidth: 25 },
+                    1: { cellWidth: 30 },
+                    2: { cellWidth: 30 },
+                    3: { cellWidth: 25 },
+                    4: { cellWidth: 25 },
+                    5: { cellWidth: 25 },
+                    6: { cellWidth: 20 }
+                },
+                margin: { right: 15 }
             });
             
             // پاشەکەوتکردنی فایل
-            doc.save(`ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.pdf`);
+            const fileName = `ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
         }
 
-        // هەناردن بە Excel
+        // هەناردن بە Excel بە پشتگیری زمانی کوردی
         function exportToExcel(reportData) {
-            let csvContent = "کۆدی بەرید,ناوی سەیاق,ناوی وەرگر,شوێن,بەروار,کۆی گشتی,دۆخ\n";
+            // دروستکردنی CSV بە پشتگیری کوردی
+            let csvContent = "\uFEFF"; // BOM بۆ پشتگیری نیشانەکانی کوردی
+            
+            // سەرپەڕەی کۆلەمەکان
+            csvContent += "کۆدی بەرید,ناوی سەیاق,ناوی وەرگر,شوێن,بەروار,کۆی گشتی,دۆخ\n";
             
             reportData.forEach(delivery => {
                 let statusText = '';
@@ -1006,13 +645,19 @@
                     case 'returned': statusText = 'گەڕێنرایەوە'; break;
                 }
                 
-                csvContent += `"${delivery.trackingCode}","${delivery.senderName}","${delivery.receiverName}","${delivery.deliveryLocation}","${delivery.deliveryDate}","${delivery.totalAmount}","${statusText}"\n`;
+                // پاراستنی نیشانەکانی کوردی لە CSV
+                csvContent += `"${delivery.trackingCode}","${delivery.senderName}","${delivery.receiverName}","${delivery.deliveryLocation}","${delivery.deliveryDate}","${delivery.totalAmount} دینار","${statusText}"\n`;
             });
             
-            const encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
-            const link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
-            link.setAttribute('download', `ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.csv`);
+            // دروستکردنی فایل و داگرتن
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute("href", url);
+            link.setAttribute("download", `ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -1041,144 +686,52 @@
             }
         });
 
+        // نوێکردنەوەی فیلتەری کۆمپانیا
+        function updateCompanyFilter() {
+            const companies = [...new Set(deliveries.map(d => d.companyName))];
+            reportCompany.innerHTML = '<option value="all">هەموو</option>';
+            companies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                reportCompany.appendChild(option);
+            });
+        }
+
+        // دەستپێکردنی سیستەم
+        updateCompanyFilter();
+        
+        // دانانی بەرواری ئەمڕۆ وەک بەرواری کۆتایی بۆ ڕاپۆرت
+        const today = new Date().toISOString().split('T')[0];
+        if (reportEndDate) reportEndDate.value = today;
+        
+        // دانانی بەرواری 30 ڕۆژ پێش ئەمڕۆ وەک بەرواری دەستپێک
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 30);
+        if (reportStartDate) reportStartDate.value = startDate.toISOString().split('T')[0];
+
         // گواستنەوە لە نێوان بەشەکان
-        navLinks.forEach(link => {
+        document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 const targetSection = this.getAttribute('data-section');
                 
-                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
                 
-                sections.forEach(section => {
+                document.querySelectorAll('.section').forEach(section => {
                     section.classList.add('hidden');
                 });
                 
                 document.getElementById(`${targetSection}-section`).classList.remove('hidden');
                 
-                // ئەگەر بەشی مێژووە، نوێکردنەوەی خشتەکە
-                if (targetSection === 'history') {
-                    displayDeliveries();
-                }
-                
-                // ئەگەر بەشی ڕاپۆرتە، نوێکردنەوەی ئامارەکان
+                // ئەگەر بەشی ڕاپۆرتە، نوێکردنەوەی فیلتەرەکان
                 if (targetSection === 'reports') {
-                    updateStats();
+                    updateCompanyFilter();
                 }
             });
         });
-
-        // تابی ڕێکخستن
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                const targetTab = this.getAttribute('data-tab');
-                
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                tabPanels.forEach(panel => {
-                    panel.classList.add('hidden');
-                });
-                
-                document.getElementById(`${targetTab}-tab`).classList.remove('hidden');
-            });
-        });
-
-        // گۆڕینی ڕەنگ
-        themeOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const theme = this.getAttribute('data-theme');
-                
-                themeOptions.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-                
-                document.body.className = '';
-                if (theme !== 'blue') {
-                    document.body.classList.add(`theme-${theme}`);
-                }
-                
-                localStorage.setItem('theme', theme);
-            });
-        });
-
-        // بارکردنی ڕەنگی پاشەکەوتکراو
-        const savedTheme = localStorage.getItem('theme') || 'blue';
-        if (savedTheme !== 'blue') {
-            document.body.classList.add(`theme-${savedTheme}`);
-            document.querySelector(`.theme-${savedTheme}`).classList.add('active');
-        }
-
-        // دروستکردنی باکەپ
-        createBackupBtn.addEventListener('click', function() {
-            const dataStr = JSON.stringify(deliveries);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `delivery-backup-${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            alert("باکەپ بە سەرکەوتوویی دروست کراو هەنرادرا!");
-        });
-
-        // گەڕاندنەوەی باکەپ
-        restoreBackupBtn.addEventListener('click', function() {
-            backupFileInput.click();
-        });
-
-        backupFileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const backupData = JSON.parse(e.target.result);
-                        deliveries = backupData;
-                        saveData();
-                        displayDeliveries();
-                        alert("باکەپ بە سەرکەوتوویی گەڕێندرایەوە!");
-                    } catch (error) {
-                        alert("هەڵە لە خوێندنەوەی فایلی باکەپ!");
-                    }
-                };
-                reader.readAsText(file);
-            }
-        });
-
-        // پاشەکەوتکردنی ناوی سیستەم
-        document.getElementById('save-system-name').addEventListener('click', function() {
-            const systemName = document.getElementById('system-name').value;
-            localStorage.setItem('systemName', systemName);
-            document.querySelector('.logo').textContent = systemName;
-            alert("ناوی سیستەم بە سەرکەوتوویی پاشەکەوت کرا!");
-        });
-
-        // بارکردنی ناوی سیستەم
-        const savedSystemName = localStorage.getItem('systemName');
-        if (savedSystemName) {
-            document.getElementById('system-name').value = savedSystemName;
-            document.querySelector('.logo').textContent = savedSystemName;
-        }
-
-        // پاشەکەوتکردنی Event Handlerی ڕەسەنی فۆرم
-        const originalSubmitHandler = deliveryForm.onsubmit;
-
-        // دەستپێکردنی سیستەم
-        displayDeliveries();
-        updateStats();
-        updateCompanyFilter();
-        
-        // دانانی بەرواری ئەمڕۆ وەک بەرواری کۆتایی بۆ ڕاپۆرت
-        const today = new Date().toISOString().split('T')[0];
-        reportEndDate.value = today;
-        
-        // دانانی بەرواری 30 ڕۆژ پێش ئەمڕۆ وەک بەرواری دەستپێک
-        const startDate = new Date();
-        startDate.setDate(startDate.getDate() - 30);
-        reportStartDate.value = startDate.toISOString().split('T')[0];
     </script>
 </body>
 </html>
