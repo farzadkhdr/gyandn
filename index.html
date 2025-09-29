@@ -6,6 +6,8 @@
     <title>سیستەمی گەیاندن</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!-- زیادکردنی فۆنتی کوردی -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #3498db;
@@ -45,7 +47,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -53,6 +55,7 @@
             color: var(--text-color);
             transition: all 0.3s ease;
             line-height: 1.6;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
 
         .container {
@@ -132,6 +135,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 16px;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
 
         button {
@@ -143,6 +147,7 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
 
         button:hover {
@@ -943,10 +948,13 @@
             return filtered;
         }
 
-        // دروستکردنی PDF
+        // دروستکردنی PDF بە پشتگیری کوردی
         function generatePDF(reportData) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
+            
+            // ڕێکخستنی فۆنتی کوردی
+            doc.setFont('Noto Sans Arabic', 'normal');
             
             // سەرپەڕە
             doc.setFontSize(20);
@@ -954,7 +962,8 @@
             
             // زانیاری ڕاپۆرت
             doc.setFontSize(12);
-            doc.text(`بەرواری دروستکردن: ${new Date().toLocaleDateString('ku')}`, 15, 25);
+            const today = new Date().toLocaleDateString('ku');
+            doc.text(`بەرواری دروستکردن: ${today}`, 15, 25);
             doc.text(`ژمارەی گەیاندنەکان: ${reportData.length}`, 15, 35);
             doc.text(`کۆی گشتی پارە: ${reportData.reduce((sum, d) => sum + d.totalAmount, 0).toLocaleString()} دینار`, 15, 45);
             
@@ -982,21 +991,51 @@
                 tableRows.push(deliveryData);
             });
             
+            // ڕێکخستنی خشتە بۆ زمانی کوردی
             doc.autoTable({
                 head: [tableColumn],
                 body: tableRows,
                 startY: 55,
-                styles: { font: 'times', fontSize: 10, halign: 'right' },
-                headStyles: { fillColor: [52, 152, 219] }
+                styles: { 
+                    font: 'Noto Sans Arabic',
+                    fontStyle: 'normal',
+                    fontSize: 10,
+                    halign: 'right',
+                    lineColor: [0, 0, 0],
+                    lineWidth: 0.1
+                },
+                headStyles: { 
+                    fillColor: [52, 152, 219],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: 'right'
+                },
+                bodyStyles: {
+                    halign: 'right'
+                },
+                columnStyles: {
+                    0: { cellWidth: 25 },
+                    1: { cellWidth: 25 },
+                    2: { cellWidth: 25 },
+                    3: { cellWidth: 20 },
+                    4: { cellWidth: 20 },
+                    5: { cellWidth: 25 },
+                    6: { cellWidth: 20 }
+                }
             });
             
             // پاشەکەوتکردنی فایل
-            doc.save(`ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.pdf`);
+            const fileName = `ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(fileName);
         }
 
         // هەناردن بە Excel
         function exportToExcel(reportData) {
-            let csvContent = "کۆدی بەرید,ناوی سەیاق,ناوی وەرگر,شوێن,بەروار,کۆی گشتی,دۆخ\n";
+            // دروستکردنی CSV بە پشتگیری کوردی
+            let csvContent = "\uFEFF"; // BOM بۆ پشتگیری کوردی
+            
+            // سەرپەڕەی کۆلەمەکان
+            csvContent += "کۆدی بەرید,ناوی سەیاق,ناوی وەرگر,شوێن,بەروار,کۆی گشتی,دۆخ\n";
             
             reportData.forEach(delivery => {
                 let statusText = '';
@@ -1009,10 +1048,12 @@
                 csvContent += `"${delivery.trackingCode}","${delivery.senderName}","${delivery.receiverName}","${delivery.deliveryLocation}","${delivery.deliveryDate}","${delivery.totalAmount}","${statusText}"\n`;
             });
             
-            const encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
             link.setAttribute('download', `ڕاپۆرتی_گەیاندن_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
