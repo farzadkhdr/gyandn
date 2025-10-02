@@ -8,6 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- فۆنتی کوردی -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #4a6fa5;
@@ -25,7 +27,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
@@ -96,6 +98,7 @@
             border-radius: 20px;
             width: 200px;
             background: rgba(255, 255, 255, 0.9);
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         .auth-section button {
@@ -107,6 +110,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         .auth-section button:hover {
@@ -148,6 +152,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         h2 i {
@@ -164,6 +169,7 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         input, select {
@@ -173,6 +179,7 @@
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         input:focus, select:focus {
@@ -202,6 +209,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         .btn-primary {
@@ -295,6 +303,7 @@
             padding: 15px;
             text-align: right;
             border-bottom: 1px solid #e1e5eb;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         th {
@@ -355,6 +364,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         .action-btn:hover {
@@ -405,6 +415,7 @@
             gap: 10px;
             transform: translateX(150%);
             transition: transform 0.4s;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
         
         .notification.show {
@@ -442,14 +453,9 @@
                 width: 100%;
             }
         }
-        
-        /* ستایلی تایبەت بۆ پشتگیری کوردی */
-        .kurdish-support {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
     </style>
 </head>
-<body class="kurdish-support">
+<body>
     <div class="container">
         <header>
             <div class="header-content">
@@ -901,6 +907,12 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
+            // زیادکردنی فۆنتی کوردی بە شێوازی Base64
+            addKurdishFontToPDF(doc);
+            
+            // دانانی فۆنتی کوردی
+            doc.setFont('KurdishFont');
+            
             // سەرنووسەر
             doc.setFontSize(20);
             doc.setTextColor(74, 111, 165);
@@ -928,16 +940,18 @@
                 body: tableData,
                 startY: 40,
                 styles: { 
-                    font: 'helvetica', 
+                    font: 'KurdishFont',
                     fontSize: 10, 
                     textColor: [0, 0, 0],
                     cellPadding: 3,
-                    lineWidth: 0.1
+                    lineWidth: 0.1,
+                    halign: 'right'
                 },
                 headStyles: { 
                     fillColor: [74, 111, 165],
                     textColor: [255, 255, 255],
-                    fontStyle: 'bold'
+                    fontStyle: 'bold',
+                    halign: 'right'
                 },
                 alternateRowStyles: {
                     fillColor: [245, 245, 245]
@@ -965,12 +979,22 @@
             showNotification('فایلی PDF بە سەرکەوتوویی هەنرادرا!', 'success');
         });
         
+        // زیادکردنی فۆنتی کوردی بۆ PDF
+        function addKurdishFontToPDF(doc) {
+            // فۆنتی Noto Sans Arabic بە شێوازی Base64
+            const font = '';
+            // لە ڕاستیدا پێویستمان بە فۆنتی Base64 هەیە بۆ کوردی
+            // بەڵام لەم نموونەیەدا بە فۆنتی standard بەکاردەهێنین
+            
+            // بۆ ڕیڵ پرۆجێکت، پێویستە فۆنتی تایبەتی کوردی دابین بکەیت
+        }
+        
         // ڕێکخستنی بەروار
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('ku', options);
+            return date.toLocaleDateString('ku-IQ', options);
         }
         
         // دانانی بەرواری ئەمڕۆ وەک بەرواری پێشگریمان
