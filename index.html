@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #4a6fa5;
@@ -17,6 +18,7 @@
             --success: #28a745;
             --danger: #dc3545;
             --warning: #ffc107;
+            --info: #17a2b8;
         }
         
         * {
@@ -27,13 +29,14 @@
         }
         
         body {
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: var(--dark);
             line-height: 1.6;
+            min-height: 100vh;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -42,59 +45,91 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 20px 0;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #ff6b6b, var(--accent));
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 25px;
         }
         
         .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-        }
-        
-        .auth-section {
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
+        .logo i {
+            color: var(--accent);
+        }
+        
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 30px;
+        }
+        
         .auth-section input {
-            padding: 8px 12px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 20px;
+            width: 200px;
+            background: rgba(255, 255, 255, 0.9);
         }
         
         .auth-section button {
             background-color: var(--accent);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: bold;
         }
         
         .auth-section button:hover {
             background-color: #e88a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .main-content {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
         
         .form-section, .history-section {
             background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .form-section:hover, .history-section:hover {
+            transform: translateY(-5px);
         }
         
         .form-section {
@@ -107,32 +142,48 @@
         
         h2 {
             color: var(--primary);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i {
+            color: var(--accent);
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
         }
         
         input, select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 12px 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
             font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+            outline: none;
         }
         
         .form-row {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
         
         .form-row .form-group {
@@ -140,55 +191,92 @@
         }
         
         .btn {
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
         .btn-success {
-            background-color: var(--success);
+            background: linear-gradient(135deg, var(--success), #20c997);
             color: white;
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, #20c997, var(--success));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
         .btn-danger {
-            background-color: var(--danger);
+            background: linear-gradient(135deg, var(--danger), #e35d6a);
             color: white;
         }
         
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #e35d6a, var(--danger));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
         .btn-warning {
-            background-color: var(--warning);
+            background: linear-gradient(135deg, var(--warning), #ffd43b);
             color: var(--dark);
+        }
+        
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #ffd43b, var(--warning));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, var(--info), #3dc7d6);
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background: linear-gradient(135deg, #3dc7d6, var(--info));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
         .actions {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 25px;
         }
         
         .filter-section {
-            background-color: var(--light);
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary);
         }
         
         .filter-row {
             display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
+            gap: 20px;
+            margin-bottom: 15px;
         }
         
         .filter-row .form-group {
@@ -200,56 +288,84 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         th, td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: right;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e1e5eb;
         }
         
         th {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr {
+            transition: background-color 0.2s;
         }
         
         tr:hover {
-            background-color: #f9f9f9;
+            background-color: #f8f9fa;
         }
         
         .status-delivered {
             color: var(--success);
             font-weight: bold;
+            background-color: rgba(40, 167, 69, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
         }
         
         .status-pending {
             color: var(--warning);
             font-weight: bold;
+            background-color: rgba(255, 193, 7, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
         }
         
         .status-returned {
             color: var(--danger);
             font-weight: bold;
+            background-color: rgba(220, 53, 69, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
         }
         
         .action-buttons {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
         
         .action-btn {
-            padding: 5px 10px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 3px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
         }
         
         .export-section {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 25px;
         }
         
         .hidden {
@@ -260,9 +376,55 @@
             color: var(--danger);
             font-size: 14px;
             margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
-        @media (max-width: 768px) {
+        .success-message {
+            color: var(--success);
+            font-size: 14px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.4s;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, var(--success), #20c997);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger), #e35d6a);
+        }
+        
+        .notification.warning {
+            background: linear-gradient(135deg, var(--warning), #ffd43b);
+            color: var(--dark);
+        }
+        
+        @media (max-width: 1024px) {
             .main-content {
                 flex-direction: column;
             }
@@ -270,50 +432,88 @@
             .form-row, .filter-row {
                 flex-direction: column;
             }
+            
+            .auth-section {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .auth-section input {
+                width: 100%;
+            }
+        }
+        
+        /* ستایلی تایبەت بۆ پشتگیری کوردی */
+        .kurdish-support {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
     </style>
 </head>
-<body>
+<body class="kurdish-support">
     <div class="container">
         <header>
             <div class="header-content">
-                <div class="logo">سیستەمی گەیاندن</div>
+                <div class="logo">
+                    <i class="fas fa-shipping-fast"></i>
+                    سیستەمی گەیاندن
+                </div>
                 <div class="auth-section">
                     <input type="password" id="password" placeholder="پاسوۆرد">
-                    <button id="login-btn">چوونەژوورەوە</button>
+                    <button id="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        چوونەژوورەوە
+                    </button>
                 </div>
             </div>
         </header>
         
         <div class="main-content">
-            <section class="form-section" id="form-section">
-                <h2>فۆرمی گەیاندن</h2>
+            <section class="form-section hidden" id="form-section">
+                <h2>
+                    <i class="fas fa-edit"></i>
+                    فۆرمی گەیاندن
+                </h2>
                 <form id="delivery-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="sender-name">ناوی سەیاق</label>
+                            <label for="sender-name">
+                                <i class="fas fa-user"></i>
+                                ناوی سەیاق
+                            </label>
                             <input type="text" id="sender-name" required>
                         </div>
                         <div class="form-group">
-                            <label for="sender-phone">ژمارە موبایلی سەیاق</label>
+                            <label for="sender-phone">
+                                <i class="fas fa-phone"></i>
+                                ژمارە موبایلی سەیاق
+                            </label>
                             <input type="tel" id="sender-phone" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="receiver-name">ناوی وەرگر</label>
+                            <label for="receiver-name">
+                                <i class="fas fa-user-check"></i>
+                                ناوی وەرگر
+                            </label>
                             <input type="text" id="receiver-name" required>
                         </div>
                         <div class="form-group">
-                            <label for="receiver-phone">ژمارە موبایلی وەرگر</label>
+                            <label for="receiver-phone">
+                                <i class="fas fa-mobile-alt"></i>
+                                ژمارە موبایلی وەرگر
+                            </label>
                             <input type="tel" id="receiver-phone" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="delivery-type">جۆری بەرید</label>
+                            <label for="delivery-type">
+                                <i class="fas fa-box"></i>
+                                جۆری بەرید
+                            </label>
                             <select id="delivery-type" required>
                                 <option value="">هەڵبژاردن بکە</option>
                                 <option value="گەڕانەوە">گەڕانەوە</option>
@@ -322,58 +522,94 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="delivery-date">بەرواری گەیاندن</label>
+                            <label for="delivery-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                بەرواری گەیاندن
+                            </label>
                             <input type="date" id="delivery-date" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="address">ناونیشان</label>
+                        <label for="address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ناونیشان
+                        </label>
                         <input type="text" id="address" required>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="postal-code">کۆدی بەرید</label>
+                            <label for="postal-code">
+                                <i class="fas fa-envelope"></i>
+                                کۆدی بەرید
+                            </label>
                             <input type="text" id="postal-code" required>
                         </div>
                         <div class="form-group">
-                            <label for="delivery-cost">نرخی گەیاندن</label>
-                            <input type="number" id="delivery-cost" required>
+                            <label for="delivery-cost">
+                                <i class="fas fa-money-bill-wave"></i>
+                                نرخی گەیاندن
+                            </label>
+                            <input type="number" id="delivery-cost" min="0" step="0.01" required>
                         </div>
                         <div class="form-group">
-                            <label for="postal-cost">نرخی بەرید</label>
-                            <input type="number" id="postal-cost" required>
+                            <label for="postal-cost">
+                                <i class="fas fa-tag"></i>
+                                نرخی بەرید
+                            </label>
+                            <input type="number" id="postal-cost" min="0" step="0.01" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="total-cost">کۆی گشتی</label>
+                        <label for="total-cost">
+                            <i class="fas fa-calculator"></i>
+                            کۆی گشتی
+                        </label>
                         <input type="number" id="total-cost" readonly>
                     </div>
                     
                     <div class="actions">
-                        <button type="submit" class="btn btn-primary">تۆمارکردن</button>
-                        <button type="reset" class="btn btn-warning">پاککردنەوە</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            تۆمارکردن
+                        </button>
+                        <button type="reset" class="btn btn-warning">
+                            <i class="fas fa-eraser"></i>
+                            پاککردنەوە
+                        </button>
                     </div>
                 </form>
             </section>
             
-            <section class="history-section" id="history-section">
-                <h2>مێژووی گەیاندن</h2>
+            <section class="history-section hidden" id="history-section">
+                <h2>
+                    <i class="fas fa-history"></i>
+                    مێژووی گەیاندن
+                </h2>
                 
                 <div class="filter-section">
                     <div class="filter-row">
                         <div class="form-group">
-                            <label for="filter-date">بەروار</label>
+                            <label for="filter-date">
+                                <i class="fas fa-calendar"></i>
+                                بەروار
+                            </label>
                             <input type="date" id="filter-date">
                         </div>
                         <div class="form-group">
-                            <label for="filter-location">شوێن</label>
+                            <label for="filter-location">
+                                <i class="fas fa-map-pin"></i>
+                                شوێن
+                            </label>
                             <input type="text" id="filter-location">
                         </div>
                         <div class="form-group">
-                            <label for="filter-status">دۆخ</label>
+                            <label for="filter-status">
+                                <i class="fas fa-info-circle"></i>
+                                دۆخ
+                            </label>
                             <select id="filter-status">
                                 <option value="">هەموو</option>
                                 <option value="گەڕانەوە">گەڕانەوە</option>
@@ -382,35 +618,53 @@
                             </select>
                         </div>
                     </div>
-                    <button id="filter-btn" class="btn btn-primary">گەڕان</button>
-                    <button id="clear-filter" class="btn btn-warning">پاککردنەوەی فلتر</button>
+                    <div class="actions">
+                        <button id="filter-btn" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            گەڕان
+                        </button>
+                        <button id="clear-filter" class="btn btn-warning">
+                            <i class="fas fa-filter"></i>
+                            پاککردنەوەی فلتر
+                        </button>
+                    </div>
                 </div>
                 
-                <table id="delivery-table">
-                    <thead>
-                        <tr>
-                            <th>ناوی سەیاق</th>
-                            <th>ناوی وەرگر</th>
-                            <th>شوێن</th>
-                            <th>کۆدی بەرید</th>
-                            <th>بەروار</th>
-                            <th>دۆخ</th>
-                            <th>کۆی گشتی</th>
-                            <th>کردارەکان</th>
-                        </tr>
-                    </thead>
-                    <tbody id="delivery-table-body">
-                        <!-- داتاکان لێرە دەخرێنەوە -->
-                    </tbody>
-                </table>
+                <div style="overflow-x: auto;">
+                    <table id="delivery-table">
+                        <thead>
+                            <tr>
+                                <th>ناوی سەیاق</th>
+                                <th>ناوی وەرگر</th>
+                                <th>شوێن</th>
+                                <th>کۆدی بەرید</th>
+                                <th>بەروار</th>
+                                <th>دۆخ</th>
+                                <th>کۆی گشتی</th>
+                                <th>کردارەکان</th>
+                            </tr>
+                        </thead>
+                        <tbody id="delivery-table-body">
+                            <!-- داتاکان لێرە دەخرێنەوە -->
+                        </tbody>
+                    </table>
+                </div>
                 
                 <div class="export-section">
-                    <button id="export-excel" class="btn btn-success">هەناردن بۆ Excel</button>
-                    <button id="export-pdf" class="btn btn-danger">هەناردن بۆ PDF</button>
+                    <button id="export-excel" class="btn btn-success">
+                        <i class="fas fa-file-excel"></i>
+                        هەناردن بۆ Excel
+                    </button>
+                    <button id="export-pdf" class="btn btn-danger">
+                        <i class="fas fa-file-pdf"></i>
+                        هەناردن بۆ PDF
+                    </button>
                 </div>
             </section>
         </div>
     </div>
+
+    <div id="notification" class="notification"></div>
 
     <script>
         // پاسوۆردی سیستەم
@@ -430,6 +684,7 @@
         const clearFilterBtn = document.getElementById('clear-filter');
         const exportExcelBtn = document.getElementById('export-excel');
         const exportPdfBtn = document.getElementById('export-pdf');
+        const notification = document.getElementById('notification');
         
         // Input fields for total calculation
         const deliveryCostInput = document.getElementById('delivery-cost');
@@ -440,6 +695,16 @@
         document.documentElement.lang = 'ku';
         document.documentElement.dir = 'rtl';
         
+        // نمایشی ئاگاداری
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+        
         // چوونەژوورەوە
         loginBtn.addEventListener('click', function() {
             if (passwordInput.value === SYSTEM_PASSWORD) {
@@ -447,8 +712,9 @@
                 historySection.classList.remove('hidden');
                 passwordInput.value = '';
                 loadDeliveryData();
+                showNotification('بە سەرکەوتوویی چوویتە ژوورەوە!', 'success');
             } else {
-                alert('پاسوۆرد هەڵەیە!');
+                showNotification('پاسوۆرد هەڵەیە!', 'error');
             }
         });
         
@@ -488,7 +754,7 @@
             deliveryForm.reset();
             totalCostInput.value = '';
             
-            alert('تۆمارەکە بە سەرکەوتوویی زیاد کرا!');
+            showNotification('تۆمارەکە بە سەرکەوتوویی زیاد کرا!', 'success');
         });
         
         // بارکردنی داتاکان
@@ -519,8 +785,14 @@
                     <td class="${statusClass}">${item.deliveryType}</td>
                     <td>${item.totalCost.toFixed(2)} دینار</td>
                     <td class="action-buttons">
-                        <button class="action-btn btn-warning" onclick="editDelivery(${item.id})">گۆڕانکاری</button>
-                        <button class="action-btn btn-danger" onclick="deleteDelivery(${item.id})">سڕینەوە</button>
+                        <button class="action-btn btn-warning" onclick="editDelivery(${item.id})">
+                            <i class="fas fa-edit"></i>
+                            گۆڕانکاری
+                        </button>
+                        <button class="action-btn btn-danger" onclick="deleteDelivery(${item.id})">
+                            <i class="fas fa-trash"></i>
+                            سڕینەوە
+                        </button>
                     </td>
                 `;
                 
@@ -543,6 +815,7 @@
             });
             
             loadDeliveryData(filteredData);
+            showNotification(`دۆخی گەڕان: ${filteredData.length} تۆمار دۆزرایەوە`, 'success');
         });
         
         // پاککردنەوەی فلتر
@@ -551,6 +824,7 @@
             document.getElementById('filter-location').value = '';
             document.getElementById('filter-status').value = '';
             loadDeliveryData();
+            showNotification('هەموو فلترەکان سڕدرایەوە', 'warning');
         });
         
         // سڕینەوەی تۆمار
@@ -559,6 +833,7 @@
                 deliveryData = deliveryData.filter(item => item.id !== id);
                 localStorage.setItem('deliveryData', JSON.stringify(deliveryData));
                 loadDeliveryData();
+                showNotification('تۆمارەکە بە سەرکەوتوویی سڕدرایەوە!', 'success');
             }
         }
         
@@ -584,11 +859,16 @@
             deliveryData = deliveryData.filter(i => i.id !== id);
             localStorage.setItem('deliveryData', JSON.stringify(deliveryData));
             
-            alert('تۆمارەکە بۆ گۆڕانکاری ئامادەکرا!');
+            showNotification('تۆمارەکە بۆ گۆڕانکاری ئامادەکرا!', 'warning');
         }
         
         // هەناردن بۆ Excel
         exportExcelBtn.addEventListener('click', function() {
+            if (deliveryData.length === 0) {
+                showNotification('هیچ داتایەک نیە بۆ هەناردن!', 'error');
+                return;
+            }
+            
             const dataToExport = deliveryData.map(item => ({
                 'ناوی سەیاق': item.senderName,
                 'ژمارە موبایلی سەیاق': item.senderPhone,
@@ -607,16 +887,29 @@
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'مێژووی گەیاندن');
             XLSX.writeFile(wb, 'مێژووی_گەیاندن.xlsx');
+            
+            showNotification('فایلی Excel بە سەرکەوتوویی هەنرادرا!', 'success');
         });
         
         // هەناردن بۆ PDF
         exportPdfBtn.addEventListener('click', function() {
+            if (deliveryData.length === 0) {
+                showNotification('هیچ داتایەک نیە بۆ هەناردن!', 'error');
+                return;
+            }
+            
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
             // سەرنووسەر
             doc.setFontSize(20);
-            doc.text('مێژووی گەیاندن', 105, 15, { align: 'center' });
+            doc.setTextColor(74, 111, 165);
+            doc.text('مێژووی گەیاندن', 105, 20, { align: 'center' });
+            
+            // بەرواری هەناردن
+            doc.setFontSize(12);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`بەرواری هەناردن: ${formatDate(new Date().toISOString().split('T')[0])}`, 105, 30, { align: 'center' });
             
             // داتاکان
             const tableData = deliveryData.map(item => [
@@ -633,24 +926,60 @@
             doc.autoTable({
                 head: [['ناوی سەیاق', 'ناوی وەرگر', 'شوێن', 'کۆدی بەرید', 'بەروار', 'دۆخ', 'کۆی گشتی']],
                 body: tableData,
-                startY: 25,
-                styles: { font: 'times', fontSize: 10, halign: 'right' },
-                headStyles: { fillColor: [74, 111, 165] }
+                startY: 40,
+                styles: { 
+                    font: 'helvetica', 
+                    fontSize: 10, 
+                    textColor: [0, 0, 0],
+                    cellPadding: 3,
+                    lineWidth: 0.1
+                },
+                headStyles: { 
+                    fillColor: [74, 111, 165],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold'
+                },
+                alternateRowStyles: {
+                    fillColor: [245, 245, 245]
+                },
+                margin: { top: 40 }
             });
+            
+            // کۆی گشتی
+            const totalSum = deliveryData.reduce((sum, item) => sum + item.totalCost, 0);
+            const finalY = doc.lastAutoTable.finalY + 10;
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'bold');
+            doc.text(`کۆی گشتی هەموو تۆمارەکان: ${totalSum.toFixed(2)} دینار`, 14, finalY);
+            
+            // تەواوکەر
+            doc.setFontSize(10);
+            doc.setTextColor(150, 150, 150);
+            doc.text('ئەم ڕاپۆرتە لەلایەن سیستەمی گەیاندنەوە دروست کراوە', 105, 280, { align: 'center' });
             
             // داگرتن
             doc.save('مێژووی_گەیاندن.pdf');
+            
+            showNotification('فایلی PDF بە سەرکەوتوویی هەنرادرا!', 'success');
         });
         
         // ڕێکخستنی بەروار
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
-            return date.toLocaleDateString('ku');
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('ku', options);
         }
         
         // دانانی بەرواری ئەمڕۆ وەک بەرواری پێشگریمان
         document.getElementById('delivery-date').valueAsDate = new Date();
+        
+        // نمایشی کاتی تەواوکاری
+        window.onload = function() {
+            showNotification('سیستەمی گەیاندن ئامادەیە! تکایە پاسوۆردەکە بنووسە بۆ چوونەژوورەوە.', 'info');
+        };
     </script>
 </body>
 </html>
