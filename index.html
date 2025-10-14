@@ -248,14 +248,6 @@
             justify-content: center;
             font-size: 12px;
         }
-        
-        .vehicle-image {
-            max-width: 200px;
-            max-height: 150px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -496,10 +488,6 @@
                                                             <span class="input-group-text">AED</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="vehicleImage" class="form-label">Vehicle Image</label>
-                                                        <input type="file" class="form-control" id="vehicleImage" accept="image/*">
-                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Add Vehicle</button>
                                             </form>
@@ -523,7 +511,6 @@
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>Image</th>
                                                             <th>Name</th>
                                                             <th>Model</th>
                                                             <th>Color</th>
@@ -1056,13 +1043,19 @@
                                                 <div class="suggestion-list" id="paymentCustomerSuggestions"></div>
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label">Current Debt</label>
-                                                <div class="form-control" id="currentDebtAmount">0 AED</div>
+                                                <label for="paymentType" class="form-label">Payment Type</label>
+                                                <select class="form-select" id="paymentType" required>
+                                                    <option value="">Select Type</option>
+                                                    <option value="Rental">Rental</option>
+                                                    <option value="Fine">Fine</option>
+                                                    <option value="Tax">Tax</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label for="paymentAmount" class="form-label">Payment Amount</label>
+                                                <label for="paymentAmount" class="form-label">Amount</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control" id="paymentAmount" required>
                                                     <span class="input-group-text">AED</span>
@@ -1098,6 +1091,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Customer</th>
+                                                    <th>Type</th>
                                                     <th>Amount</th>
                                                     <th>Date</th>
                                                     <th>Notes</th>
@@ -1136,11 +1130,6 @@
                                                     <option value="Fine">Fine</option>
                                                     <option value="Tax">Tax</option>
                                                     <option value="Penalty">Penalty</option>
-                                                    <option value="Salik">Salik</option>
-                                                    <option value="Parking">Parking</option>
-                                                    <option value="Car Wash">Car Wash</option>
-                                                    <option value="Fuel">Fuel</option>
-                                                    <option value="Delivery fees">Delivery fees</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1216,7 +1205,6 @@
                                                 <option value="payment">Payment Report</option>
                                                 <option value="vehicle">Vehicle Report</option>
                                                 <option value="customer">Customer Report</option>
-                                                <option value="customerActivity">Customer Activity Report</option>
                                                 <option value="maintenance">Maintenance Report</option>
                                                 <option value="fine">Fine & Tax Report</option>
                                             </select>
@@ -1228,13 +1216,6 @@
                                         <div class="col-md-4">
                                             <label for="reportEndDate" class="form-label">End Date</label>
                                             <input type="date" class="form-control" id="reportEndDate">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3" id="customerReportOptions" style="display: none;">
-                                        <div class="col-md-6">
-                                            <label for="reportCustomer" class="form-label">Customer</label>
-                                            <input type="text" class="form-control" id="reportCustomer" placeholder="Search customer...">
-                                            <div class="suggestion-list" id="reportCustomerSuggestions"></div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1531,18 +1512,47 @@
             taxRate: 5
         };
         
-        // Sample data - starting from scratch
+        // Sample data
         let users = [
-            { username: "admin", password: "000000", role: "admin", lastLogin: new Date() }
+            { username: "admin", password: "000000", role: "admin", lastLogin: new Date() },
+            { username: "user", password: "123456", role: "user", lastLogin: new Date() }
         ];
         
-        let vehicles = [];
-        let customers = [];
-        let rentals = [];
-        let returns = [];
-        let payments = [];
-        let fines = [];
-        let maintenance = [];
+        let vehicles = [
+            { id: 1, name: "Toyota Camry", model: "2022", color: "White", plate: "ABC123", vin: "1HGCM82633A123456", odometer: 15000, rentalPrice: 200, status: "Available" },
+            { id: 2, name: "Honda Accord", model: "2021", color: "Black", plate: "XYZ789", vin: "1HGCM82633A654321", odometer: 22000, rentalPrice: 180, status: "Rented" },
+            { id: 3, name: "Nissan Altima", model: "2023", color: "Blue", plate: "DEF456", vin: "1N4AL11D75C123456", odometer: 5000, rentalPrice: 220, status: "Available" }
+        ];
+        
+        let customers = [
+            { id: 1, fullName: "John Smith", age: 35, idNumber: "PS123456", nationality: "United States", contact: "+1-555-1234", address: "123 Main St, New York", totalDebt: 0 },
+            { id: 2, fullName: "Maria Garcia", age: 28, idNumber: "ID789012", nationality: "Spain", contact: "+34-612-3456", address: "456 Oak Ave, Madrid", totalDebt: 150 },
+            { id: 3, fullName: "Ahmed Hassan", age: 42, idNumber: "PS345678", nationality: "Egypt", contact: "+20-100-1234", address: "789 Palm St, Cairo", totalDebt: 0 }
+        ];
+        
+        let rentals = [
+            { id: 1, invoiceCode: "INV001", customerId: 1, vehicleId: 2, startDate: "2023-05-01", endDate: "2023-05-05", amount: 900, status: "Completed" },
+            { id: 2, invoiceCode: "INV002", customerId: 2, vehicleId: 1, startDate: "2023-05-10", endDate: "2023-05-15", amount: 1000, status: "Active" },
+            { id: 3, invoiceCode: "INV003", customerId: 3, vehicleId: 3, startDate: "2023-05-12", endDate: "2023-05-14", amount: 440, status: "Active" }
+        ];
+        
+        let returns = [
+            { id: 1, rentalId: 1, actualReturnDate: "2023-05-05", fine: 0, notes: "Vehicle returned on time" }
+        ];
+        
+        let payments = [
+            { id: 1, customerId: 1, type: "Rental", amount: 900, date: "2023-05-01", notes: "Payment for rental INV001" },
+            { id: 2, customerId: 2, type: "Rental", amount: 500, date: "2023-05-10", notes: "Partial payment for rental INV002" }
+        ];
+        
+        let fines = [
+            { id: 1, customerId: 2, type: "Fine", amount: 150, date: "2023-05-15", reason: "Late return", status: "Unpaid" }
+        ];
+        
+        let maintenance = [
+            { id: 1, vehicleId: 1, type: "Oil Change", date: "2023-04-15", cost: 80, notes: "Regular maintenance", status: "Completed" },
+            { id: 2, vehicleId: 2, type: "Tire Replacement", date: "2023-05-20", cost: 200, notes: "Replace all four tires", status: "Scheduled" }
+        ];
         
         // Country list for nationality suggestions
         const countries = [
@@ -1795,7 +1805,6 @@
             setupCustomerSuggestions('paymentCustomer', 'paymentCustomerSuggestions');
             setupCustomerSuggestions('fineCustomer', 'fineCustomerSuggestions');
             setupCustomerSuggestions('frrCustomer', 'frrCustomerSuggestions');
-            setupCustomerSuggestions('reportCustomer', 'reportCustomerSuggestions');
             
             // Vehicle suggestions for various forms
             setupVehicleSuggestions('rentalVehicle', 'vehicleSuggestions');
@@ -1836,11 +1845,6 @@
                                         document.getElementById('rentalAmount').value = vehicle.rentalPrice;
                                     }
                                 }
-                            }
-                            
-                            // Update current debt if this is the payment form
-                            if (inputId === 'paymentCustomer') {
-                                updateCurrentDebt(customer.id);
                             }
                         });
                         suggestions.appendChild(div);
@@ -1951,19 +1955,23 @@
                 const color = document.getElementById('vehicleColor').value;
                 const model = document.getElementById('vehicleModel').value;
                 const rentalPrice = parseFloat(document.getElementById('vehicleRentalPrice').value);
-                const imageFile = document.getElementById('vehicleImage').files[0];
                 
-                let imageDataUrl = null;
-                if (imageFile) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imageDataUrl = e.target.result;
-                        completeAddVehicle(name, odometer, vin, plate, color, model, rentalPrice, imageDataUrl);
-                    };
-                    reader.readAsDataURL(imageFile);
-                } else {
-                    completeAddVehicle(name, odometer, vin, plate, color, model, rentalPrice, null);
-                }
+                const newVehicle = {
+                    id: vehicles.length > 0 ? Math.max(...vehicles.map(v => v.id)) + 1 : 1,
+                    name: name,
+                    model: model,
+                    color: color,
+                    plate: plate,
+                    vin: vin,
+                    odometer: odometer,
+                    rentalPrice: rentalPrice,
+                    status: "Available"
+                };
+                
+                vehicles.push(newVehicle);
+                alert('Vehicle added successfully');
+                document.getElementById('addVehicleForm').reset();
+                loadVehicleList();
             });
             
             // Add customer form
@@ -2146,6 +2154,7 @@
             document.getElementById('recordPaymentForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const customerName = document.getElementById('paymentCustomer').value;
+                const type = document.getElementById('paymentType').value;
                 const amount = parseFloat(document.getElementById('paymentAmount').value);
                 const date = document.getElementById('paymentDate').value;
                 const notes = document.getElementById('paymentNotes').value;
@@ -2159,6 +2168,7 @@
                 const newPayment = {
                     id: payments.length > 0 ? Math.max(...payments.map(p => p.id)) + 1 : 1,
                     customerId: customer.id,
+                    type: type,
                     amount: amount,
                     date: date,
                     notes: notes
@@ -2166,17 +2176,20 @@
                 
                 payments.push(newPayment);
                 
-                // Update customer debt
-                customer.totalDebt -= amount;
-                if (customer.totalDebt < 0) customer.totalDebt = 0;
+                // If payment is for a fine, update fine status
+                if (type === "Fine") {
+                    const fine = fines.find(f => f.customerId === customer.id && f.status === "Unpaid");
+                    if (fine) {
+                        fine.status = "Paid";
+                        customer.totalDebt -= fine.amount;
+                    }
+                }
                 
                 alert('Payment recorded successfully');
                 document.getElementById('recordPaymentForm').reset();
                 loadPaymentList();
+                loadFineList();
                 loadCustomerList();
-                
-                // Update current debt display
-                updateCurrentDebt(customer.id);
             });
             
             // Add fine/tax form
@@ -2254,58 +2267,6 @@
             document.getElementById('frrPrintBtn').addEventListener('click', function() {
                 window.print();
             });
-            
-            // Customer selection for payment form
-            document.getElementById('paymentCustomer').addEventListener('input', function() {
-                const customerName = this.value;
-                const customer = customers.find(c => c.fullName === customerName);
-                if (customer) {
-                    updateCurrentDebt(customer.id);
-                } else {
-                    document.getElementById('currentDebtAmount').textContent = '0 AED';
-                }
-            });
-            
-            // Report type change
-            document.getElementById('reportType').addEventListener('change', function() {
-                const reportType = this.value;
-                const customerOptions = document.getElementById('customerReportOptions');
-                
-                if (reportType === 'customerActivity') {
-                    customerOptions.style.display = 'block';
-                } else {
-                    customerOptions.style.display = 'none';
-                }
-            });
-        }
-        
-        // Complete add vehicle after image processing
-        function completeAddVehicle(name, odometer, vin, plate, color, model, rentalPrice, imageDataUrl) {
-            const newVehicle = {
-                id: vehicles.length > 0 ? Math.max(...vehicles.map(v => v.id)) + 1 : 1,
-                name: name,
-                model: model,
-                color: color,
-                plate: plate,
-                vin: vin,
-                odometer: odometer,
-                rentalPrice: rentalPrice,
-                image: imageDataUrl,
-                status: "Available"
-            };
-            
-            vehicles.push(newVehicle);
-            alert('Vehicle added successfully');
-            document.getElementById('addVehicleForm').reset();
-            loadVehicleList();
-        }
-        
-        // Update current debt display
-        function updateCurrentDebt(customerId) {
-            const customer = customers.find(c => c.id === customerId);
-            if (customer) {
-                document.getElementById('currentDebtAmount').textContent = `${customer.totalDebt} AED`;
-            }
         }
         
         // Setup tab listeners
@@ -2505,9 +2466,6 @@
             vehicles.forEach(vehicle => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>
-                        ${vehicle.image ? `<img src="${vehicle.image}" class="vehicle-image" alt="${vehicle.name}">` : '<div class="text-muted">No Image</div>'}
-                    </td>
                     <td>${vehicle.name}</td>
                     <td>${vehicle.model}</td>
                     <td>${vehicle.color}</td>
@@ -2581,13 +2539,12 @@
             detailsContent.innerHTML = `
                 <div class="row">
                     <div class="col-md-6">
-                        ${vehicle.image ? `<img src="${vehicle.image}" class="vehicle-image" alt="${vehicle.name}" style="max-width: 100%;">` : '<div class="text-muted">No Image Available</div>'}
-                    </div>
-                    <div class="col-md-6">
                         <p><strong>Name:</strong> ${vehicle.name}</p>
                         <p><strong>Model:</strong> ${vehicle.model}</p>
                         <p><strong>Color:</strong> ${vehicle.color}</p>
                         <p><strong>Plate Number:</strong> ${vehicle.plate}</p>
+                    </div>
+                    <div class="col-md-6">
                         <p><strong>VIN:</strong> ${vehicle.vin}</p>
                         <p><strong>Odometer:</strong> ${vehicle.odometer.toLocaleString()} km</p>
                         <p><strong>Rental Price:</strong> ${vehicle.rentalPrice} AED/day</p>
@@ -2689,11 +2646,6 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="editVehicleImage" class="form-label">Vehicle Image</label>
-                        <input type="file" class="form-control" id="editVehicleImage" accept="image/*">
-                        ${vehicle.image ? `<div class="mt-2"><img src="${vehicle.image}" class="vehicle-image" alt="${vehicle.name}"></div>` : ''}
-                    </div>
-                    <div class="mb-3">
                         <label for="editVehicleStatus" class="form-label">Status</label>
                         <select class="form-select" id="editVehicleStatus" required>
                             <option value="Available" ${vehicle.status === 'Available' ? 'selected' : ''}>Available</option>
@@ -2722,52 +2674,31 @@
                 const odometer = parseInt(document.getElementById('editVehicleOdometer').value);
                 const rentalPrice = parseFloat(document.getElementById('editVehicleRentalPrice').value);
                 const status = document.getElementById('editVehicleStatus').value;
-                const imageFile = document.getElementById('editVehicleImage').files[0];
                 
                 const vehicleIndex = vehicles.findIndex(v => v.id === id);
                 if (vehicleIndex !== -1) {
-                    let imageDataUrl = vehicles[vehicleIndex].image;
+                    vehicles[vehicleIndex] = {
+                        ...vehicles[vehicleIndex],
+                        name: name,
+                        model: model,
+                        color: color,
+                        plate: plate,
+                        vin: vin,
+                        odometer: odometer,
+                        rentalPrice: rentalPrice,
+                        status: status
+                    };
                     
-                    if (imageFile) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            imageDataUrl = e.target.result;
-                            completeEditVehicle(id, name, model, color, plate, vin, odometer, rentalPrice, status, imageDataUrl, editModal);
-                        };
-                        reader.readAsDataURL(imageFile);
-                    } else {
-                        completeEditVehicle(id, name, model, color, plate, vin, odometer, rentalPrice, status, imageDataUrl, editModal);
+                    alert('Vehicle updated successfully');
+                    editModal.hide();
+                    loadVehicleList();
+                    
+                    // If vehicle details are open, refresh them
+                    if (document.getElementById('vehicleDetailsCard').style.display === 'block') {
+                        viewVehicleDetails(id);
                     }
                 }
             });
-        }
-        
-        // Complete edit vehicle after image processing
-        function completeEditVehicle(id, name, model, color, plate, vin, odometer, rentalPrice, status, imageDataUrl, editModal) {
-            const vehicleIndex = vehicles.findIndex(v => v.id === id);
-            if (vehicleIndex !== -1) {
-                vehicles[vehicleIndex] = {
-                    ...vehicles[vehicleIndex],
-                    name: name,
-                    model: model,
-                    color: color,
-                    plate: plate,
-                    vin: vin,
-                    odometer: odometer,
-                    rentalPrice: rentalPrice,
-                    image: imageDataUrl,
-                    status: status
-                };
-                
-                alert('Vehicle updated successfully');
-                editModal.hide();
-                loadVehicleList();
-                
-                // If vehicle details are open, refresh them
-                if (document.getElementById('vehicleDetailsCard').style.display === 'block') {
-                    viewVehicleDetails(id);
-                }
-            }
         }
         
         // Delete vehicle
@@ -2919,33 +2850,13 @@
                                 <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Type</th>
                                         <th>Amount</th>
                                         <th>Notes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     ${getCustomerPaymentHistory(customerId)}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <h5>Fines & Taxes History</h5>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>Reason</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${getCustomerFinesHistory(customerId)}
                                 </tbody>
                             </table>
                         </div>
@@ -2988,38 +2899,15 @@
             let html = '';
             
             if (customerPayments.length === 0) {
-                html = '<tr><td colspan="3" class="text-center">No payment history</td></tr>';
+                html = '<tr><td colspan="4" class="text-center">No payment history</td></tr>';
             } else {
                 customerPayments.forEach(payment => {
                     html += `
                         <tr>
                             <td>${payment.date}</td>
+                            <td>${payment.type}</td>
                             <td>${payment.amount} AED</td>
                             <td>${payment.notes}</td>
-                        </tr>
-                    `;
-                });
-            }
-            
-            return html;
-        }
-        
-        // Get customer fines history
-        function getCustomerFinesHistory(customerId) {
-            const customerFines = fines.filter(f => f.customerId === customerId);
-            let html = '';
-            
-            if (customerFines.length === 0) {
-                html = '<tr><td colspan="5" class="text-center">No fines/taxes history</td></tr>';
-            } else {
-                customerFines.forEach(fine => {
-                    html += `
-                        <tr>
-                            <td>${fine.date}</td>
-                            <td>${fine.type}</td>
-                            <td>${fine.amount} AED</td>
-                            <td>${fine.reason}</td>
-                            <td><span class="badge ${fine.status === 'Paid' ? 'bg-success' : 'bg-danger'}">${fine.status}</span></td>
                         </tr>
                     `;
                 });
@@ -3866,6 +3754,7 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${customer ? customer.fullName : 'N/A'}</td>
+                    <td>${payment.type}</td>
                     <td>${payment.amount} AED</td>
                     <td>${payment.date}</td>
                     <td>${payment.notes}</td>
@@ -3941,6 +3830,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>Customer:</strong> ${customer ? customer.fullName : 'N/A'}</p>
+                        <p><strong>Type:</strong> ${payment.type}</p>
                         <p><strong>Amount:</strong> ${payment.amount} AED</p>
                     </div>
                     <div class="col-md-6">
@@ -3974,6 +3864,15 @@
                         <input type="text" class="form-control" id="editPaymentCustomer" value="${customer ? customer.fullName : 'N/A'}" readonly>
                     </div>
                     <div class="mb-3">
+                        <label for="editPaymentType" class="form-label">Type</label>
+                        <select class="form-select" id="editPaymentType" required>
+                            <option value="Rental" ${payment.type === 'Rental' ? 'selected' : ''}>Rental</option>
+                            <option value="Fine" ${payment.type === 'Fine' ? 'selected' : ''}>Fine</option>
+                            <option value="Tax" ${payment.type === 'Tax' ? 'selected' : ''}>Tax</option>
+                            <option value="Other" ${payment.type === 'Other' ? 'selected' : ''}>Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="editPaymentAmount" class="form-label">Amount</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="editPaymentAmount" value="${payment.amount}" required>
@@ -4001,23 +3900,16 @@
                 e.preventDefault();
                 
                 const id = parseInt(document.getElementById('editPaymentId').value);
+                const type = document.getElementById('editPaymentType').value;
                 const amount = parseFloat(document.getElementById('editPaymentAmount').value);
                 const date = document.getElementById('editPaymentDate').value;
                 const notes = document.getElementById('editPaymentNotes').value;
                 
                 const paymentIndex = payments.findIndex(p => p.id === id);
                 if (paymentIndex !== -1) {
-                    // Update customer debt if amount changed
-                    const oldAmount = payments[paymentIndex].amount;
-                    if (amount !== oldAmount) {
-                        const customer = customers.find(c => c.id === payments[paymentIndex].customerId);
-                        if (customer) {
-                            customer.totalDebt = customer.totalDebt + oldAmount - amount;
-                        }
-                    }
-                    
                     payments[paymentIndex] = {
                         ...payments[paymentIndex],
+                        type: type,
                         amount: amount,
                         date: date,
                         notes: notes
@@ -4026,7 +3918,6 @@
                     alert('Payment updated successfully');
                     editModal.hide();
                     loadPaymentList();
-                    loadCustomerList();
                 }
             });
         }
@@ -4036,15 +3927,22 @@
             if (confirm('Are you sure you want to delete this payment record?')) {
                 const paymentIndex = payments.findIndex(p => p.id === paymentId);
                 if (paymentIndex !== -1) {
-                    // Update customer debt
-                    const customer = customers.find(c => c.id === payments[paymentIndex].customerId);
-                    if (customer) {
-                        customer.totalDebt += payments[paymentIndex].amount;
+                    // If payment was for a fine, mark the fine as unpaid again
+                    if (payments[paymentIndex].type === 'Fine') {
+                        const customer = customers.find(c => c.id === payments[paymentIndex].customerId);
+                        if (customer) {
+                            const fine = fines.find(f => f.customerId === customer.id && f.status === 'Paid');
+                            if (fine) {
+                                fine.status = 'Unpaid';
+                                customer.totalDebt += fine.amount;
+                            }
+                        }
                     }
                     
                     payments.splice(paymentIndex, 1);
                     alert('Payment record deleted successfully');
                     loadPaymentList();
+                    loadFineList();
                     loadCustomerList();
                 }
             }
@@ -4182,11 +4080,6 @@
                             <option value="Fine" ${fine.type === 'Fine' ? 'selected' : ''}>Fine</option>
                             <option value="Tax" ${fine.type === 'Tax' ? 'selected' : ''}>Tax</option>
                             <option value="Penalty" ${fine.type === 'Penalty' ? 'selected' : ''}>Penalty</option>
-                            <option value="Salik" ${fine.type === 'Salik' ? 'selected' : ''}>Salik</option>
-                            <option value="Parking" ${fine.type === 'Parking' ? 'selected' : ''}>Parking</option>
-                            <option value="Car Wash" ${fine.type === 'Car Wash' ? 'selected' : ''}>Car Wash</option>
-                            <option value="Fuel" ${fine.type === 'Fuel' ? 'selected' : ''}>Fuel</option>
-                            <option value="Delivery fees" ${fine.type === 'Delivery fees' ? 'selected' : ''}>Delivery fees</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -4392,7 +4285,6 @@
             const reportType = document.getElementById('reportType').value;
             const startDate = document.getElementById('reportStartDate').value;
             const endDate = document.getElementById('reportEndDate').value;
-            const customerName = document.getElementById('reportCustomer').value;
             
             let reportData = [];
             let headers = [];
@@ -4416,11 +4308,12 @@
                     break;
                     
                 case 'payment':
-                    headers = ['Customer', 'Amount', 'Date', 'Notes'];
+                    headers = ['Customer', 'Type', 'Amount', 'Date', 'Notes'];
                     reportData = payments.map(payment => {
                         const customer = customers.find(c => c.id === payment.customerId);
                         return [
                             customer ? customer.fullName : 'N/A',
+                            payment.type,
                             `${payment.amount} AED`,
                             payment.date,
                             payment.notes
@@ -4451,69 +4344,6 @@
                         customer.contact,
                         `${customer.totalDebt} AED`
                     ]);
-                    break;
-                    
-                case 'customerActivity':
-                    headers = ['Date', 'Type', 'Description', 'Amount', 'Balance'];
-                    if (customerName) {
-                        const customer = customers.find(c => c.fullName === customerName);
-                        if (customer) {
-                            // Get all customer activities
-                            let activities = [];
-                            
-                            // Add rentals
-                            rentals.filter(r => r.customerId === customer.id).forEach(rental => {
-                                const vehicle = vehicles.find(v => v.id === rental.vehicleId);
-                                activities.push({
-                                    date: rental.startDate,
-                                    type: 'Rental',
-                                    description: `Rental of ${vehicle ? vehicle.name : 'N/A'} (${rental.invoiceCode})`,
-                                    amount: rental.amount,
-                                    balance: customer.totalDebt
-                                });
-                            });
-                            
-                            // Add payments
-                            payments.filter(p => p.customerId === customer.id).forEach(payment => {
-                                activities.push({
-                                    date: payment.date,
-                                    type: 'Payment',
-                                    description: `Payment - ${payment.notes}`,
-                                    amount: -payment.amount,
-                                    balance: customer.totalDebt
-                                });
-                            });
-                            
-                            // Add fines
-                            fines.filter(f => f.customerId === customer.id).forEach(fine => {
-                                activities.push({
-                                    date: fine.date,
-                                    type: fine.type,
-                                    description: `${fine.type} - ${fine.reason}`,
-                                    amount: fine.amount,
-                                    balance: customer.totalDebt
-                                });
-                            });
-                            
-                            // Sort by date
-                            activities.sort((a, b) => new Date(a.date) - new Date(b.date));
-                            
-                            // Calculate running balance
-                            let balance = 0;
-                            activities.forEach(activity => {
-                                balance += activity.amount;
-                                activity.balance = balance;
-                            });
-                            
-                            reportData = activities.map(activity => [
-                                activity.date,
-                                activity.type,
-                                activity.description,
-                                `${activity.amount} AED`,
-                                `${activity.balance} AED`
-                            ]);
-                        }
-                    }
                     break;
                     
                 case 'maintenance':
@@ -4551,10 +4381,9 @@
             if (startDate && endDate) {
                 reportData = reportData.filter(row => {
                     const dateField = reportType === 'rental' ? row[3] : 
-                                    reportType === 'payment' ? row[2] : 
+                                    reportType === 'payment' ? row[3] : 
                                     reportType === 'maintenance' ? row[2] : 
-                                    reportType === 'fine' ? row[3] : 
-                                    reportType === 'customerActivity' ? row[0] : '';
+                                    reportType === 'fine' ? row[3] : '';
                     
                     return dateField >= startDate && dateField <= endDate;
                 });
@@ -4594,7 +4423,6 @@
             const reportType = document.getElementById('reportType').value;
             const startDate = document.getElementById('reportStartDate').value;
             const endDate = document.getElementById('reportEndDate').value;
-            const customerName = document.getElementById('reportCustomer').value;
             
             let data = [];
             let fileName = '';
@@ -4623,6 +4451,7 @@
                         const customer = customers.find(c => c.id === payment.customerId);
                         return {
                             'Customer': customer ? customer.fullName : 'N/A',
+                            'Type': payment.type,
                             'Amount': payment.amount,
                             'Date': payment.date,
                             'Notes': payment.notes
@@ -4653,63 +4482,6 @@
                         'Contact': customer.contact,
                         'Total Debt': customer.totalDebt
                     }));
-                    break;
-                    
-                case 'customerActivity':
-                    fileName = 'Customer_Activity_Report';
-                    if (customerName) {
-                        const customer = customers.find(c => c.fullName === customerName);
-                        if (customer) {
-                            // Get all customer activities
-                            let activities = [];
-                            
-                            // Add rentals
-                            rentals.filter(r => r.customerId === customer.id).forEach(rental => {
-                                const vehicle = vehicles.find(v => v.id === rental.vehicleId);
-                                activities.push({
-                                    'Date': rental.startDate,
-                                    'Type': 'Rental',
-                                    'Description': `Rental of ${vehicle ? vehicle.name : 'N/A'} (${rental.invoiceCode})`,
-                                    'Amount': rental.amount,
-                                    'Balance': customer.totalDebt
-                                });
-                            });
-                            
-                            // Add payments
-                            payments.filter(p => p.customerId === customer.id).forEach(payment => {
-                                activities.push({
-                                    'Date': payment.date,
-                                    'Type': 'Payment',
-                                    'Description': `Payment - ${payment.notes}`,
-                                    'Amount': -payment.amount,
-                                    'Balance': customer.totalDebt
-                                });
-                            });
-                            
-                            // Add fines
-                            fines.filter(f => f.customerId === customer.id).forEach(fine => {
-                                activities.push({
-                                    'Date': fine.date,
-                                    'Type': fine.type,
-                                    'Description': `${fine.type} - ${fine.reason}`,
-                                    'Amount': fine.amount,
-                                    'Balance': customer.totalDebt
-                                });
-                            });
-                            
-                            // Sort by date
-                            activities.sort((a, b) => new Date(a.Date) - new Date(b.Date));
-                            
-                            // Calculate running balance
-                            let balance = 0;
-                            activities.forEach(activity => {
-                                balance += activity.Amount;
-                                activity.Balance = balance;
-                            });
-                            
-                            data = activities;
-                        }
-                    }
                     break;
                     
                 case 'maintenance':
@@ -4749,8 +4521,7 @@
                     const dateField = reportType === 'rental' ? item['Start Date'] : 
                                     reportType === 'payment' ? item['Date'] : 
                                     reportType === 'maintenance' ? item['Date'] : 
-                                    reportType === 'fine' ? item['Date'] : 
-                                    reportType === 'customerActivity' ? item['Date'] : '';
+                                    reportType === 'fine' ? item['Date'] : '';
                     
                     return dateField >= startDate && dateField <= endDate;
                 });
@@ -4827,7 +4598,7 @@
                 
                 // Get payment amount for this rental
                 const paymentAmount = payments
-                    .filter(p => p.customerId === rental.customerId)
+                    .filter(p => p.customerId === rental.customerId && p.type === 'Rental')
                     .reduce((sum, payment) => sum + payment.amount, 0);
                 
                 // Calculate total amount
@@ -4906,7 +4677,7 @@
                 
                 // Get payment amount for this rental
                 const paymentAmount = payments
-                    .filter(p => p.customerId === rental.customerId)
+                    .filter(p => p.customerId === rental.customerId && p.type === 'Rental')
                     .reduce((sum, payment) => sum + payment.amount, 0);
                 
                 // Calculate total amount
