@@ -254,6 +254,11 @@
             max-height: 150px;
             margin-top: 10px;
         }
+        
+        .customer-debt {
+            color: #e74c3c;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -540,17 +545,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Vehicle Details Section -->
-                                    <div class="card vehicle-details" id="vehicleDetailsCard">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <span>Vehicle Details</span>
-                                            <button class="btn btn-sm btn-secondary" id="closeVehicleDetails">Close</button>
-                                        </div>
-                                        <div class="card-body" id="vehicleDetailsContent">
-                                            <!-- Vehicle details will be populated here -->
-                                        </div>
-                                    </div>
                                 </div>
                                 
                                 <div class="tab-pane fade" id="vehicleHistory">
@@ -627,7 +621,6 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="customerNationality" class="form-label">Nationality</label>
                                                         <input type="text" class="form-control" id="customerNationality" placeholder="Type country name..." required>
-                                                        <div class="suggestion-list" id="nationalitySuggestions"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -639,10 +632,6 @@
                                                         <label for="customerAddress" class="form-label">Address</label>
                                                         <input type="text" class="form-control" id="customerAddress" required>
                                                     </div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="guaranteeDoc" class="form-label">Guarantee / Document</label>
-                                                    <input type="file" class="form-control" id="guaranteeDoc">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Add Customer</button>
                                             </form>
@@ -682,17 +671,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- Customer Details Section -->
-                                    <div class="card customer-details" id="customerDetailsCard">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <span>Customer Details</span>
-                                            <button class="btn btn-sm btn-secondary" id="closeCustomerDetails">Close</button>
-                                        </div>
-                                        <div class="card-body" id="customerDetailsContent">
-                                            <!-- Customer details will be populated here -->
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -710,13 +688,15 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="rentalCustomer" class="form-label">Customer</label>
-                                                <input type="text" class="form-control" id="rentalCustomer" placeholder="Search customer...">
-                                                <div class="suggestion-list" id="customerSuggestions"></div>
+                                                <select class="form-select" id="rentalCustomer" required>
+                                                    <option value="">Select Customer</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="rentalVehicle" class="form-label">Vehicle</label>
-                                                <input type="text" class="form-control" id="rentalVehicle" placeholder="Search vehicle...">
-                                                <div class="suggestion-list" id="vehicleSuggestions"></div>
+                                                <select class="form-select" id="rentalVehicle" required>
+                                                    <option value="">Select Vehicle</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -745,7 +725,7 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="invoiceCode" class="form-label">Invoice Code</label>
-                                                <input type="text" class="form-control" id="invoiceCode">
+                                                <input type="text" class="form-control" id="invoiceCode" required>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Create Rental</button>
@@ -785,77 +765,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Invoice for Printing -->
-                            <div id="invoicePrint" class="print-only" style="display: none;">
-                                <div class="invoice-logo">
-                                    <img id="printLogo" src="" style="max-width: 200px; display: none;">
-                                    <h3 id="printSystemName">Car Rental System</h3>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header text-center">
-                                        <h3>Car Rental Invoice</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col-6">
-                                                <strong>Invoice Code:</strong> <span id="printInvoiceCode"></span>
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <strong>Date:</strong> <span id="printInvoiceDate"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-6">
-                                                <strong>Customer:</strong> <span id="printCustomerName"></span>
-                                            </div>
-                                            <div class="col-6">
-                                                <strong>Vehicle:</strong> <span id="printVehicleName"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-6">
-                                                <strong>Customer ID:</strong> <span id="printCustomerId"></span>
-                                            </div>
-                                            <div class="col-6">
-                                                <strong>Customer Address:</strong> <span id="printCustomerAddress"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-12">
-                                                <strong>Rental Amount (per day):</strong> <span id="printRentalAmount"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-12">
-                                                <strong>Rental Days:</strong> <span id="printRentalDays"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-12">
-                                                <strong>Rental History:</strong>
-                                                <div id="printRentalHistory"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <hr>
-                                                <h4 class="text-end">Total: <span id="printTotalAmount"></span></h4>
-                                            </div>
-                                        </div>
-                                        <div class="row signature-area">
-                                            <div class="col-6">
-                                                <strong>Customer Signature:</strong>
-                                                <div style="height: 50px; border-bottom: 1px solid #000;"></div>
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <strong>Company Signature:</strong>
-                                                <div style="height: 50px; border-bottom: 1px solid #000;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Vehicle Returns Tab -->
@@ -870,8 +779,9 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="returnInvoiceSearch" class="form-label">Search by Invoice Code</label>
-                                            <input type="text" class="form-control" id="returnInvoiceSearch" placeholder="Search invoice code...">
-                                            <div class="suggestion-list" id="returnInvoiceSuggestions"></div>
+                                            <select class="form-select" id="returnInvoiceSearch">
+                                                <option value="">Select Rental</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-6 d-flex align-items-end">
                                             <button class="btn btn-primary me-2" id="searchInvoiceBtn">Search</button>
@@ -961,8 +871,9 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="maintenanceVehicle" class="form-label">Vehicle</label>
-                                                <input type="text" class="form-control" id="maintenanceVehicle" placeholder="Search vehicle...">
-                                                <div class="suggestion-list" id="maintenanceVehicleSuggestions"></div>
+                                                <select class="form-select" id="maintenanceVehicle" required>
+                                                    <option value="">Select Vehicle</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="maintenanceType" class="form-label">Maintenance Type</label>
@@ -1044,8 +955,9 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="paymentCustomer" class="form-label">Customer</label>
-                                                <input type="text" class="form-control" id="paymentCustomer" placeholder="Search customer...">
-                                                <div class="suggestion-list" id="paymentCustomerSuggestions"></div>
+                                                <select class="form-select" id="paymentCustomer" required>
+                                                    <option value="">Select Customer</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="paymentAmount" class="form-label">Amount</label>
@@ -1148,8 +1060,9 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="fineCustomer" class="form-label">Customer</label>
-                                                <input type="text" class="form-control" id="fineCustomer" placeholder="Search customer...">
-                                                <div class="suggestion-list" id="fineCustomerSuggestions"></div>
+                                                <select class="form-select" id="fineCustomer" required>
+                                                    <option value="">Select Customer</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="fineType" class="form-label">Type</label>
@@ -1562,19 +1475,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // System initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the system
-            initializeSystem();
-            
-            // Set up event listeners
-            setupEventListeners();
-            
-            // Load initial data
-            loadInitialData();
-        });
-
-        // System data structure
+        // System Data Structure
         let systemData = {
             users: [
                 { username: 'admin', password: '000000', role: 'admin', lastLogin: new Date().toISOString() }
@@ -1599,12 +1500,23 @@
         let currentUser = null;
 
         // Initialize the system
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSystem();
+            setupEventListeners();
+            loadInitialData();
+        });
+
+        // Initialize the system
         function initializeSystem() {
-            // Load data from localStorage if available
+            // Load data from localStorage
             const savedData = localStorage.getItem('carRentalSystem');
             if (savedData) {
                 try {
                     systemData = JSON.parse(savedData);
+                console.log('Data loaded successfully:', systemData);
+                console.log('Vehicles:', systemData.vehicles.length);
+                    console.log('Customers:', systemData.customers.length);
+                    console.log('Rentals:', systemData.rentals.length);
                 } catch (e) {
                     console.error('Error loading saved data:', e);
                 }
@@ -1644,14 +1556,11 @@
         // Update UI based on user role
         function updateUIForUserRole() {
             const adminElements = document.querySelectorAll('.admin-only');
-            const userElements = document.querySelectorAll('.user-only');
             
             if (currentUser && currentUser.role === 'admin') {
                 adminElements.forEach(el => el.style.display = 'block');
-                userElements.forEach(el => el.style.display = 'none');
             } else {
                 adminElements.forEach(el => el.style.display = 'none');
-                userElements.forEach(el => el.style.display = 'block');
             }
             
             // Update current user display
@@ -1665,12 +1574,6 @@
             // Update system name
             document.getElementById('headerSystemName').textContent = settings.systemName;
             document.getElementById('sidebarSystemName').textContent = settings.systemName;
-            document.getElementById('printSystemName').textContent = settings.systemName;
-            
-            // Update currency display
-            document.querySelectorAll('.currency-badge').forEach(el => {
-                el.textContent = settings.currency;
-            });
             
             // Update logo if available
             if (settings.logo) {
@@ -1678,16 +1581,7 @@
                 document.getElementById('headerLogo').style.display = 'inline';
                 document.getElementById('sidebarLogo').src = settings.logo;
                 document.getElementById('sidebarLogo').style.display = 'block';
-                document.getElementById('printLogo').src = settings.logo;
-                document.getElementById('printLogo').style.display = 'block';
             }
-            
-            // Update currency in input groups
-            document.querySelectorAll('.input-group-text').forEach(el => {
-                if (el.textContent === 'AED') {
-                    el.textContent = settings.currency;
-                }
-            });
         }
 
         // Setup event listeners
@@ -1744,7 +1638,35 @@
                 }
             });
             
-            // Add more event listeners for other forms and buttons...
+            // Add vehicle form
+            document.getElementById('addVehicleForm').addEventListener('submit', handleAddVehicle);
+            
+            // Add customer form
+            document.getElementById('addCustomerForm').addEventListener('submit', handleAddCustomer);
+            
+            // Create rental form
+            document.getElementById('createRentalForm').addEventListener('submit', handleCreateRental);
+            
+            // Return vehicle form
+            document.getElementById('returnVehicleForm').addEventListener('submit', handleReturnVehicle);
+            
+            // Schedule maintenance form
+            document.getElementById('scheduleMaintenanceForm').addEventListener('submit', handleScheduleMaintenance);
+            
+            // Record payment form
+            document.getElementById('recordPaymentForm').addEventListener('submit', handleRecordPayment);
+            
+            // Add fine form
+            document.getElementById('addFineForm').addEventListener('submit', handleAddFine);
+            
+            // Generate report button
+            document.getElementById('generateReportBtn').addEventListener('click', generateReport);
+            
+            // Generate customer report button
+            document.getElementById('generateCustomerReportBtn').addEventListener('click', generateCustomerReport);
+            
+            // Search invoice button
+            document.getElementById('searchInvoiceBtn').addEventListener('click', searchInvoice);
         }
 
         // Handle login
@@ -1859,9 +1781,296 @@
             alert('Settings saved successfully');
         }
 
+        // Handle add vehicle
+        function handleAddVehicle(e) {
+            e.preventDefault();
+            
+            const vehicle = {
+                id: generateId(),
+                name: document.getElementById('vehicleName').value,
+                odometer: parseInt(document.getElementById('vehicleOdometer').value),
+                vin: document.getElementById('vehicleVin').value,
+                plateNumber: document.getElementById('vehiclePlate').value,
+                color: document.getElementById('vehicleColor').value,
+                model: document.getElementById('vehicleModel').value,
+                rentalPrice: parseFloat(document.getElementById('vehicleRentalPrice').value),
+                status: 'Available',
+                image: document.getElementById('vehicleImagePreview').querySelector('img')?.src || null
+            };
+            
+            systemData.vehicles.push(vehicle);
+            saveSystemData();
+            
+            alert('Vehicle added successfully');
+            document.getElementById('addVehicleForm').reset();
+            document.getElementById('vehicleImagePreview').innerHTML = '';
+            
+            // Refresh vehicle lists
+            loadVehicleTable();
+            loadRentalVehicleOptions();
+            loadMaintenanceVehicleOptions();
+        }
+
+        // Handle add customer
+        function handleAddCustomer(e) {
+            e.preventDefault();
+            
+            const customer = {
+                id: document.getElementById('customerId').value,
+                fullName: document.getElementById('customerFullName').value,
+                age: parseInt(document.getElementById('customerAge').value),
+                nationality: document.getElementById('customerNationality').value,
+                contact: document.getElementById('customerContact').value,
+                address: document.getElementById('customerAddress').value,
+                totalDebt: 0
+            };
+            
+            systemData.customers.push(customer);
+            saveSystemData();
+            
+            alert('Customer added successfully');
+            document.getElementById('addCustomerForm').reset();
+            
+            // Refresh customer lists
+            loadCustomerTable();
+            loadRentalCustomerOptions();
+            loadPaymentCustomerOptions();
+            loadFineCustomerOptions();
+            loadCustomerReportOptions();
+        }
+
+        // Handle create rental
+        function handleCreateRental(e) {
+            e.preventDefault();
+            
+            const customerId = document.getElementById('rentalCustomer').value;
+            const vehicleId = document.getElementById('rentalVehicle').value;
+            const amount = parseFloat(document.getElementById('rentalAmount').value);
+            const days = parseInt(document.getElementById('rentalDays').value);
+            const startDate = document.getElementById('rentalStartDate').value;
+            const endDate = document.getElementById('rentalEndDate').value;
+            const invoiceCode = document.getElementById('invoiceCode').value;
+            
+            const customer = systemData.customers.find(c => c.id === customerId);
+            const vehicle = systemData.vehicles.find(v => v.id === vehicleId);
+            
+            if (!customer || !vehicle) {
+                alert('Invalid customer or vehicle selection');
+                return;
+            }
+            
+            const rental = {
+                id: generateId(),
+                invoiceCode,
+                customerId,
+                customerName: customer.fullName,
+                vehicleId,
+                vehicleName: vehicle.name,
+                dailyRate: amount,
+                days,
+                startDate,
+                endDate,
+                totalAmount: amount * days,
+                status: 'Active'
+            };
+            
+            systemData.rentals.push(rental);
+            
+            // Update vehicle status
+            vehicle.status = 'Rented';
+            
+            saveSystemData();
+            
+            alert('Rental created successfully');
+            document.getElementById('createRentalForm').reset();
+            
+            // Refresh rental lists
+            loadRentalTable();
+            loadReturnInvoiceOptions();
+            loadDashboardData();
+        }
+
+        // Handle return vehicle
+        function handleReturnVehicle(e) {
+            e.preventDefault();
+            
+            const invoiceCode = document.getElementById('returnInvoiceSearch').value;
+            const actualReturnDate = document.getElementById('returnActualDate').value;
+            const fine = parseFloat(document.getElementById('returnFine').value) || 0;
+            const notes = document.getElementById('returnNotes').value;
+            
+            const rental = systemData.rentals.find(r => r.invoiceCode === invoiceCode);
+            if (!rental) {
+                alert('Invalid rental selection');
+                return;
+            }
+            
+            // Create return record
+            const returnRecord = {
+                id: generateId(),
+                rentalId: rental.id,
+                invoiceCode,
+                customerName: rental.customerName,
+                vehicleName: rental.vehicleName,
+                returnDate: actualReturnDate,
+                lateFine: fine,
+                notes
+            };
+            
+            systemData.returns.push(returnRecord);
+            
+            // Update rental status
+            rental.status = 'Completed';
+            
+            // Update vehicle status
+            const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+            if (vehicle) {
+                vehicle.status = 'Available';
+            }
+            
+            // Update customer debt if there's a fine
+            if (fine > 0) {
+                const customer = systemData.customers.find(c => c.id === rental.customerId);
+                if (customer) {
+                    customer.totalDebt += fine;
+                }
+            }
+            
+            saveSystemData();
+            
+            alert('Vehicle return completed successfully');
+            document.getElementById('returnVehicleForm').reset();
+            document.getElementById('returnFormContainer').style.display = 'none';
+            
+            // Refresh data
+            loadReturnHistory();
+            loadRentalTable();
+            loadDashboardData();
+        }
+
+        // Handle schedule maintenance
+        function handleScheduleMaintenance(e) {
+            e.preventDefault();
+            
+            const vehicleId = document.getElementById('maintenanceVehicle').value;
+            const type = document.getElementById('maintenanceType').value;
+            const date = document.getElementById('maintenanceDate').value;
+            const cost = parseFloat(document.getElementById('maintenanceCost').value);
+            const description = document.getElementById('maintenanceDescription').value;
+            
+            const vehicle = systemData.vehicles.find(v => v.id === vehicleId);
+            if (!vehicle) {
+                alert('Invalid vehicle selection');
+                return;
+            }
+            
+            const maintenance = {
+                id: generateId(),
+                vehicleId,
+                vehicleName: vehicle.name,
+                type,
+                date,
+                cost,
+                description,
+                status: 'Scheduled'
+            };
+            
+            systemData.maintenance.push(maintenance);
+            saveSystemData();
+            
+            alert('Maintenance scheduled successfully');
+            document.getElementById('scheduleMaintenanceForm').reset();
+            
+            // Refresh maintenance list
+            loadMaintenanceTable();
+        }
+
+        // Handle record payment
+        function handleRecordPayment(e) {
+            e.preventDefault();
+            
+            const customerId = document.getElementById('paymentCustomer').value;
+            const amount = parseFloat(document.getElementById('paymentAmount').value);
+            const date = document.getElementById('paymentDate').value;
+            const method = document.getElementById('paymentMethod').value;
+            const notes = document.getElementById('paymentNotes').value;
+            
+            const customer = systemData.customers.find(c => c.id === customerId);
+            if (!customer) {
+                alert('Invalid customer selection');
+                return;
+            }
+            
+            const payment = {
+                id: generateId(),
+                customerId,
+                customerName: customer.fullName,
+                amount,
+                date,
+                method,
+                notes
+            };
+            
+            systemData.payments.push(payment);
+            
+            // Update customer debt
+            customer.totalDebt = Math.max(0, customer.totalDebt - amount);
+            
+            saveSystemData();
+            
+            alert('Payment recorded successfully');
+            document.getElementById('recordPaymentForm').reset();
+            
+            // Refresh payment lists
+            loadPaymentTable();
+            loadDebtTable();
+        }
+
+        // Handle add fine
+        function handleAddFine(e) {
+            e.preventDefault();
+            
+            const customerId = document.getElementById('fineCustomer').value;
+            const type = document.getElementById('fineType').value;
+            const amount = parseFloat(document.getElementById('fineAmount').value);
+            const date = document.getElementById('fineDate').value;
+            const description = document.getElementById('fineDescription').value;
+            
+            const customer = systemData.customers.find(c => c.id === customerId);
+            if (!customer) {
+                alert('Invalid customer selection');
+                return;
+            }
+            
+            const fine = {
+                id: generateId(),
+                customerId,
+                customerName: customer.fullName,
+                type,
+                amount,
+                date,
+                description
+            };
+            
+            systemData.fines.push(fine);
+            
+            // Update customer debt
+            customer.totalDebt += amount;
+            
+            saveSystemData();
+            
+            alert('Fine/Tax added successfully');
+            document.getElementById('addFineForm').reset();
+            
+            // Refresh fine list
+            loadFineTable();
+            loadDebtTable();
+        }
+
         // Save system data to localStorage
         function saveSystemData() {
             localStorage.setItem('carRentalSystem', JSON.stringify(systemData));
+            console.log('Data saved successfully');
         }
 
         // Load initial data
@@ -1876,19 +2085,36 @@
             document.getElementById('customerList').addEventListener('show.bs.tab', loadCustomerTable);
             
             // Load rental table
-            document.getElementById('rentals').addEventListener('show.bs.tab', loadRentalTable);
+            document.getElementById('rentals').addEventListener('show.bs.tab', function() {
+                loadRentalTable();
+                loadRentalCustomerOptions();
+                loadRentalVehicleOptions();
+            });
             
             // Load return history
-            document.getElementById('returns').addEventListener('show.bs.tab', loadReturnHistory);
+            document.getElementById('returns').addEventListener('show.bs.tab', function() {
+                loadReturnHistory();
+                loadReturnInvoiceOptions();
+            });
             
             // Load maintenance table
-            document.getElementById('maintenance').addEventListener('show.bs.tab', loadMaintenanceTable);
+            document.getElementById('maintenance').addEventListener('show.bs.tab', function() {
+                loadMaintenanceTable();
+                loadMaintenanceVehicleOptions();
+            });
             
             // Load payment table
-            document.getElementById('payments').addEventListener('show.bs.tab', loadPaymentTable);
+            document.getElementById('payments').addEventListener('show.bs.tab', function() {
+                loadPaymentTable();
+                loadPaymentCustomerOptions();
+                loadDebtTable();
+            });
             
             // Load fine table
-            document.getElementById('fines').addEventListener('show.bs.tab', loadFineTable);
+            document.getElementById('fines').addEventListener('show.bs.tab', function() {
+                loadFineTable();
+                loadFineCustomerOptions();
+            });
             
             // Load financial transactions
             document.getElementById('frr').addEventListener('show.bs.tab', loadFinancialData);
@@ -2008,10 +2234,540 @@
             }
         }
 
+        // Load vehicle table
+        function loadVehicleTable() {
+            document.getElementById('vehicleTableBody').innerHTML = systemData.vehicles.map(vehicle => `
+                <tr>
+                    <td>
+                        ${vehicle.image ? 
+                            `<img src="${vehicle.image}" class="img-thumbnail" style="max-width: 50px;" alt="${vehicle.name}">` : 
+                            '<i class="fas fa-car text-muted"></i>'
+                        }
+                    </td>
+                    <td>${vehicle.name}</td>
+                    <td>${vehicle.model}</td>
+                    <td>${vehicle.color}</td>
+                    <td>${vehicle.plateNumber}</td>
+                    <td>${vehicle.odometer}</td>
+                    <td>${vehicle.rentalPrice} ${systemData.settings.currency}</td>
+                    <td><span class="badge ${vehicle.status === 'Available' ? 'bg-success' : vehicle.status === 'Rented' ? 'bg-warning' : 'bg-danger'}">${vehicle.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" onclick="editVehicle('${vehicle.id}')">Edit</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteVehicle('${vehicle.id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Edit vehicle
+        function editVehicle(vehicleId) {
+            // Implementation for editing a vehicle
+            alert('Edit vehicle functionality to be implemented');
+        }
+
+        // Delete vehicle
+        function deleteVehicle(vehicleId) {
+            if (confirm('Are you sure you want to delete this vehicle?')) {
+                systemData.vehicles = systemData.vehicles.filter(v => v.id !== vehicleId);
+                saveSystemData();
+                loadVehicleTable();
+            }
+        }
+
+        // Load customer table
+        function loadCustomerTable() {
+            document.getElementById('customerTableBody').innerHTML = systemData.customers.map(customer => `
+                <tr>
+                    <td>${customer.fullName}</td>
+                    <td>${customer.age}</td>
+                    <td>${customer.id}</td>
+                    <td>${customer.nationality}</td>
+                    <td>${customer.contact}</td>
+                    <td class="customer-debt">${customer.totalDebt} ${systemData.settings.currency}</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" onclick="editCustomer('${customer.id}')">Edit</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCustomer('${customer.id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Edit customer
+        function editCustomer(customerId) {
+            // Implementation for editing a customer
+            alert('Edit customer functionality to be implemented');
+        }
+
+        // Delete customer
+        function deleteCustomer(customerId) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                systemData.customers = systemData.customers.filter(c => c.id !== customerId);
+                saveSystemData();
+                loadCustomerTable();
+            }
+        }
+
+        // Load rental table
+        function loadRentalTable() {
+            document.getElementById('rentalTableBody').innerHTML = systemData.rentals.map(rental => `
+                <tr>
+                    <td>${rental.invoiceCode}</td>
+                    <td>${rental.customerName}</td>
+                    <td>${rental.vehicleName}</td>
+                    <td>${formatDate(rental.startDate)}</td>
+                    <td>${formatDate(rental.endDate)}</td>
+                    <td>${rental.totalAmount} ${systemData.settings.currency}</td>
+                    <td><span class="badge ${rental.status === 'Active' ? 'bg-warning' : 'bg-success'}">${rental.status}</span></td>
+                    <td>
+                        ${rental.status === 'Active' ? 
+                            `<button class="btn btn-sm btn-success" onclick="prepareReturn('${rental.invoiceCode}')">Return</button>` : 
+                            ''
+                        }
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load rental customer options
+        function loadRentalCustomerOptions() {
+            const select = document.getElementById('rentalCustomer');
+            select.innerHTML = '<option value="">Select Customer</option>' +
+                systemData.customers.map(customer => 
+                    `<option value="${customer.id}">${customer.fullName}</option>`
+                ).join('');
+        }
+
+        // Load rental vehicle options
+        function loadRentalVehicleOptions() {
+            const select = document.getElementById('rentalVehicle');
+            select.innerHTML = '<option value="">Select Vehicle</option>' +
+                systemData.vehicles.filter(vehicle => vehicle.status === 'Available')
+                .map(vehicle => 
+                    `<option value="${vehicle.id}" data-price="${vehicle.rentalPrice}">${vehicle.name} - ${vehicle.rentalPrice} ${systemData.settings.currency}/day</option>`
+                ).join('');
+            
+            // Add event listener to auto-fill rental amount
+            select.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                if (selectedOption.value) {
+                    const price = selectedOption.getAttribute('data-price');
+                    document.getElementById('rentalAmount').value = price;
+                }
+            });
+        }
+
+        // Load return history
+        function loadReturnHistory() {
+            document.getElementById('returnHistoryTableBody').innerHTML = systemData.returns.map(returnRecord => `
+                <tr>
+                    <td>${returnRecord.invoiceCode}</td>
+                    <td>${returnRecord.customerName}</td>
+                    <td>${returnRecord.vehicleName}</td>
+                    <td>${formatDate(returnRecord.returnDate)}</td>
+                    <td>${returnRecord.lateFine} ${systemData.settings.currency}</td>
+                    <td>${returnRecord.notes}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Load return invoice options
+        function loadReturnInvoiceOptions() {
+            const select = document.getElementById('returnInvoiceSearch');
+            select.innerHTML = '<option value="">Select Rental</option>' +
+                systemData.rentals.filter(rental => rental.status === 'Active')
+                .map(rental => 
+                    `<option value="${rental.invoiceCode}">${rental.invoiceCode} - ${rental.customerName} - ${rental.vehicleName}</option>`
+                ).join('');
+        }
+
+        // Search invoice
+        function searchInvoice() {
+            const invoiceCode = document.getElementById('returnInvoiceSearch').value;
+            const rental = systemData.rentals.find(r => r.invoiceCode === invoiceCode);
+            
+            if (rental) {
+                document.getElementById('returnCustomer').value = rental.customerName;
+                document.getElementById('returnVehicle').value = rental.vehicleName;
+                document.getElementById('returnRentalStartDate').value = rental.startDate;
+                document.getElementById('returnExpectedDate').value = rental.endDate;
+                document.getElementById('returnActualDate').value = new Date().toISOString().split('T')[0];
+                
+                document.getElementById('returnFormContainer').style.display = 'block';
+            } else {
+                alert('No active rental found with this invoice code');
+            }
+        }
+
+        // Prepare return
+        function prepareReturn(invoiceCode) {
+            document.getElementById('returnInvoiceSearch').value = invoiceCode;
+            searchInvoice();
+            
+            // Switch to returns tab
+            document.querySelector('a[href="#returns"]').click();
+        }
+
+        // Load maintenance table
+        function loadMaintenanceTable() {
+            document.getElementById('maintenanceTableBody').innerHTML = systemData.maintenance.map(maintenance => `
+                <tr class="${maintenance.status === 'Scheduled' ? 'maintenance-status' : ''}">
+                    <td>${maintenance.vehicleName}</td>
+                    <td>${maintenance.type}</td>
+                    <td>${formatDate(maintenance.date)}</td>
+                    <td>${maintenance.cost} ${systemData.settings.currency}</td>
+                    <td>${maintenance.description}</td>
+                    <td><span class="badge ${maintenance.status === 'Completed' ? 'bg-success' : 'bg-warning'}">${maintenance.status}</span></td>
+                    <td>
+                        ${maintenance.status === 'Scheduled' ? 
+                            `<button class="btn btn-sm btn-success" onclick="completeMaintenance('${maintenance.id}')">Complete</button>` : 
+                            ''
+                        }
+                        <button class="btn btn-sm btn-danger" onclick="deleteMaintenance('${maintenance.id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load maintenance vehicle options
+        function loadMaintenanceVehicleOptions() {
+            const select = document.getElementById('maintenanceVehicle');
+            select.innerHTML = '<option value="">Select Vehicle</option>' +
+                systemData.vehicles.map(vehicle => 
+                    `<option value="${vehicle.id}">${vehicle.name}</option>`
+                ).join('');
+        }
+
+        // Complete maintenance
+        function completeMaintenance(maintenanceId) {
+            const maintenance = systemData.maintenance.find(m => m.id === maintenanceId);
+            if (maintenance) {
+                maintenance.status = 'Completed';
+                saveSystemData();
+                loadMaintenanceTable();
+            }
+        }
+
+        // Delete maintenance
+        function deleteMaintenance(maintenanceId) {
+            if (confirm('Are you sure you want to delete this maintenance record?')) {
+                systemData.maintenance = systemData.maintenance.filter(m => m.id !== maintenanceId);
+                saveSystemData();
+                loadMaintenanceTable();
+            }
+        }
+
+        // Load payment table
+        function loadPaymentTable() {
+            document.getElementById('paymentTableBody').innerHTML = systemData.payments.map(payment => `
+                <tr>
+                    <td>${payment.customerName}</td>
+                    <td>${payment.amount} ${systemData.settings.currency}</td>
+                    <td>${formatDate(payment.date)}</td>
+                    <td>${payment.method}</td>
+                    <td>${payment.notes}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deletePayment('${payment.id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load payment customer options
+        function loadPaymentCustomerOptions() {
+            const select = document.getElementById('paymentCustomer');
+            select.innerHTML = '<option value="">Select Customer</option>' +
+                systemData.customers.map(customer => 
+                    `<option value="${customer.id}">${customer.fullName} - Debt: ${customer.totalDebt} ${systemData.settings.currency}</option>`
+                ).join('');
+        }
+
+        // Delete payment
+        function deletePayment(paymentId) {
+            if (confirm('Are you sure you want to delete this payment record?')) {
+                systemData.payments = systemData.payments.filter(p => p.id !== paymentId);
+                saveSystemData();
+                loadPaymentTable();
+            }
+        }
+
+        // Load debt table
+        function loadDebtTable() {
+            document.getElementById('debtTableBody').innerHTML = systemData.customers.map(customer => {
+                const lastPayment = systemData.payments
+                    .filter(p => p.customerId === customer.id)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+                
+                return `
+                    <tr>
+                        <td>${customer.fullName}</td>
+                        <td class="customer-debt">${customer.totalDebt} ${systemData.settings.currency}</td>
+                        <td>${lastPayment ? formatDate(lastPayment.date) : 'No payments'}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="recordPaymentForCustomer('${customer.id}')">Record Payment</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Record payment for customer
+        function recordPaymentForCustomer(customerId) {
+            const customer = systemData.customers.find(c => c.id === customerId);
+            if (customer) {
+                document.getElementById('paymentCustomer').value = customerId;
+                document.getElementById('paymentAmount').value = customer.totalDebt;
+                document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+                
+                // Switch to payments tab
+                document.querySelector('a[href="#payments"]').click();
+            }
+        }
+
+        // Load fine table
+        function loadFineTable() {
+            document.getElementById('fineTableBody').innerHTML = systemData.fines.map(fine => `
+                <tr>
+                    <td>${fine.customerName}</td>
+                    <td>${fine.type}</td>
+                    <td>${fine.amount} ${systemData.settings.currency}</td>
+                    <td>${formatDate(fine.date)}</td>
+                    <td>${fine.description}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteFine('${fine.id}')">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load fine customer options
+        function loadFineCustomerOptions() {
+            const select = document.getElementById('fineCustomer');
+            select.innerHTML = '<option value="">Select Customer</option>' +
+                systemData.customers.map(customer => 
+                    `<option value="${customer.id}">${customer.fullName}</option>`
+                ).join('');
+        }
+
+        // Delete fine
+        function deleteFine(fineId) {
+            if (confirm('Are you sure you want to delete this fine record?')) {
+                systemData.fines = systemData.fines.filter(f => f.id !== fineId);
+                saveSystemData();
+                loadFineTable();
+            }
+        }
+
+        // Load financial data
+        function loadFinancialData() {
+            // Calculate financial metrics
+            const totalRevenue = systemData.payments.reduce((sum, payment) => sum + payment.amount, 0);
+            const totalExpenses = systemData.maintenance.reduce((sum, maintenance) => sum + maintenance.cost, 0) +
+                                systemData.fines.reduce((sum, fine) => sum + fine.amount, 0);
+            const outstandingDebt = systemData.customers.reduce((sum, customer) => sum + customer.totalDebt, 0);
+            const netProfit = totalRevenue - totalExpenses;
+            
+            // Update financial metrics
+            document.getElementById('totalRevenue').textContent = `${totalRevenue} ${systemData.settings.currency}`;
+            document.getElementById('totalExpenses').textContent = `${totalExpenses} ${systemData.settings.currency}`;
+            document.getElementById('outstandingDebt').textContent = `${outstandingDebt} ${systemData.settings.currency}`;
+            document.getElementById('netProfit').textContent = `${netProfit} ${systemData.settings.currency}`;
+            
+            // Load financial transactions
+            const transactions = [
+                ...systemData.payments.map(p => ({ ...p, type: 'Revenue', description: `Payment from ${p.customerName}` })),
+                ...systemData.maintenance.map(m => ({ ...m, type: 'Expense', description: `Maintenance: ${m.type}` })),
+                ...systemData.fines.map(f => ({ ...f, type: 'Expense', description: `Fine: ${f.type}` }))
+            ].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            document.getElementById('financialTransactionsTable').innerHTML = transactions.map(transaction => `
+                <tr>
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>${transaction.type}</td>
+                    <td>${transaction.description}</td>
+                    <td>${transaction.amount} ${systemData.settings.currency}</td>
+                    <td>-</td>
+                </tr>
+            `).join('');
+        }
+
+        // Load customer report options
+        function loadCustomerReportOptions() {
+            const select = document.getElementById('customerReportSelect');
+            select.innerHTML = '<option value="">Select Customer</option>' +
+                systemData.customers.map(customer => 
+                    `<option value="${customer.id}">${customer.fullName}</option>`
+                ).join('');
+        }
+
+        // Generate report
+        function generateReport() {
+            const reportType = document.getElementById('reportType').value;
+            const startDate = document.getElementById('reportStartDate').value;
+            const endDate = document.getElementById('reportEndDate').value;
+            
+            let reportData = [];
+            let title = '';
+            
+            switch (reportType) {
+                case 'rental':
+                    title = 'Rental Report';
+                    reportData = systemData.rentals;
+                    break;
+                case 'customer':
+                    title = 'Customer Report';
+                    reportData = systemData.customers;
+                    break;
+                case 'vehicle':
+                    title = 'Vehicle Report';
+                    reportData = systemData.vehicles;
+                    break;
+                case 'payment':
+                    title = 'Payment Report';
+                    reportData = systemData.payments;
+                    break;
+                case 'fine':
+                    title = 'Fines & Taxes Report';
+                    reportData = systemData.fines;
+                    break;
+                case 'maintenance':
+                    title = 'Maintenance Report';
+                    reportData = systemData.maintenance;
+                    break;
+            }
+            
+            // Filter by date if provided
+            if (startDate && endDate) {
+                reportData = reportData.filter(item => {
+                    const dateField = item.date || item.startDate;
+                    return dateField >= startDate && dateField <= endDate;
+                });
+            }
+            
+            // Generate report HTML
+            let reportHTML = `<h4>${title}</h4>`;
+            
+            if (reportData.length === 0) {
+                reportHTML += '<p>No data found for the selected criteria.</p>';
+            } else {
+                reportHTML += `
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    ${Object.keys(reportData[0]).map(key => 
+                                        `<th>${key}</th>`
+                                    ).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${reportData.map(item => `
+                                    <tr>
+                                        ${Object.values(item).map(value => 
+                                            `<td>${value}</td>`
+                                        ).join('')}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('reportResults').innerHTML = reportHTML;
+        }
+
+        // Generate customer report
+        function generateCustomerReport() {
+            const customerId = document.getElementById('customerReportSelect').value;
+            if (!customerId) {
+                alert('Please select a customer');
+                return;
+            }
+            
+            const customer = systemData.customers.find(c => c.id === customerId);
+            if (!customer) return;
+            
+            const customerRentals = systemData.rentals.filter(r => r.customerId === customerId);
+            const customerPayments = systemData.payments.filter(p => p.customerId === customerId);
+            const customerFines = systemData.fines.filter(f => f.customerId === customerId);
+            
+            document.getElementById('customerReportResults').innerHTML = `
+                <h4>Customer Report: ${customer.fullName}</h4>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Customer Information
+                            </div>
+                            <div class="card-body">
+                                <p><strong>ID:</strong> ${customer.id}</p>
+                                <p><strong>Age:</strong> ${customer.age}</p>
+                                <p><strong>Nationality:</strong> ${customer.nationality}</p>
+                                <p><strong>Contact:</strong> ${customer.contact}</p>
+                                <p><strong>Address:</strong> ${customer.address}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Financial Summary
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Total Rentals:</strong> ${customerRentals.length}</p>
+                                <p><strong>Total Payments:</strong> ${customerPayments.reduce((sum, p) => sum + p.amount, 0)} ${systemData.settings.currency}</p>
+                                <p><strong>Total Fines:</strong> ${customerFines.reduce((sum, f) => sum + f.amount, 0)} ${systemData.settings.currency}</p>
+                                <p><strong>Current Debt:</strong> ${customer.totalDebt} ${systemData.settings.currency}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Rental History
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice Code</th>
+                                        <th>Vehicle</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${customerRentals.map(rental => `
+                                        <tr>
+                                            <td>${rental.invoiceCode}</td>
+                                            <td>${rental.vehicleName}</td>
+                                            <td>${formatDate(rental.startDate)}</td>
+                                            <td>${formatDate(rental.endDate)}</td>
+                                            <td>${rental.totalAmount} ${systemData.settings.currency}</td>
+                                            <td><span class="badge ${rental.status === 'Active' ? 'bg-warning' : 'bg-success'}">${rental.status}</span></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         // Format date for display
         function formatDate(dateString) {
+            if (!dateString) return 'N/A';
             const date = new Date(dateString);
             return date.toLocaleDateString();
+        }
+
+        // Generate unique ID
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
         }
 
         // Export data
@@ -2081,598 +2837,6 @@
             document.getElementById('resetDataModal').querySelector('.btn-close').click();
             location.reload();
         }
-
-        // Load vehicle table
-        function loadVehicleTable() {
-            document.getElementById('vehicleTableBody').innerHTML = systemData.vehicles.map(vehicle => `
-                <tr>
-                    <td>
-                        ${vehicle.image ? 
-                            `<img src="${vehicle.image}" class="img-thumbnail" style="max-width: 50px;" alt="${vehicle.name}">` : 
-                            '<i class="fas fa-car text-muted"></i>'
-                        }
-                    </td>
-                    <td>${vehicle.name}</td>
-                    <td>${vehicle.model}</td>
-                    <td>${vehicle.color}</td>
-                    <td>${vehicle.plateNumber}</td>
-                    <td>${vehicle.odometer}</td>
-                    <td>${vehicle.rentalPrice} ${systemData.settings.currency}</td>
-                    <td><span class="badge ${vehicle.status === 'Available' ? 'bg-success' : vehicle.status === 'Rented' ? 'bg-warning' : 'bg-danger'}">${vehicle.status}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-info" onclick="viewVehicleDetails('${vehicle.vin}')">View</button>
-                        <button class="btn btn-sm btn-warning" onclick="editVehicle('${vehicle.vin}')">Edit</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteVehicle('${vehicle.vin}')">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // View vehicle details
-        function viewVehicleDetails(vin) {
-            const vehicle = systemData.vehicles.find(v => v.vin === vin);
-            if (!vehicle) return;
-            
-            document.getElementById('vehicleDetailsContent').innerHTML = `
-                <div class="row">
-                    <div class="col-md-4">
-                        ${vehicle.image ? 
-                            `<img src="${vehicle.image}" class="img-fluid" alt="${vehicle.name}">` : 
-                            '<div class="text-center p-4 bg-light"><i class="fas fa-car fa-5x text-muted"></i></div>'
-                        }
-                    </div>
-                    <div class="col-md-8">
-                        <h4>${vehicle.name}</h4>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>VIN #</th>
-                                <td>${vehicle.vin}</td>
-                            </tr>
-                            <tr>
-                                <th>Plate Number</th>
-                                <td>${vehicle.plateNumber}</td>
-                            </tr>
-                            <tr>
-                                <th>Model</th>
-                                <td>${vehicle.model}</td>
-                            </tr>
-                            <tr>
-                                <th>Color</th>
-                                <td>${vehicle.color}</td>
-                            </tr>
-                            <tr>
-                                <th>Odometer</th>
-                                <td>${vehicle.odometer}</td>
-                            </tr>
-                            <tr>
-                                <th>Rental Price</th>
-                                <td>${vehicle.rentalPrice} ${systemData.settings.currency}/day</td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td><span class="badge ${vehicle.status === 'Available' ? 'bg-success' : vehicle.status === 'Rented' ? 'bg-warning' : 'bg-danger'}">${vehicle.status}</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('vehicleDetailsCard').style.display = 'block';
-        }
-
-        // Close vehicle details
-        document.getElementById('closeVehicleDetails').addEventListener('click', function() {
-            document.getElementById('vehicleDetailsCard').style.display = 'none';
-        });
-
-        // Edit vehicle
-        function editVehicle(vin) {
-            // Implementation for editing a vehicle
-            alert('Edit vehicle functionality to be implemented');
-        }
-
-        // Delete vehicle
-        function deleteVehicle(vin) {
-            if (confirm('Are you sure you want to delete this vehicle?')) {
-                systemData.vehicles = systemData.vehicles.filter(v => v.vin !== vin);
-                saveSystemData();
-                loadVehicleTable();
-            }
-        }
-
-        // Load customer table
-        function loadCustomerTable() {
-            document.getElementById('customerTableBody').innerHTML = systemData.customers.map(customer => `
-                <tr>
-                    <td>${customer.fullName}</td>
-                    <td>${customer.age}</td>
-                    <td>${customer.id}</td>
-                    <td>${customer.nationality}</td>
-                    <td>${customer.contact}</td>
-                    <td>${calculateCustomerDebt(customer.id)} ${systemData.settings.currency}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info" onclick="viewCustomerDetails('${customer.id}')">View</button>
-                        <button class="btn btn-sm btn-warning" onclick="editCustomer('${customer.id}')">Edit</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteCustomer('${customer.id}')">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // Calculate customer debt
-        function calculateCustomerDebt(customerId) {
-            // Implementation to calculate customer debt
-            return 0;
-        }
-
-        // View customer details
-        function viewCustomerDetails(customerId) {
-            const customer = systemData.customers.find(c => c.id === customerId);
-            if (!customer) return;
-            
-            document.getElementById('customerDetailsContent').innerHTML = `
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>${customer.fullName}</h4>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Age</th>
-                                <td>${customer.age}</td>
-                            </tr>
-                            <tr>
-                                <th>ID</th>
-                                <td>${customer.id}</td>
-                            </tr>
-                            <tr>
-                                <th>Nationality</th>
-                                <td>${customer.nationality}</td>
-                            </tr>
-                            <tr>
-                                <th>Contact</th>
-                                <td>${customer.contact}</td>
-                            </tr>
-                            <tr>
-                                <th>Address</th>
-                                <td>${customer.address}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>Rental History</h5>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Vehicle</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${systemData.rentals.filter(r => r.customerId === customerId).map(rental => `
-                                        <tr>
-                                            <td>${rental.vehicleName}</td>
-                                            <td>${formatDate(rental.startDate)}</td>
-                                            <td>${formatDate(rental.endDate)}</td>
-                                            <td>${rental.totalAmount} ${systemData.settings.currency}</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('customerDetailsCard').style.display = 'block';
-        }
-
-        // Close customer details
-        document.getElementById('closeCustomerDetails').addEventListener('click', function() {
-            document.getElementById('customerDetailsCard').style.display = 'none';
-        });
-
-        // Edit customer
-        function editCustomer(customerId) {
-            // Implementation for editing a customer
-            alert('Edit customer functionality to be implemented');
-        }
-
-        // Delete customer
-        function deleteCustomer(customerId) {
-            if (confirm('Are you sure you want to delete this customer?')) {
-                systemData.customers = systemData.customers.filter(c => c.id !== customerId);
-                saveSystemData();
-                loadCustomerTable();
-            }
-        }
-
-        // Load rental table
-        function loadRentalTable() {
-            document.getElementById('rentalTableBody').innerHTML = systemData.rentals.map(rental => `
-                <tr>
-                    <td>${rental.invoiceCode}</td>
-                    <td>${rental.customerName}</td>
-                    <td>${rental.vehicleName}</td>
-                    <td>${formatDate(rental.startDate)}</td>
-                    <td>${formatDate(rental.endDate)}</td>
-                    <td>${rental.totalAmount} ${systemData.settings.currency}</td>
-                    <td><span class="badge ${rental.status === 'Active' ? 'bg-warning' : 'bg-success'}">${rental.status}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-info" onclick="printInvoice('${rental.invoiceCode}')">Print</button>
-                        ${rental.status === 'Active' ? 
-                            `<button class="btn btn-sm btn-success" onclick="returnVehicle('${rental.invoiceCode}')">Return</button>` : 
-                            ''
-                        }
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // Print invoice
-        function printInvoice(invoiceCode) {
-            const rental = systemData.rentals.find(r => r.invoiceCode === invoiceCode);
-            if (!rental) return;
-            
-            const customer = systemData.customers.find(c => c.id === rental.customerId);
-            if (!customer) return;
-            
-            // Update print content
-            document.getElementById('printInvoiceCode').textContent = rental.invoiceCode;
-            document.getElementById('printInvoiceDate').textContent = formatDate(new Date());
-            document.getElementById('printCustomerName').textContent = customer.fullName;
-            document.getElementById('printVehicleName').textContent = rental.vehicleName;
-            document.getElementById('printCustomerId').textContent = customer.id;
-            document.getElementById('printCustomerAddress').textContent = customer.address;
-            document.getElementById('printRentalAmount').textContent = `${rental.dailyRate} ${systemData.settings.currency}`;
-            document.getElementById('printRentalDays').textContent = rental.days;
-            document.getElementById('printTotalAmount').textContent = `${rental.totalAmount} ${systemData.settings.currency}`;
-            
-            // Show print dialog
-            const printContent = document.getElementById('invoicePrint').innerHTML;
-            const originalContent = document.body.innerHTML;
-            
-            document.body.innerHTML = printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-            
-            // Re-initialize the system after printing
-            initializeSystem();
-            setupEventListeners();
-        }
-
-        // Return vehicle
-        function returnVehicle(invoiceCode) {
-            // Implementation for returning a vehicle
-            alert('Return vehicle functionality to be implemented');
-        }
-
-        // Load return history
-        function loadReturnHistory() {
-            document.getElementById('returnHistoryTableBody').innerHTML = systemData.returns.map(returnRecord => `
-                <tr>
-                    <td>${returnRecord.invoiceCode}</td>
-                    <td>${returnRecord.customerName}</td>
-                    <td>${returnRecord.vehicleName}</td>
-                    <td>${formatDate(returnRecord.returnDate)}</td>
-                    <td>${returnRecord.lateFine} ${systemData.settings.currency}</td>
-                    <td>${returnRecord.notes}</td>
-                </tr>
-            `).join('');
-        }
-
-        // Load maintenance table
-        function loadMaintenanceTable() {
-            document.getElementById('maintenanceTableBody').innerHTML = systemData.maintenance.map(maintenance => `
-                <tr class="${maintenance.status === 'Scheduled' ? 'maintenance-status' : ''}">
-                    <td>${maintenance.vehicleName}</td>
-                    <td>${maintenance.type}</td>
-                    <td>${formatDate(maintenance.date)}</td>
-                    <td>${maintenance.cost} ${systemData.settings.currency}</td>
-                    <td>${maintenance.description}</td>
-                    <td><span class="badge ${maintenance.status === 'Completed' ? 'bg-success' : 'bg-warning'}">${maintenance.status}</span></td>
-                    <td>
-                        ${maintenance.status === 'Scheduled' ? 
-                            `<button class="btn btn-sm btn-success" onclick="completeMaintenance('${maintenance.id}')">Complete</button>` : 
-                            ''
-                        }
-                        <button class="btn btn-sm btn-danger" onclick="deleteMaintenance('${maintenance.id}')">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // Complete maintenance
-        function completeMaintenance(maintenanceId) {
-            const maintenance = systemData.maintenance.find(m => m.id === maintenanceId);
-            if (maintenance) {
-                maintenance.status = 'Completed';
-                saveSystemData();
-                loadMaintenanceTable();
-            }
-        }
-
-        // Delete maintenance
-        function deleteMaintenance(maintenanceId) {
-            if (confirm('Are you sure you want to delete this maintenance record?')) {
-                systemData.maintenance = systemData.maintenance.filter(m => m.id !== maintenanceId);
-                saveSystemData();
-                loadMaintenanceTable();
-            }
-        }
-
-        // Load payment table
-        function loadPaymentTable() {
-            document.getElementById('paymentTableBody').innerHTML = systemData.payments.map(payment => `
-                <tr>
-                    <td>${payment.customerName}</td>
-                    <td>${payment.amount} ${systemData.settings.currency}</td>
-                    <td>${formatDate(payment.date)}</td>
-                    <td>${payment.method}</td>
-                    <td>${payment.notes}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info" onclick="viewPaymentDetails('${payment.id}')">View</button>
-                        <button class="btn btn-sm btn-danger" onclick="deletePayment('${payment.id}')">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-            
-            // Load debt table
-            loadDebtTable();
-        }
-
-        // View payment details
-        function viewPaymentDetails(paymentId) {
-            // Implementation for viewing payment details
-            alert('View payment details functionality to be implemented');
-        }
-
-        // Delete payment
-        function deletePayment(paymentId) {
-            if (confirm('Are you sure you want to delete this payment record?')) {
-                systemData.payments = systemData.payments.filter(p => p.id !== paymentId);
-                saveSystemData();
-                loadPaymentTable();
-            }
-        }
-
-        // Load debt table
-        function loadDebtTable() {
-            document.getElementById('debtTableBody').innerHTML = systemData.customers.map(customer => {
-                const debt = calculateCustomerDebt(customer.id);
-                return `
-                    <tr>
-                        <td>${customer.fullName}</td>
-                        <td>${debt} ${systemData.settings.currency}</td>
-                        <td>${getLastPaymentDate(customer.id)}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" onclick="recordPaymentForCustomer('${customer.id}')">Record Payment</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // Get last payment date for a customer
-        function getLastPaymentDate(customerId) {
-            const customerPayments = systemData.payments.filter(p => p.customerId === customerId);
-            if (customerPayments.length === 0) return 'No payments';
-            
-            const lastPayment = customerPayments.reduce((latest, payment) => {
-                return new Date(payment.date) > new Date(latest.date) ? payment : latest;
-            });
-            
-            return formatDate(lastPayment.date);
-        }
-
-        // Record payment for customer
-        function recordPaymentForCustomer(customerId) {
-            // Implementation for recording payment for a specific customer
-            alert('Record payment for customer functionality to be implemented');
-        }
-
-        // Load fine table
-        function loadFineTable() {
-            document.getElementById('fineTableBody').innerHTML = systemData.fines.map(fine => `
-                <tr>
-                    <td>${fine.customerName}</td>
-                    <td>${fine.type}</td>
-                    <td>${fine.amount} ${systemData.settings.currency}</td>
-                    <td>${formatDate(fine.date)}</td>
-                    <td>${fine.description}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info" onclick="viewFineDetails('${fine.id}')">View</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteFine('${fine.id}')">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // View fine details
-        function viewFineDetails(fineId) {
-            // Implementation for viewing fine details
-            alert('View fine details functionality to be implemented');
-        }
-
-        // Delete fine
-        function deleteFine(fineId) {
-            if (confirm('Are you sure you want to delete this fine record?')) {
-                systemData.fines = systemData.fines.filter(f => f.id !== fineId);
-                saveSystemData();
-                loadFineTable();
-            }
-        }
-
-        // Load financial data
-        function loadFinancialData() {
-            // Calculate financial metrics
-            const totalRevenue = systemData.payments.reduce((sum, payment) => sum + payment.amount, 0);
-            const totalExpenses = systemData.maintenance.reduce((sum, maintenance) => sum + maintenance.cost, 0) +
-                                systemData.fines.reduce((sum, fine) => sum + fine.amount, 0);
-            const outstandingDebt = systemData.customers.reduce((sum, customer) => sum + calculateCustomerDebt(customer.id), 0);
-            const netProfit = totalRevenue - totalExpenses;
-            
-            // Update financial metrics
-            document.getElementById('totalRevenue').textContent = `${totalRevenue} ${systemData.settings.currency}`;
-            document.getElementById('totalExpenses').textContent = `${totalExpenses} ${systemData.settings.currency}`;
-            document.getElementById('outstandingDebt').textContent = `${outstandingDebt} ${systemData.settings.currency}`;
-            document.getElementById('netProfit').textContent = `${netProfit} ${systemData.settings.currency}`;
-            
-            // Load financial transactions
-            document.getElementById('financialTransactionsTable').innerHTML = systemData.financialTransactions.map(transaction => `
-                <tr>
-                    <td>${formatDate(transaction.date)}</td>
-                    <td>${transaction.type}</td>
-                    <td>${transaction.description}</td>
-                    <td>${transaction.amount} ${systemData.settings.currency}</td>
-                    <td>${transaction.balance} ${systemData.settings.currency}</td>
-                </tr>
-            `).join('');
-        }
-
-        // Load customer report options
-        function loadCustomerReportOptions() {
-            document.getElementById('customerReportSelect').innerHTML = systemData.customers.map(customer => `
-                <option value="${customer.id}">${customer.fullName}</option>
-            `).join('');
-        }
-
-        // Generate customer report
-        document.getElementById('generateCustomerReportBtn').addEventListener('click', function() {
-            const customerId = document.getElementById('customerReportSelect').value;
-            if (!customerId) {
-                alert('Please select a customer');
-                return;
-            }
-            
-            const customer = systemData.customers.find(c => c.id === customerId);
-            if (!customer) return;
-            
-            const customerRentals = systemData.rentals.filter(r => r.customerId === customerId);
-            const customerPayments = systemData.payments.filter(p => p.customerId === customerId);
-            const customerFines = systemData.fines.filter(f => f.customerId === customerId);
-            
-            document.getElementById('customerReportResults').innerHTML = `
-                <h4>Customer Report: ${customer.fullName}</h4>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                Customer Information
-                            </div>
-                            <div class="card-body">
-                                <p><strong>ID:</strong> ${customer.id}</p>
-                                <p><strong>Age:</strong> ${customer.age}</p>
-                                <p><strong>Nationality:</strong> ${customer.nationality}</p>
-                                <p><strong>Contact:</strong> ${customer.contact}</p>
-                                <p><strong>Address:</strong> ${customer.address}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                Financial Summary
-                            </div>
-                            <div class="card-body">
-                                <p><strong>Total Rentals:</strong> ${customerRentals.length}</p>
-                                <p><strong>Total Payments:</strong> ${customerPayments.reduce((sum, p) => sum + p.amount, 0)} ${systemData.settings.currency}</p>
-                                <p><strong>Total Fines:</strong> ${customerFines.reduce((sum, f) => sum + f.amount, 0)} ${systemData.settings.currency}</p>
-                                <p><strong>Current Debt:</strong> ${calculateCustomerDebt(customerId)} ${systemData.settings.currency}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        Rental History
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Invoice Code</th>
-                                        <th>Vehicle</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${customerRentals.map(rental => `
-                                        <tr>
-                                            <td>${rental.invoiceCode}</td>
-                                            <td>${rental.vehicleName}</td>
-                                            <td>${formatDate(rental.startDate)}</td>
-                                            <td>${formatDate(rental.endDate)}</td>
-                                            <td>${rental.totalAmount} ${systemData.settings.currency}</td>
-                                            <td><span class="badge ${rental.status === 'Active' ? 'bg-warning' : 'bg-success'}">${rental.status}</span></td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-
-        // Note: Additional functions for form submissions, data validation, and other features would be implemented here
-        // This is a simplified version to demonstrate the structure and main functionality
-
-        // Add event listeners for form submissions
-        document.getElementById('addVehicleForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const vehicle = {
-                id: generateId(),
-                name: document.getElementById('vehicleName').value,
-                odometer: document.getElementById('vehicleOdometer').value,
-                vin: document.getElementById('vehicleVin').value,
-                plateNumber: document.getElementById('vehiclePlate').value,
-                color: document.getElementById('vehicleColor').value,
-                model: document.getElementById('vehicleModel').value,
-                rentalPrice: document.getElementById('vehicleRentalPrice').value,
-                status: 'Available',
-                image: document.getElementById('vehicleImagePreview').querySelector('img')?.src || null
-            };
-            
-            systemData.vehicles.push(vehicle);
-            saveSystemData();
-            
-            alert('Vehicle added successfully');
-            this.reset();
-            document.getElementById('vehicleImagePreview').innerHTML = '';
-        });
-
-        document.getElementById('addCustomerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const customer = {
-                id: document.getElementById('customerId').value,
-                fullName: document.getElementById('customerFullName').value,
-                age: document.getElementById('customerAge').value,
-                nationality: document.getElementById('customerNationality').value,
-                contact: document.getElementById('customerContact').value,
-                address: document.getElementById('customerAddress').value
-            };
-            
-            systemData.customers.push(customer);
-            saveSystemData();
-            
-            alert('Customer added successfully');
-            this.reset();
-        });
-
-        // Generate unique ID
-        function generateId() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2);
-        }
-
-        // Add more form submission handlers and other functionality as needed
     </script>
 </body>
 </html>
