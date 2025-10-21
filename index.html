@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* هەمان ستایلەکان... */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -968,12 +967,12 @@
                                                     <th>Customer</th>
                                                     <th>Vehicle</th>
                                                     <th>Return Date</th>
-                                                    <th>Condition</th>
                                                     <th>Odometer</th>
+                                                    <th>Condition</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="returnHistoryTableBody">
+                                            <tbody id="returnTableBody">
                                                 <!-- Return history will be populated here -->
                                             </tbody>
                                         </table>
@@ -1005,7 +1004,7 @@
                                                     <option value="oil_change">Oil Change</option>
                                                     <option value="tire_rotation">Tire Rotation</option>
                                                     <option value="brake_service">Brake Service</option>
-                                                    <option value="engine_check">Engine Check</option>
+                                                    <option value="engine_service">Engine Service</option>
                                                     <option value="other">Other</option>
                                                 </select>
                                             </div>
@@ -1026,7 +1025,7 @@
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="maintenanceDescription" class="form-label">Description</label>
-                                                <textarea class="form-control" id="maintenanceDescription" rows="3" required></textarea>
+                                                <textarea class="form-control" id="maintenanceDescription" rows="3"></textarea>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Schedule Maintenance</button>
@@ -1044,7 +1043,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Vehicle</th>
-                                                    <th>Maintenance Type</th>
+                                                    <th>Type</th>
                                                     <th>Date</th>
                                                     <th>Cost</th>
                                                     <th>Description</th>
@@ -1052,7 +1051,7 @@
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="maintenanceHistoryTableBody">
+                                            <tbody id="maintenanceTableBody">
                                                 <!-- Maintenance history will be populated here -->
                                             </tbody>
                                         </table>
@@ -1095,7 +1094,7 @@
                                                 <select class="form-select" id="paymentMethod" required>
                                                     <option value="">Select method...</option>
                                                     <option value="cash">Cash</option>
-                                                    <option value="credit_card">Credit Card</option>
+                                                    <option value="card">Card</option>
                                                     <option value="bank_transfer">Bank Transfer</option>
                                                     <option value="other">Other</option>
                                                 </select>
@@ -1130,7 +1129,7 @@
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="paymentHistoryTableBody">
+                                            <tbody id="paymentTableBody">
                                                 <!-- Payment history will be populated here -->
                                             </tbody>
                                         </table>
@@ -1156,7 +1155,7 @@
                                                 <div class="suggestion-list" id="fineInvoiceSuggestions"></div>
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label for="fineType" class="form-label">Fine/Tax Type</label>
+                                                <label for="fineType" class="form-label">Type</label>
                                                 <select class="form-select" id="fineType" required>
                                                     <option value="">Select type...</option>
                                                     <option value="traffic_fine">Traffic Fine</option>
@@ -1183,7 +1182,7 @@
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="fineDescription" class="form-label">Description</label>
-                                                <textarea class="form-control" id="fineDescription" rows="3" required></textarea>
+                                                <textarea class="form-control" id="fineDescription" rows="3"></textarea>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Add Fine/Tax</button>
@@ -1210,8 +1209,8 @@
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="fineHistoryTableBody">
-                                                <!-- Fine history will be populated here -->
+                                            <tbody id="fineTableBody">
+                                                <!-- Fines history will be populated here -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -1230,43 +1229,29 @@
                                 <div class="card-body">
                                     <form id="reportForm">
                                         <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-4 mb-3">
                                                 <label for="reportType" class="form-label">Report Type</label>
                                                 <select class="form-select" id="reportType" required>
                                                     <option value="">Select report type...</option>
-                                                    <option value="rental_report">Rental Report</option>
-                                                    <option value="payment_report">Payment Report</option>
-                                                    <option value="maintenance_report">Maintenance Report</option>
-                                                    <option value="fine_report">Fine Report</option>
-                                                    <option value="vehicle_report">Vehicle Report</option>
-                                                    <option value="customer_report">Customer Report</option>
+                                                    <option value="rental">Rental Report</option>
+                                                    <option value="financial">Financial Report</option>
+                                                    <option value="vehicle">Vehicle Report</option>
+                                                    <option value="customer">Customer Report</option>
+                                                    <option value="maintenance">Maintenance Report</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="reportPeriod" class="form-label">Period</label>
-                                                <select class="form-select" id="reportPeriod" required>
-                                                    <option value="">Select period...</option>
-                                                    <option value="today">Today</option>
-                                                    <option value="this_week">This Week</option>
-                                                    <option value="this_month">This Month</option>
-                                                    <option value="this_year">This Year</option>
-                                                    <option value="custom">Custom</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="customDateRange" style="display: none;">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-4 mb-3">
                                                 <label for="reportStartDate" class="form-label">Start Date</label>
-                                                <input type="date" class="form-control" id="reportStartDate">
+                                                <input type="date" class="form-control" id="reportStartDate" required>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-4 mb-3">
                                                 <label for="reportEndDate" class="form-label">End Date</label>
-                                                <input type="date" class="form-control" id="reportEndDate">
+                                                <input type="date" class="form-control" id="reportEndDate" required>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Generate Report</button>
                                         <button type="button" class="btn btn-success" id="exportReportBtn">
-                                            <i class="fas fa-file-excel"></i> Export to Excel
+                                            <i class="fas fa-file-export"></i> Export to Excel
                                         </button>
                                     </form>
                                 </div>
@@ -1277,17 +1262,8 @@
                                     Report Results
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover" id="reportTable">
-                                            <thead>
-                                                <tr>
-                                                    <!-- Table headers will be populated based on report type -->
-                                                </tr>
-                                            </thead>
-                                            <tbody id="reportTableBody">
-                                                <!-- Report data will be populated here -->
-                                            </tbody>
-                                        </table>
+                                    <div id="reportResults">
+                                        <!-- Report results will be displayed here -->
                                     </div>
                                 </div>
                             </div>
@@ -1309,33 +1285,27 @@
                                                 <input type="text" class="form-control" id="systemName" value="Car Rental System">
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label for="systemCurrency" class="form-label">Currency</label>
-                                                <select class="form-select" id="systemCurrency">
-                                                    <option value="AED">AED (United Arab Emirates Dirham)</option>
-                                                    <option value="USD">USD (US Dollar)</option>
-                                                    <option value="EUR">EUR (Euro)</option>
-                                                    <option value="GBP">GBP (British Pound)</option>
-                                                    <option value="SAR">SAR (Saudi Riyal)</option>
-                                                    <option value="QAR">QAR (Qatari Riyal)</option>
-                                                    <option value="KWD">KWD (Kuwaiti Dinar)</option>
-                                                    <option value="BHD">BHD (Bahraini Dinar)</option>
-                                                    <option value="OMR">OMR (Omani Rial)</option>
-                                                    <option value="CAD">CAD (Canadian Dollar)</option>
-                                                    <option value="AUD">AUD (Australian Dollar)</option>
-                                                </select>
+                                                <label for="systemLogo" class="form-label">System Logo</label>
+                                                <input type="file" class="form-control" id="systemLogo" accept="image/*">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label for="systemLogo" class="form-label">System Logo</label>
-                                                <input type="file" class="form-control" id="systemLogo" accept="image/*">
+                                                <label for="currency" class="form-label">Currency</label>
+                                                <select class="form-select" id="currency">
+                                                    <option value="AED" selected>AED (UAE Dirham)</option>
+                                                    <option value="USD">USD (US Dollar)</option>
+                                                    <option value="EUR">EUR (Euro)</option>
+                                                    <option value="GBP">GBP (British Pound)</option>
+                                                    <option value="SAR">SAR (Saudi Riyal)</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="dateFormat" class="form-label">Date Format</label>
                                                 <select class="form-select" id="dateFormat">
-                                                    <option value="dd/mm/yyyy">DD/MM/YYYY</option>
-                                                    <option value="mm/dd/yyyy">MM/DD/YYYY</option>
-                                                    <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                                                    <option value="YYYY-MM-DD" selected>YYYY-MM-DD</option>
+                                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1346,105 +1316,58 @@
                             
                             <div class="card mt-4">
                                 <div class="card-header">
-                                    User Management
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Username</th>
-                                                    <th>Role</th>
-                                                    <th>Last Login</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="userTableBody">
-                                                <!-- User data will be populated here -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                                        <i class="fas fa-user-plus"></i> Add New User
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="card mt-4">
-                                <div class="card-header">
-                                    Permissions Management
+                                    User Permissions
                                 </div>
                                 <div class="card-body">
                                     <div class="permission-section">
-                                        <h5>User Permissions</h5>
-                                        <p>Control what users can do in the system</p>
-                                        
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionEdit" checked>
-                                                        <label class="form-check-label" for="permissionEdit">Allow users to edit data</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionDelete" checked>
-                                                        <label class="form-check-label" for="permissionDelete">Allow users to delete data</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionVehicles" checked>
-                                                        <label class="form-check-label" for="permissionVehicles">Allow access to Vehicles section</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionRentals" checked>
-                                                        <label class="form-check-label" for="permissionRentals">Allow access to Rentals & Customers section</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionReturns" checked>
-                                                        <label class="form-check-label" for="permissionReturns">Allow access to Vehicle Returns section</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionMaintenance" checked>
-                                                        <label class="form-check-label" for="permissionMaintenance">Allow access to Vehicle Maintenance section</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionPayments" checked>
-                                                        <label class="form-check-label" for="permissionPayments">Allow access to Payments section</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionFines" checked>
-                                                        <label class="form-check-label" for="permissionFines">Allow access to Fines & Taxes section</label>
-                                                    </div>
-                                                </div>
-                                                <div class="permission-item">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="permissionReports" checked>
-                                                        <label class="form-check-label" for="permissionReports">Allow access to Reports section</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <h5>User Management</h5>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionUserAdd" class="form-check-input">
+                                            <label for="permissionUserAdd" class="form-check-label">Add Users</label>
                                         </div>
-                                        
-                                        <button type="button" class="btn btn-primary mt-3" id="savePermissionsBtn">
-                                            Save Permissions
-                                        </button>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionUserEdit" class="form-check-input">
+                                            <label for="permissionUserEdit" class="form-check-label">Edit Users</label>
+                                        </div>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionUserDelete" class="form-check-input">
+                                            <label for="permissionUserDelete" class="form-check-label">Delete Users</label>
+                                        </div>
                                     </div>
+                                    
+                                    <div class="permission-section">
+                                        <h5>Vehicle Management</h5>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionVehicleAdd" class="form-check-input">
+                                            <label for="permissionVehicleAdd" class="form-check-label">Add Vehicles</label>
+                                        </div>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionVehicleEdit" class="form-check-input">
+                                            <label for="permissionVehicleEdit" class="form-check-label">Edit Vehicles</label>
+                                        </div>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionVehicleDelete" class="form-check-input">
+                                            <label for="permissionVehicleDelete" class="form-check-label">Delete Vehicles</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="permission-section">
+                                        <h5>Rental Management</h5>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionRentalCreate" class="form-check-input">
+                                            <label for="permissionRentalCreate" class="form-check-label">Create Rentals</label>
+                                        </div>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionRentalEdit" class="form-check-input">
+                                            <label for="permissionRentalEdit" class="form-check-label">Edit Rentals</label>
+                                        </div>
+                                        <div class="permission-item">
+                                            <input type="checkbox" id="permissionRentalDelete" class="form-check-input">
+                                            <label for="permissionRentalDelete" class="form-check-label">Delete Rentals</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="button" class="btn btn-primary mt-3">Save Permissions</button>
                                 </div>
                             </div>
                         </div>
@@ -1477,8 +1400,11 @@
                             <label for="confirmPassword" class="form-label">Confirm New Password</label>
                             <input type="password" class="form-control" id="confirmPassword" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Change Password</button>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="savePasswordBtn">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -1498,20 +1424,23 @@
                             <thead>
                                 <tr>
                                     <th>Username</th>
+                                    <th>Full Name</th>
                                     <th>Role</th>
-                                    <th>Last Login</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="userManagementTableBody">
-                                <!-- User management data will be populated here -->
+                            <tbody id="userTableBody">
+                                <!-- User data will be populated here -->
                             </tbody>
                         </table>
                     </div>
+                    <button type="button" class="btn btn-primary" id="addUserBtn">
+                        <i class="fas fa-user-plus"></i> Add User
+                    </button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Add New User</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -1532,31 +1461,39 @@
                             <input type="text" class="form-control" id="newUsername" required>
                         </div>
                         <div class="mb-3">
-                            <label for="newUserPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="newUserPassword" required>
+                            <label for="newFullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="newFullName" required>
                         </div>
                         <div class="mb-3">
                             <label for="newUserRole" class="form-label">Role</label>
                             <select class="form-select" id="newUserRole" required>
-                                <option value="user">User</option>
                                 <option value="admin">Admin</option>
+                                <option value="user">User</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add User</button>
+                        <div class="mb-3">
+                            <label for="newUserPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="newUserPassword" required>
+                        </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveUserBtn">Save User</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // System Data and State
+        // System Data Storage
         let systemData = {
             users: [
-                { username: "admin", password: "000000", role: "admin", lastLogin: null },
-                { username: "user", password: "123456", role: "user", lastLogin: null }
+                { username: "admin", password: "000000", fullName: "System Administrator", role: "admin" },
+                { username: "user", password: "123456", fullName: "Regular User", role: "user" }
             ],
             vehicles: [],
             customers: [],
@@ -1568,126 +1505,63 @@
             settings: {
                 systemName: "Car Rental System",
                 currency: "AED",
-                dateFormat: "dd/mm/yyyy",
-                logo: null
+                dateFormat: "YYYY-MM-DD"
             },
             permissions: {
-                edit: true,
-                delete: true,
-                vehicles: true,
-                rentals: true,
-                returns: true,
-                maintenance: true,
-                payments: true,
-                fines: true,
-                reports: true
-            },
-            currentUser: null,
-            colors: ["Red", "Blue", "Black", "White", "Silver", "Gray", "Green", "Yellow", "Orange", "Brown"],
-            models: ["2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"],
-            nationalities: ["United Arab Emirates", "Saudi Arabia", "Oman", "Qatar", "Kuwait", "Bahrain", "Egypt", "Jordan", "Lebanon", "Syria", "India", "Pakistan", "Bangladesh", "Philippines", "United States", "United Kingdom", "Canada", "Australia", "France", "Germany"]
+                admin: {
+                    dashboard: true,
+                    vehicles: true,
+                    rentals_customers: true,
+                    returns: true,
+                    maintenance: true,
+                    payments: true,
+                    fines: true,
+                    reports: true,
+                    settings: true
+                },
+                user: {
+                    dashboard: true,
+                    vehicles: true,
+                    rentals_customers: true,
+                    returns: true,
+                    maintenance: true,
+                    payments: true,
+                    fines: true,
+                    reports: true,
+                    settings: false
+                }
+            }
         };
+
+        // Current User
+        let currentUser = null;
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             // Load data from localStorage
             loadData();
             
-            // Check if user is already logged in
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                systemData.currentUser = JSON.parse(savedUser);
-                showMainApp();
-            }
-            
             // Set up event listeners
             setupEventListeners();
             
-            // Initialize date fields with today's date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('rentalStartDate').value = today;
-            document.getElementById('rentalEndDate').value = today;
-            document.getElementById('returnDate').value = today;
-            document.getElementById('maintenanceDate').value = today;
-            document.getElementById('paymentDate').value = today;
-            document.getElementById('fineDate').value = today;
+            // Initialize date fields
+            initializeDateFields();
+            
+            // Check if user is already logged in
+            checkLoginStatus();
         });
 
         // Load data from localStorage
         function loadData() {
-            const savedData = localStorage.getItem('carRentalData');
+            const savedData = localStorage.getItem('carRentalSystem');
             if (savedData) {
-                const parsedData = JSON.parse(savedData);
-                systemData = { ...systemData, ...parsedData };
+                systemData = JSON.parse(savedData);
             }
-            
-            // Apply settings
-            applySettings();
         }
 
         // Save data to localStorage
         function saveData() {
-            localStorage.setItem('carRentalData', JSON.stringify(systemData));
-        }
-
-        // Apply system settings
-        function applySettings() {
-            document.getElementById('systemName').value = systemData.settings.systemName;
-            document.getElementById('systemCurrency').value = systemData.settings.currency;
-            document.getElementById('dateFormat').value = systemData.settings.dateFormat;
-            
-            document.getElementById('headerSystemName').textContent = systemData.settings.systemName;
-            document.getElementById('sidebarSystemName').textContent = systemData.settings.systemName;
-            
-            // Apply permissions
-            document.getElementById('permissionEdit').checked = systemData.permissions.edit;
-            document.getElementById('permissionDelete').checked = systemData.permissions.delete;
-            document.getElementById('permissionVehicles').checked = systemData.permissions.vehicles;
-            document.getElementById('permissionRentals').checked = systemData.permissions.rentals;
-            document.getElementById('permissionReturns').checked = systemData.permissions.returns;
-            document.getElementById('permissionMaintenance').checked = systemData.permissions.maintenance;
-            document.getElementById('permissionPayments').checked = systemData.permissions.payments;
-            document.getElementById('permissionFines').checked = systemData.permissions.fines;
-            document.getElementById('permissionReports').checked = systemData.permissions.reports;
-            
-            // Apply permissions to UI based on user role
-            applyPermissions();
-        }
-
-        // Apply permissions based on user role
-        function applyPermissions() {
-            const isAdmin = systemData.currentUser && systemData.currentUser.role === 'admin';
-            const isUser = systemData.currentUser && systemData.currentUser.role === 'user';
-            
-            // Show/hide admin-only elements
-            const adminElements = document.querySelectorAll('.admin-only');
-            adminElements.forEach(el => {
-                el.style.display = isAdmin ? 'block' : 'none';
-            });
-            
-            // Apply permission settings for users
-            if (isUser) {
-                // Edit permission
-                const editButtons = document.querySelectorAll('.btn-warning, .edit-btn');
-                editButtons.forEach(btn => {
-                    btn.style.display = systemData.permissions.edit ? 'inline-block' : 'none';
-                });
-                
-                // Delete permission
-                const deleteButtons = document.querySelectorAll('.btn-danger, .delete-btn');
-                deleteButtons.forEach(btn => {
-                    btn.style.display = systemData.permissions.delete ? 'inline-block' : 'none';
-                });
-                
-                // Section permissions
-                document.querySelector('.vehicles-item').style.display = systemData.permissions.vehicles ? 'block' : 'none';
-                document.querySelector('.rentals-customers-item').style.display = systemData.permissions.rentals ? 'block' : 'none';
-                document.querySelector('.returns-item').style.display = systemData.permissions.returns ? 'block' : 'none';
-                document.querySelector('.maintenance-item').style.display = systemData.permissions.maintenance ? 'block' : 'none';
-                document.querySelector('.payments-item').style.display = systemData.permissions.payments ? 'block' : 'none';
-                document.querySelector('.fines-item').style.display = systemData.permissions.fines ? 'block' : 'none';
-                document.querySelector('.reports-item').style.display = systemData.permissions.reports ? 'block' : 'none';
-            }
+            localStorage.setItem('carRentalSystem', JSON.stringify(systemData));
         }
 
         // Set up event listeners
@@ -1698,140 +1572,91 @@
             // Logout button
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
             
-            // Change password form
-            document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+            // Save password button
+            document.getElementById('savePasswordBtn').addEventListener('click', changePassword);
             
-            // Add user form
-            document.getElementById('addUserForm').addEventListener('submit', handleAddUser);
+            // Add user button
+            document.getElementById('addUserBtn').addEventListener('click', showAddUserModal);
             
-            // Save permissions button
-            document.getElementById('savePermissionsBtn').addEventListener('click', handleSavePermissions);
+            // Save user button
+            document.getElementById('saveUserBtn').addEventListener('click', saveNewUser);
             
-            // General settings form
-            document.getElementById('generalSettingsForm').addEventListener('submit', handleSaveGeneralSettings);
+            // Vehicle form
+            document.getElementById('addVehicleForm').addEventListener('submit', addVehicle);
             
-            // Add vehicle form
-            document.getElementById('addVehicleForm').addEventListener('submit', handleAddVehicle);
-            
-            // Create rental form
-            document.getElementById('createRentalForm').addEventListener('submit', handleCreateRental);
-            
-            // Return vehicle form
-            document.getElementById('returnVehicleForm').addEventListener('submit', handleReturnVehicle);
-            
-            // Maintenance form
-            document.getElementById('maintenanceForm').addEventListener('submit', handleMaintenance);
-            
-            // Payment form
-            document.getElementById('paymentForm').addEventListener('submit', handlePayment);
-            
-            // Fine form
-            document.getElementById('fineForm').addEventListener('submit', handleFine);
-            
-            // Report form
-            document.getElementById('reportForm').addEventListener('submit', handleGenerateReport);
-            
-            // Export report button
-            document.getElementById('exportReportBtn').addEventListener('click', handleExportReport);
-            
-            // Toggle customer form
-            document.getElementById('toggleCustomerForm').addEventListener('click', function() {
-                const form = document.getElementById('newCustomerForm');
-                form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            });
+            // Vehicle search
+            document.getElementById('vehicleSearchBtn').addEventListener('click', searchVehicles);
+            document.getElementById('vehicleSearch').addEventListener('input', searchVehicles);
             
             // Close vehicle details
-            document.getElementById('closeVehicleDetails').addEventListener('click', function() {
-                document.getElementById('vehicleDetailsCard').style.display = 'none';
-            });
+            document.getElementById('closeVehicleDetails').addEventListener('click', closeVehicleDetails);
+            
+            // Vehicle history search
+            document.getElementById('vehicleHistorySearchBtn').addEventListener('click', searchVehicleHistory);
+            document.getElementById('vehicleHistorySearch').addEventListener('input', searchVehicleHistory);
+            
+            // Customer search
+            document.getElementById('customerSearchBtn').addEventListener('click', searchCustomers);
+            document.getElementById('customerSearch').addEventListener('input', searchCustomers);
             
             // Close customer details
-            document.getElementById('closeCustomerDetails').addEventListener('click', function() {
-                document.getElementById('customerDetailsCard').style.display = 'none';
-            });
+            document.getElementById('closeCustomerDetails').addEventListener('click', closeCustomerDetails);
             
-            // Search functionality
-            document.getElementById('vehicleSearchBtn').addEventListener('click', searchVehicles);
-            document.getElementById('vehicleSearch').addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') searchVehicles();
-            });
+            // Toggle customer form
+            document.getElementById('toggleCustomerForm').addEventListener('click', toggleCustomerForm);
             
-            document.getElementById('customerSearchBtn').addEventListener('click', searchCustomers);
-            document.getElementById('customerSearch').addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') searchCustomers();
-            });
+            // Rental form
+            document.getElementById('createRentalForm').addEventListener('submit', createRental);
             
+            // Rental search
             document.getElementById('rentalSearchBtn').addEventListener('click', searchRentals);
-            document.getElementById('rentalSearch').addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') searchRentals();
-            });
+            document.getElementById('rentalSearch').addEventListener('input', searchRentals);
             
-            // Suggestion functionality
-            setupSuggestion('vehicleColor', 'colorSuggestions', systemData.colors);
-            setupSuggestion('vehicleModel', 'modelSuggestions', systemData.models);
-            setupSuggestion('customerNationality', 'nationalitySuggestions', systemData.nationalities);
-            setupSuggestion('rentalCustomer', 'customerSuggestions', systemData.customers.map(c => c.fullName));
-            setupSuggestion('rentalVehicle', 'vehicleSuggestions', systemData.vehicles.map(v => v.name));
-            setupSuggestion('returnInvoiceCode', 'invoiceSuggestions', systemData.rentals.map(r => r.invoiceCode));
-            setupSuggestion('maintenanceVehicle', 'maintenanceVehicleSuggestions', systemData.vehicles.map(v => v.name));
-            setupSuggestion('paymentInvoiceCode', 'paymentInvoiceSuggestions', systemData.rentals.map(r => r.invoiceCode));
-            setupSuggestion('fineInvoiceCode', 'fineInvoiceSuggestions', systemData.rentals.map(r => r.invoiceCode));
+            // Return form
+            document.getElementById('returnVehicleForm').addEventListener('submit', processReturn);
             
-            // Report period change
-            document.getElementById('reportPeriod').addEventListener('change', function() {
-                document.getElementById('customDateRange').style.display = 
-                    this.value === 'custom' ? 'block' : 'none';
-            });
+            // Maintenance form
+            document.getElementById('maintenanceForm').addEventListener('submit', scheduleMaintenance);
             
-            // Tab change events to refresh data
-            document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(tab => {
-                tab.addEventListener('shown.bs.tab', function(e) {
-                    const target = e.target.getAttribute('href');
-                    if (target === '#dashboard') refreshDashboard();
-                    else if (target === '#vehicleList') refreshVehicleList();
-                    else if (target === '#customerList') refreshCustomerList();
-                    else if (target === '#rentalList') refreshRentalList();
-                    else if (target === '#returns') refreshReturnHistory();
-                    else if (target === '#maintenance') refreshMaintenanceHistory();
-                    else if (target === '#payments') refreshPaymentHistory();
-                    else if (target === '#fines') refreshFineHistory();
-                    else if (target === '#settings') refreshUserTable();
-                });
-            });
+            // Payment form
+            document.getElementById('paymentForm').addEventListener('submit', recordPayment);
+            
+            // Fine form
+            document.getElementById('fineForm').addEventListener('submit', addFine);
+            
+            // Report form
+            document.getElementById('reportForm').addEventListener('submit', generateReport);
+            
+            // Export report button
+            document.getElementById('exportReportBtn').addEventListener('click', exportReport);
+            
+            // Settings form
+            document.getElementById('generalSettingsForm').addEventListener('submit', saveSettings);
+            
+            // Auto-suggestions
+            setupAutoSuggestions();
         }
 
-        // Setup suggestion functionality for input fields
-        function setupSuggestion(inputId, suggestionId, suggestions) {
-            const input = document.getElementById(inputId);
-            const suggestionList = document.getElementById(suggestionId);
-            
-            input.addEventListener('input', function() {
-                const value = this.value.toLowerCase();
-                const filtered = suggestions.filter(s => s.toLowerCase().includes(value));
-                
-                if (filtered.length > 0 && value) {
-                    suggestionList.innerHTML = '';
-                    filtered.forEach(item => {
-                        const div = document.createElement('div');
-                        div.className = 'suggestion-item';
-                        div.textContent = item;
-                        div.addEventListener('click', function() {
-                            input.value = item;
-                            suggestionList.style.display = 'none';
-                        });
-                        suggestionList.appendChild(div);
-                    });
-                    suggestionList.style.display = 'block';
-                } else {
-                    suggestionList.style.display = 'none';
-                }
-            });
-            
-            input.addEventListener('blur', function() {
-                setTimeout(() => {
-                    suggestionList.style.display = 'none';
-                }, 200);
-            });
+        // Initialize date fields with current date
+        function initializeDateFields() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('rentalStartDate').value = today;
+            document.getElementById('rentalEndDate').value = today;
+            document.getElementById('returnDate').value = today;
+            document.getElementById('maintenanceDate').value = today;
+            document.getElementById('paymentDate').value = today;
+            document.getElementById('fineDate').value = today;
+            document.getElementById('reportStartDate').value = today;
+            document.getElementById('reportEndDate').value = today;
+        }
+
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const loggedInUser = sessionStorage.getItem('currentUser');
+            if (loggedInUser) {
+                currentUser = JSON.parse(loggedInUser);
+                showMainApp();
+            }
         }
 
         // Handle login
@@ -1844,13 +1669,8 @@
             const user = systemData.users.find(u => u.username === username && u.password === password);
             
             if (user) {
-                // Update last login
-                user.lastLogin = new Date().toISOString();
-                saveData();
-                
-                systemData.currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
+                currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
                 showMainApp();
             } else {
                 alert('Invalid username or password!');
@@ -1859,62 +1679,149 @@
 
         // Handle logout
         function handleLogout() {
-            systemData.currentUser = null;
-            localStorage.removeItem('currentUser');
-            document.getElementById('mainApp').style.display = 'none';
+            currentUser = null;
+            sessionStorage.removeItem('currentUser');
+            showLoginScreen();
+        }
+
+        // Show login screen
+        function showLoginScreen() {
             document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('loginForm').reset();
+            document.getElementById('mainApp').style.display = 'none';
         }
 
         // Show main application
         function showMainApp() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
-            document.getElementById('currentUser').textContent = systemData.currentUser.username;
             
-            // Apply permissions based on user role
-            applyPermissions();
+            // Update UI based on current user
+            updateUIForUser();
             
-            // Refresh dashboard
-            refreshDashboard();
+            // Load dashboard data
+            loadDashboardData();
+            
+            // Load vehicle list
+            loadVehicleList();
+            
+            // Load customer list
+            loadCustomerList();
+            
+            // Load rental list
+            loadRentalList();
+            
+            // Load return history
+            loadReturnHistory();
+            
+            // Load maintenance history
+            loadMaintenanceHistory();
+            
+            // Load payment history
+            loadPaymentHistory();
+            
+            // Load fine history
+            loadFineHistory();
+            
+            // Load user list
+            loadUserList();
+            
+            // Apply settings
+            applySettings();
         }
 
-        // Handle change password
-        function handleChangePassword(e) {
-            e.preventDefault();
+        // Update UI based on user role
+        function updateUIForUser() {
+            document.getElementById('currentUser').textContent = currentUser.fullName;
             
+            // Show/hide admin-only elements
+            const adminOnlyElements = document.querySelectorAll('.admin-only');
+            adminOnlyElements.forEach(el => {
+                el.style.display = currentUser.role === 'admin' ? 'block' : 'none';
+            });
+            
+            // Show/hide user-only elements
+            const userOnlyElements = document.querySelectorAll('.user-only');
+            userOnlyElements.forEach(el => {
+                el.style.display = currentUser.role === 'user' ? 'block' : 'none';
+            });
+            
+            // Enable/disable tabs based on permissions
+            const userPermissions = systemData.permissions[currentUser.role];
+            
+            const tabItems = {
+                'dashboard': document.querySelector('.dashboard-item'),
+                'vehicles': document.querySelector('.vehicles-item'),
+                'rentals_customers': document.querySelector('.rentals-customers-item'),
+                'returns': document.querySelector('.returns-item'),
+                'maintenance': document.querySelector('.maintenance-item'),
+                'payments': document.querySelector('.payments-item'),
+                'fines': document.querySelector('.fines-item'),
+                'reports': document.querySelector('.reports-item'),
+                'settings': document.querySelector('.settings-item')
+            };
+            
+            for (const [tab, element] of Object.entries(tabItems)) {
+                if (element) {
+                    element.style.display = userPermissions[tab] ? 'block' : 'none';
+                }
+            }
+        }
+
+        // Change password
+        function changePassword() {
             const currentPassword = document.getElementById('currentPassword').value;
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (currentPassword !== currentUser.password) {
+                alert('Current password is incorrect!');
+                return;
+            }
             
             if (newPassword !== confirmPassword) {
                 alert('New passwords do not match!');
                 return;
             }
             
-            if (systemData.currentUser.password !== currentPassword) {
-                alert('Current password is incorrect!');
-                return;
+            // Update password
+            currentUser.password = newPassword;
+            
+            // Update in system data
+            const userIndex = systemData.users.findIndex(u => u.username === currentUser.username);
+            if (userIndex !== -1) {
+                systemData.users[userIndex].password = newPassword;
             }
             
-            systemData.currentUser.password = newPassword;
+            // Save data
             saveData();
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
             
-            alert('Password changed successfully!');
+            // Close modal and reset form
             document.getElementById('changePasswordModal').querySelector('.btn-close').click();
             document.getElementById('changePasswordForm').reset();
+            
+            alert('Password changed successfully!');
         }
 
-        // Handle add user
-        function handleAddUser(e) {
-            e.preventDefault();
+        // Show add user modal
+        function showAddUserModal() {
+            // Close user management modal
+            document.getElementById('userManagementModal').querySelector('.btn-close').click();
             
+            // Show add user modal
+            const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+            addUserModal.show();
+        }
+
+        // Save new user
+        function saveNewUser() {
             const username = document.getElementById('newUsername').value;
-            const password = document.getElementById('newUserPassword').value;
+            const fullName = document.getElementById('newFullName').value;
             const role = document.getElementById('newUserRole').value;
+            const password = document.getElementById('newUserPassword').value;
             
             // Check if username already exists
-            if (systemData.users.find(u => u.username === username)) {
+            if (systemData.users.some(u => u.username === username)) {
                 alert('Username already exists!');
                 return;
             }
@@ -1923,64 +1830,67 @@
             systemData.users.push({
                 username,
                 password,
-                role,
-                lastLogin: null
+                fullName,
+                role
             });
             
+            // Save data
             saveData();
-            refreshUserTable();
             
-            alert('User added successfully!');
+            // Reload user list
+            loadUserList();
+            
+            // Close modal and reset form
             document.getElementById('addUserModal').querySelector('.btn-close').click();
             document.getElementById('addUserForm').reset();
+            
+            alert('User added successfully!');
         }
 
-        // Handle save permissions
-        function handleSavePermissions() {
-            systemData.permissions.edit = document.getElementById('permissionEdit').checked;
-            systemData.permissions.delete = document.getElementById('permissionDelete').checked;
-            systemData.permissions.vehicles = document.getElementById('permissionVehicles').checked;
-            systemData.permissions.rentals = document.getElementById('permissionRentals').checked;
-            systemData.permissions.returns = document.getElementById('permissionReturns').checked;
-            systemData.permissions.maintenance = document.getElementById('permissionMaintenance').checked;
-            systemData.permissions.payments = document.getElementById('permissionPayments').checked;
-            systemData.permissions.fines = document.getElementById('permissionFines').checked;
-            systemData.permissions.reports = document.getElementById('permissionReports').checked;
+        // Load user list
+        function loadUserList() {
+            const userTableBody = document.getElementById('userTableBody');
+            userTableBody.innerHTML = '';
             
-            saveData();
-            applyPermissions();
-            
-            alert('Permissions saved successfully!');
+            systemData.users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.role}</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" onclick="editUser('${user.username}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        ${user.username !== 'admin' ? `
+                        <button class="btn btn-sm btn-danger" onclick="deleteUser('${user.username}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        ` : ''}
+                    </td>
+                `;
+                userTableBody.appendChild(row);
+            });
         }
 
-        // Handle save general settings
-        function handleSaveGeneralSettings(e) {
-            e.preventDefault();
-            
-            systemData.settings.systemName = document.getElementById('systemName').value;
-            systemData.settings.currency = document.getElementById('systemCurrency').value;
-            systemData.settings.dateFormat = document.getElementById('dateFormat').value;
-            
-            // Handle logo upload
-            const logoFile = document.getElementById('systemLogo').files[0];
-            if (logoFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    systemData.settings.logo = e.target.result;
-                    saveData();
-                    applySettings();
-                };
-                reader.readAsDataURL(logoFile);
-            } else {
+        // Edit user (placeholder)
+        function editUser(username) {
+            alert(`Edit user functionality for ${username} would be implemented here.`);
+        }
+
+        // Delete user
+        function deleteUser(username) {
+            if (confirm(`Are you sure you want to delete user ${username}?`)) {
+                systemData.users = systemData.users.filter(u => u.username !== username);
                 saveData();
-                applySettings();
+                loadUserList();
+                alert('User deleted successfully!');
             }
-            
-            alert('Settings saved successfully!');
         }
 
-        // Handle add vehicle
-        function handleAddVehicle(e) {
+        // Add vehicle
+        function addVehicle(e) {
             e.preventDefault();
             
             const name = document.getElementById('vehicleName').value;
@@ -1991,35 +1901,19 @@
             const model = document.getElementById('vehicleModel').value;
             const rentalPrice = parseFloat(document.getElementById('vehicleRentalPrice').value);
             
-            // Add to colors and models if new
-            if (!systemData.colors.includes(color)) {
-                systemData.colors.push(color);
-            }
-            if (!systemData.models.includes(model)) {
-                systemData.models.push(model);
+            // Check if VIN already exists
+            if (systemData.vehicles.some(v => v.vin === vin)) {
+                alert('Vehicle with this VIN already exists!');
+                return;
             }
             
-            // Handle image upload
-            const imageFile = document.getElementById('vehicleImage').files[0];
-            let imageData = null;
-            
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageData = e.target.result;
-                    
-                    // Add vehicle with image
-                    addVehicleToSystem(name, odometer, vin, plate, color, model, rentalPrice, imageData);
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                // Add vehicle without image
-                addVehicleToSystem(name, odometer, vin, plate, color, model, rentalPrice, null);
+            // Check if plate number already exists
+            if (systemData.vehicles.some(v => v.plate === plate)) {
+                alert('Vehicle with this plate number already exists!');
+                return;
             }
-        }
-
-        // Add vehicle to system
-        function addVehicleToSystem(name, odometer, vin, plate, color, model, rentalPrice, image) {
+            
+            // Add new vehicle
             const newVehicle = {
                 id: generateId(),
                 name,
@@ -2029,52 +1923,508 @@
                 color,
                 model,
                 rentalPrice,
-                image,
                 status: 'available',
-                created: new Date().toISOString()
+                image: null,
+                createdDate: new Date().toISOString()
             };
             
-            systemData.vehicles.push(newVehicle);
-            saveData();
-            
-            alert('Vehicle added successfully!');
-            document.getElementById('addVehicleForm').reset();
-            
-            // Refresh vehicle list if visible
-            if (document.getElementById('vehicleList').classList.contains('show')) {
-                refreshVehicleList();
+            // Handle image upload
+            const imageInput = document.getElementById('vehicleImage');
+            if (imageInput.files.length > 0) {
+                const file = imageInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newVehicle.image = e.target.result;
+                    systemData.vehicles.push(newVehicle);
+                    saveData();
+                    loadVehicleList();
+                    document.getElementById('addVehicleForm').reset();
+                    alert('Vehicle added successfully!');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                systemData.vehicles.push(newVehicle);
+                saveData();
+                loadVehicleList();
+                document.getElementById('addVehicleForm').reset();
+                alert('Vehicle added successfully!');
             }
         }
 
-        // Handle create rental
-        function handleCreateRental(e) {
+        // Load vehicle list
+        function loadVehicleList() {
+            const vehicleTableBody = document.getElementById('vehicleTableBody');
+            vehicleTableBody.innerHTML = '';
+            
+            systemData.vehicles.forEach(vehicle => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        ${vehicle.image ? 
+                            `<img src="${vehicle.image}" class="vehicle-image" alt="${vehicle.name}">` : 
+                            '<i class="fas fa-car fa-2x text-muted"></i>'
+                        }
+                    </td>
+                    <td>${vehicle.name}</td>
+                    <td>${vehicle.model}</td>
+                    <td>${vehicle.color}</td>
+                    <td>${vehicle.plate}</td>
+                    <td>${vehicle.odometer.toLocaleString()}</td>
+                    <td>${vehicle.rentalPrice} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                    <td>
+                        <span class="badge ${vehicle.status === 'available' ? 'bg-success' : 
+                                         vehicle.status === 'rented' ? 'bg-warning' : 
+                                         vehicle.status === 'maintenance' ? 'bg-info' : 'bg-danger'}">
+                            ${vehicle.status}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewVehicleDetails('${vehicle.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editVehicle('${vehicle.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteVehicle('${vehicle.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                vehicleTableBody.appendChild(row);
+            });
+        }
+
+        // View vehicle details
+        function viewVehicleDetails(vehicleId) {
+            const vehicle = systemData.vehicles.find(v => v.id === vehicleId);
+            if (!vehicle) return;
+            
+            const detailsContent = document.getElementById('vehicleDetailsContent');
+            detailsContent.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        ${vehicle.image ? 
+                            `<img src="${vehicle.image}" class="img-fluid rounded" alt="${vehicle.name}">` : 
+                            '<div class="text-center p-4 bg-light rounded"><i class="fas fa-car fa-5x text-muted"></i></div>'
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <h4>${vehicle.name}</h4>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Model:</th>
+                                <td>${vehicle.model}</td>
+                            </tr>
+                            <tr>
+                                <th>Color:</th>
+                                <td>${vehicle.color}</td>
+                            </tr>
+                            <tr>
+                                <th>Plate Number:</th>
+                                <td>${vehicle.plate}</td>
+                            </tr>
+                            <tr>
+                                <th>VIN:</th>
+                                <td>${vehicle.vin}</td>
+                            </tr>
+                            <tr>
+                                <th>Odometer:</th>
+                                <td>${vehicle.odometer.toLocaleString()} km</td>
+                            </tr>
+                            <tr>
+                                <th>Rental Price:</th>
+                                <td>${vehicle.rentalPrice} <span class="currency-badge">${systemData.settings.currency}</span> per day</td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>
+                                    <span class="badge ${vehicle.status === 'available' ? 'bg-success' : 
+                                                     vehicle.status === 'rented' ? 'bg-warning' : 
+                                                     vehicle.status === 'maintenance' ? 'bg-info' : 'bg-danger'}">
+                                        ${vehicle.status}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Added Date:</th>
+                                <td>${formatDate(vehicle.createdDate)}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h5>Rental History</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${getVehicleRentalHistory(vehicleId)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Show vehicle details section
+            document.getElementById('vehicleDetailsCard').style.display = 'block';
+            
+            // Scroll to details section
+            document.getElementById('vehicleDetailsCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Get vehicle rental history
+        function getVehicleRentalHistory(vehicleId) {
+            const vehicleRentals = systemData.rentals.filter(r => r.vehicleId === vehicleId);
+            
+            if (vehicleRentals.length === 0) {
+                return '<tr><td colspan="5" class="text-center">No rental history</td></tr>';
+            }
+            
+            return vehicleRentals.map(rental => {
+                const customer = systemData.customers.find(c => c.id === rental.customerId);
+                return `
+                    <tr>
+                        <td>${customer ? customer.fullName : 'Unknown'}</td>
+                        <td>${formatDate(rental.startDate)}</td>
+                        <td>${formatDate(rental.endDate)}</td>
+                        <td>${rental.totalAmount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>
+                            <span class="badge ${rental.status === 'active' ? 'bg-success' : 
+                                             rental.status === 'completed' ? 'bg-info' : 
+                                             rental.status === 'cancelled' ? 'bg-danger' : 'bg-warning'}">
+                                ${rental.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Close vehicle details
+        function closeVehicleDetails() {
+            document.getElementById('vehicleDetailsCard').style.display = 'none';
+        }
+
+        // Edit vehicle (placeholder)
+        function editVehicle(vehicleId) {
+            alert(`Edit vehicle functionality for ID: ${vehicleId} would be implemented here.`);
+        }
+
+        // Delete vehicle
+        function deleteVehicle(vehicleId) {
+            if (confirm('Are you sure you want to delete this vehicle?')) {
+                systemData.vehicles = systemData.vehicles.filter(v => v.id !== vehicleId);
+                saveData();
+                loadVehicleList();
+                alert('Vehicle deleted successfully!');
+            }
+        }
+
+        // Search vehicles
+        function searchVehicles() {
+            const searchTerm = document.getElementById('vehicleSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#vehicleTableBody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        // Load vehicle history
+        function loadVehicleHistory() {
+            const vehicleHistoryTableBody = document.getElementById('vehicleHistoryTableBody');
+            vehicleHistoryTableBody.innerHTML = '';
+            
+            systemData.rentals.forEach(rental => {
+                const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+                const customer = systemData.customers.find(c => c.id === rental.customerId);
+                
+                if (vehicle && customer) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${vehicle.name}</td>
+                        <td>${customer.fullName}</td>
+                        <td>${formatDate(rental.startDate)}</td>
+                        <td>${formatDate(rental.endDate)}</td>
+                        <td>${rental.totalAmount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>
+                            <span class="badge ${rental.status === 'active' ? 'bg-success' : 
+                                             rental.status === 'completed' ? 'bg-info' : 
+                                             rental.status === 'cancelled' ? 'bg-danger' : 'bg-warning'}">
+                                ${rental.status}
+                            </span>
+                        </td>
+                    `;
+                    vehicleHistoryTableBody.appendChild(row);
+                }
+            });
+        }
+
+        // Search vehicle history
+        function searchVehicleHistory() {
+            const searchTerm = document.getElementById('vehicleHistorySearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#vehicleHistoryTableBody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        // Toggle customer form
+        function toggleCustomerForm() {
+            const customerForm = document.getElementById('newCustomerForm');
+            customerForm.style.display = customerForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Load customer list
+        function loadCustomerList() {
+            const customerTableBody = document.getElementById('customerTableBody');
+            customerTableBody.innerHTML = '';
+            
+            systemData.customers.forEach(customer => {
+                const totalDebt = calculateCustomerDebt(customer.id);
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.fullName}</td>
+                    <td>${customer.age}</td>
+                    <td>${customer.idNumber}</td>
+                    <td>${customer.nationality}</td>
+                    <td>${customer.contact}</td>
+                    <td>${totalDebt} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewCustomerDetails('${customer.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="editCustomer('${customer.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCustomer('${customer.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                customerTableBody.appendChild(row);
+            });
+        }
+
+        // Calculate customer debt
+        function calculateCustomerDebt(customerId) {
+            const customerRentals = systemData.rentals.filter(r => r.customerId === customerId && r.status !== 'cancelled');
+            let totalDebt = 0;
+            
+            customerRentals.forEach(rental => {
+                // Calculate paid amount
+                const payments = systemData.payments.filter(p => p.invoiceCode === rental.invoiceCode);
+                const paidAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
+                
+                // Calculate fines
+                const fines = systemData.fines.filter(f => f.invoiceCode === rental.invoiceCode && f.status !== 'paid');
+                const finesAmount = fines.reduce((sum, fine) => sum + fine.amount, 0);
+                
+                totalDebt += (rental.totalAmount - paidAmount) + finesAmount;
+            });
+            
+            return totalDebt;
+        }
+
+        // View customer details
+        function viewCustomerDetails(customerId) {
+            const customer = systemData.customers.find(c => c.id === customerId);
+            if (!customer) return;
+            
+            const detailsContent = document.getElementById('customerDetailsContent');
+            detailsContent.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>${customer.fullName}</h4>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Age:</th>
+                                <td>${customer.age}</td>
+                            </tr>
+                            <tr>
+                                <th>ID Number:</th>
+                                <td>${customer.idNumber}</td>
+                            </tr>
+                            <tr>
+                                <th>Nationality:</th>
+                                <td>${customer.nationality}</td>
+                            </tr>
+                            <tr>
+                                <th>Contact:</th>
+                                <td>${customer.contact}</td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>${customer.address}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Debt Summary</h5>
+                        <div class="debt-summary">
+                            <p><strong>Total Debt:</strong> ${calculateCustomerDebt(customerId)} <span class="currency-badge">${systemData.settings.currency}</span></p>
+                            <p><strong>Active Rentals:</strong> ${systemData.rentals.filter(r => r.customerId === customerId && r.status === 'active').length}</p>
+                            <p><strong>Completed Rentals:</strong> ${systemData.rentals.filter(r => r.customerId === customerId && r.status === 'completed').length}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h5>Rental History</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice Code</th>
+                                        <th>Vehicle</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${getCustomerRentalHistory(customerId)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Show customer details section
+            document.getElementById('customerDetailsCard').style.display = 'block';
+            
+            // Scroll to details section
+            document.getElementById('customerDetailsCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Get customer rental history
+        function getCustomerRentalHistory(customerId) {
+            const customerRentals = systemData.rentals.filter(r => r.customerId === customerId);
+            
+            if (customerRentals.length === 0) {
+                return '<tr><td colspan="6" class="text-center">No rental history</td></tr>';
+            }
+            
+            return customerRentals.map(rental => {
+                const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+                return `
+                    <tr>
+                        <td>${rental.invoiceCode}</td>
+                        <td>${vehicle ? vehicle.name : 'Unknown'}</td>
+                        <td>${formatDate(rental.startDate)}</td>
+                        <td>${formatDate(rental.endDate)}</td>
+                        <td>${rental.totalAmount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>
+                            <span class="badge ${rental.status === 'active' ? 'bg-success' : 
+                                             rental.status === 'completed' ? 'bg-info' : 
+                                             rental.status === 'cancelled' ? 'bg-danger' : 'bg-warning'}">
+                                ${rental.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Close customer details
+        function closeCustomerDetails() {
+            document.getElementById('customerDetailsCard').style.display = 'none';
+        }
+
+        // Edit customer (placeholder)
+        function editCustomer(customerId) {
+            alert(`Edit customer functionality for ID: ${customerId} would be implemented here.`);
+        }
+
+        // Delete customer
+        function deleteCustomer(customerId) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                // Check if customer has active rentals
+                const activeRentals = systemData.rentals.filter(r => r.customerId === customerId && r.status === 'active');
+                if (activeRentals.length > 0) {
+                    alert('Cannot delete customer with active rentals!');
+                    return;
+                }
+                
+                systemData.customers = systemData.customers.filter(c => c.id !== customerId);
+                saveData();
+                loadCustomerList();
+                alert('Customer deleted successfully!');
+            }
+        }
+
+        // Search customers
+        function searchCustomers() {
+            const searchTerm = document.getElementById('customerSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#customerTableBody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        // Create rental
+        function createRental(e) {
             e.preventDefault();
             
-            // Get customer info
+            // Get customer information
             const customerName = document.getElementById('rentalCustomer').value;
-            let customer = systemData.customers.find(c => c.fullName === customerName);
+            let customer = systemData.customers.find(c => 
+                c.fullName.toLowerCase().includes(customerName.toLowerCase()) || 
+                c.idNumber === customerName
+            );
             
-            // If customer doesn't exist, check if we have new customer form data
+            // If customer doesn't exist and new customer form is filled
             if (!customer) {
                 const newCustomerForm = document.getElementById('newCustomerForm');
                 if (newCustomerForm.style.display === 'block') {
+                    // Validate new customer form
+                    const fullName = document.getElementById('customerFullName').value;
+                    const age = document.getElementById('customerAge').value;
+                    const idNumber = document.getElementById('customerId').value;
+                    const nationality = document.getElementById('customerNationality').value;
+                    const contact = document.getElementById('customerContact').value;
+                    const address = document.getElementById('customerAddress').value;
+                    
+                    if (!fullName || !age || !idNumber || !nationality || !contact || !address) {
+                        alert('Please fill all required customer fields!');
+                        return;
+                    }
+                    
+                    // Check if customer with same ID already exists
+                    if (systemData.customers.some(c => c.idNumber === idNumber)) {
+                        alert('Customer with this ID already exists!');
+                        return;
+                    }
+                    
                     // Create new customer
                     customer = {
                         id: generateId(),
-                        fullName: document.getElementById('customerFullName').value,
-                        age: parseInt(document.getElementById('customerAge').value),
-                        idNumber: document.getElementById('customerId').value,
-                        nationality: document.getElementById('customerNationality').value,
-                        contact: document.getElementById('customerContact').value,
-                        address: document.getElementById('customerAddress').value,
-                        guaranteeDoc: null, // Would handle file upload in a real app
-                        created: new Date().toISOString()
+                        fullName,
+                        age: parseInt(age),
+                        idNumber,
+                        nationality,
+                        contact,
+                        address,
+                        createdDate: new Date().toISOString()
                     };
-                    
-                    // Add to nationalities if new
-                    if (!systemData.nationalities.includes(customer.nationality)) {
-                        systemData.nationalities.push(customer.nationality);
-                    }
                     
                     systemData.customers.push(customer);
                 } else {
@@ -2083,9 +2433,12 @@
                 }
             }
             
-            // Get vehicle info
+            // Get vehicle information
             const vehicleName = document.getElementById('rentalVehicle').value;
-            const vehicle = systemData.vehicles.find(v => v.name === vehicleName);
+            const vehicle = systemData.vehicles.find(v => 
+                v.name.toLowerCase().includes(vehicleName.toLowerCase()) || 
+                v.plate === vehicleName
+            );
             
             if (!vehicle) {
                 alert('Please select a valid vehicle!');
@@ -2101,49 +2454,135 @@
             // Get rental details
             const rentalAmount = parseFloat(document.getElementById('rentalAmount').value);
             const rentalDays = parseInt(document.getElementById('rentalDays').value);
-            const invoiceCode = document.getElementById('invoiceCode').value || generateInvoiceCode();
             const startDate = document.getElementById('rentalStartDate').value;
             const endDate = document.getElementById('rentalEndDate').value;
+            const invoiceCode = document.getElementById('invoiceCode').value || generateInvoiceCode();
             const advancePayment = parseFloat(document.getElementById('advancePayment').value) || 0;
             
+            // Calculate total amount
+            const totalAmount = rentalAmount * rentalDays;
+            
             // Create rental
-            const newRental = {
+            const rental = {
                 id: generateId(),
                 invoiceCode,
                 customerId: customer.id,
                 vehicleId: vehicle.id,
-                rentalAmount,
-                rentalDays,
                 startDate,
                 endDate,
+                rentalDays,
+                dailyRate: rentalAmount,
+                totalAmount,
                 advancePayment,
-                totalAmount: rentalAmount * rentalDays,
-                remainingAmount: (rentalAmount * rentalDays) - advancePayment,
                 status: 'active',
-                created: new Date().toISOString()
+                createdDate: new Date().toISOString()
             };
-            
-            systemData.rentals.push(newRental);
             
             // Update vehicle status
             vehicle.status = 'rented';
             
+            // Add rental to system
+            systemData.rentals.push(rental);
+            
+            // Record advance payment if any
+            if (advancePayment > 0) {
+                const payment = {
+                    id: generateId(),
+                    invoiceCode,
+                    amount: advancePayment,
+                    date: new Date().toISOString().split('T')[0],
+                    method: 'cash',
+                    notes: 'Advance payment',
+                    createdDate: new Date().toISOString()
+                };
+                
+                systemData.payments.push(payment);
+            }
+            
+            // Save data
             saveData();
             
-            alert('Rental created successfully!');
+            // Reload lists
+            loadVehicleList();
+            loadCustomerList();
+            loadRentalList();
+            
+            // Reset form
             document.getElementById('createRentalForm').reset();
+            document.getElementById('newCustomerForm').style.display = 'none';
+            initializeDateFields();
             
-            // Reset dates to today
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('rentalStartDate').value = today;
-            document.getElementById('rentalEndDate').value = today;
+            // Generate and show invoice
+            generateInvoice(rental, customer, vehicle);
             
-            // Print invoice
-            printInvoice(newRental, customer, vehicle);
+            alert('Rental created successfully!');
         }
 
-        // Handle return vehicle
-        function handleReturnVehicle(e) {
+        // Load rental list
+        function loadRentalList() {
+            const rentalTableBody = document.getElementById('rentalTableBody');
+            rentalTableBody.innerHTML = '';
+            
+            systemData.rentals.forEach(rental => {
+                const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+                const customer = systemData.customers.find(c => c.id === rental.customerId);
+                
+                if (vehicle && customer) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${rental.invoiceCode}</td>
+                        <td>${customer.fullName}</td>
+                        <td>${vehicle.name}</td>
+                        <td>${formatDate(rental.startDate)}</td>
+                        <td>${formatDate(rental.endDate)}</td>
+                        <td>${rental.totalAmount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>
+                            <span class="badge ${rental.status === 'active' ? 'bg-success' : 
+                                             rental.status === 'completed' ? 'bg-info' : 
+                                             rental.status === 'cancelled' ? 'bg-danger' : 'bg-warning'}">
+                                ${rental.status}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewRentalDetails('${rental.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="editRental('${rental.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="printInvoice('${rental.invoiceCode}')">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </td>
+                    `;
+                    rentalTableBody.appendChild(row);
+                }
+            });
+        }
+
+        // View rental details (placeholder)
+        function viewRentalDetails(rentalId) {
+            alert(`View rental details functionality for ID: ${rentalId} would be implemented here.`);
+        }
+
+        // Edit rental (placeholder)
+        function editRental(rentalId) {
+            alert(`Edit rental functionality for ID: ${rentalId} would be implemented here.`);
+        }
+
+        // Search rentals
+        function searchRentals() {
+            const searchTerm = document.getElementById('rentalSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#rentalTableBody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        // Process return
+        function processReturn(e) {
             e.preventDefault();
             
             const invoiceCode = document.getElementById('returnInvoiceCode').value;
@@ -2154,61 +2593,99 @@
             
             // Find rental
             const rental = systemData.rentals.find(r => r.invoiceCode === invoiceCode);
-            
             if (!rental) {
-                alert('Rental not found with the provided invoice code!');
+                alert('Rental with this invoice code not found!');
                 return;
             }
             
-            if (rental.status === 'returned') {
+            // Check if already returned
+            if (rental.status === 'completed') {
                 alert('This vehicle has already been returned!');
                 return;
             }
             
             // Find vehicle
             const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
-            
             if (!vehicle) {
-                alert('Vehicle not found!');
+                alert('Associated vehicle not found!');
                 return;
             }
+            
+            // Update vehicle
+            vehicle.odometer = odometer;
+            vehicle.status = 'available';
+            
+            // Update rental
+            rental.status = 'completed';
+            rental.actualEndDate = returnDate;
             
             // Create return record
             const returnRecord = {
                 id: generateId(),
-                rentalId: rental.id,
-                invoiceCode: rental.invoiceCode,
+                invoiceCode,
                 vehicleId: vehicle.id,
                 customerId: rental.customerId,
                 returnDate,
                 odometer,
                 condition,
                 notes,
-                created: new Date().toISOString()
+                createdDate: new Date().toISOString()
             };
             
             systemData.returns.push(returnRecord);
             
-            // Update rental status
-            rental.status = 'returned';
-            
-            // Update vehicle status and odometer
-            vehicle.status = 'available';
-            vehicle.odometer = odometer;
-            
+            // Save data
             saveData();
             
-            alert('Vehicle returned successfully!');
-            document.getElementById('returnVehicleForm').reset();
+            // Reload lists
+            loadVehicleList();
+            loadRentalList();
+            loadReturnHistory();
             
-            // Refresh return history if visible
-            if (document.getElementById('returns').classList.contains('show')) {
-                refreshReturnHistory();
-            }
+            // Reset form
+            document.getElementById('returnVehicleForm').reset();
+            initializeDateFields();
+            
+            alert('Vehicle return processed successfully!');
         }
 
-        // Handle maintenance
-        function handleMaintenance(e) {
+        // Load return history
+        function loadReturnHistory() {
+            const returnTableBody = document.getElementById('returnTableBody');
+            returnTableBody.innerHTML = '';
+            
+            systemData.returns.forEach(returnRecord => {
+                const rental = systemData.rentals.find(r => r.invoiceCode === returnRecord.invoiceCode);
+                const vehicle = systemData.vehicles.find(v => v.id === returnRecord.vehicleId);
+                const customer = systemData.customers.find(c => c.id === returnRecord.customerId);
+                
+                if (rental && vehicle && customer) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${returnRecord.invoiceCode}</td>
+                        <td>${customer.fullName}</td>
+                        <td>${vehicle.name}</td>
+                        <td>${formatDate(returnRecord.returnDate)}</td>
+                        <td>${returnRecord.odometer.toLocaleString()}</td>
+                        <td>${returnRecord.condition}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewReturnDetails('${returnRecord.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    `;
+                    returnTableBody.appendChild(row);
+                }
+            });
+        }
+
+        // View return details (placeholder)
+        function viewReturnDetails(returnId) {
+            alert(`View return details functionality for ID: ${returnId} would be implemented here.`);
+        }
+
+        // Schedule maintenance
+        function scheduleMaintenance(e) {
             e.preventDefault();
             
             const vehicleName = document.getElementById('maintenanceVehicle').value;
@@ -2218,39 +2695,98 @@
             const description = document.getElementById('maintenanceDescription').value;
             
             // Find vehicle
-            const vehicle = systemData.vehicles.find(v => v.name === vehicleName);
+            const vehicle = systemData.vehicles.find(v => 
+                v.name.toLowerCase().includes(vehicleName.toLowerCase()) || 
+                v.plate === vehicleName
+            );
             
             if (!vehicle) {
-                alert('Vehicle not found!');
+                alert('Please select a valid vehicle!');
                 return;
             }
             
             // Create maintenance record
-            const maintenanceRecord = {
+            const maintenance = {
                 id: generateId(),
                 vehicleId: vehicle.id,
                 type,
                 date,
                 cost,
                 description,
-                status: 'completed',
-                created: new Date().toISOString()
+                status: 'scheduled',
+                createdDate: new Date().toISOString()
             };
             
-            systemData.maintenance.push(maintenanceRecord);
+            // Update vehicle status if needed
+            if (type !== 'oil_change' && type !== 'tire_rotation') {
+                vehicle.status = 'maintenance';
+            }
+            
+            systemData.maintenance.push(maintenance);
+            
+            // Save data
             saveData();
             
-            alert('Maintenance record added successfully!');
-            document.getElementById('maintenanceForm').reset();
+            // Reload lists
+            loadVehicleList();
+            loadMaintenanceHistory();
             
-            // Refresh maintenance history if visible
-            if (document.getElementById('maintenance').classList.contains('show')) {
-                refreshMaintenanceHistory();
-            }
+            // Reset form
+            document.getElementById('maintenanceForm').reset();
+            initializeDateFields();
+            
+            alert('Maintenance scheduled successfully!');
         }
 
-        // Handle payment
-        function handlePayment(e) {
+        // Load maintenance history
+        function loadMaintenanceHistory() {
+            const maintenanceTableBody = document.getElementById('maintenanceTableBody');
+            maintenanceTableBody.innerHTML = '';
+            
+            systemData.maintenance.forEach(maintenance => {
+                const vehicle = systemData.vehicles.find(v => v.id === maintenance.vehicleId);
+                
+                if (vehicle) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${vehicle.name}</td>
+                        <td>${maintenance.type.replace('_', ' ').toUpperCase()}</td>
+                        <td>${formatDate(maintenance.date)}</td>
+                        <td>${maintenance.cost} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>${maintenance.description}</td>
+                        <td>
+                            <span class="badge ${maintenance.status === 'scheduled' ? 'bg-warning' : 
+                                             maintenance.status === 'completed' ? 'bg-success' : 
+                                             maintenance.status === 'cancelled' ? 'bg-danger' : 'bg-info'}">
+                                ${maintenance.status}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewMaintenanceDetails('${maintenance.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="editMaintenance('${maintenance.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    `;
+                    maintenanceTableBody.appendChild(row);
+                }
+            });
+        }
+
+        // View maintenance details (placeholder)
+        function viewMaintenanceDetails(maintenanceId) {
+            alert(`View maintenance details functionality for ID: ${maintenanceId} would be implemented here.`);
+        }
+
+        // Edit maintenance (placeholder)
+        function editMaintenance(maintenanceId) {
+            alert(`Edit maintenance functionality for ID: ${maintenanceId} would be implemented here.`);
+        }
+
+        // Record payment
+        function recordPayment(e) {
             e.preventDefault();
             
             const invoiceCode = document.getElementById('paymentInvoiceCode').value;
@@ -2261,44 +2797,73 @@
             
             // Find rental
             const rental = systemData.rentals.find(r => r.invoiceCode === invoiceCode);
-            
             if (!rental) {
-                alert('Rental not found with the provided invoice code!');
+                alert('Rental with this invoice code not found!');
                 return;
             }
             
             // Create payment record
-            const paymentRecord = {
+            const payment = {
                 id: generateId(),
-                rentalId: rental.id,
-                invoiceCode: rental.invoiceCode,
-                customerId: rental.customerId,
+                invoiceCode,
                 amount,
                 date,
                 method,
                 notes,
-                created: new Date().toISOString()
+                createdDate: new Date().toISOString()
             };
             
-            systemData.payments.push(paymentRecord);
+            systemData.payments.push(payment);
             
-            // Update rental remaining amount
-            rental.remainingAmount -= amount;
-            if (rental.remainingAmount < 0) rental.remainingAmount = 0;
-            
+            // Save data
             saveData();
             
-            alert('Payment recorded successfully!');
-            document.getElementById('paymentForm').reset();
+            // Reload lists
+            loadPaymentHistory();
             
-            // Refresh payment history if visible
-            if (document.getElementById('payments').classList.contains('show')) {
-                refreshPaymentHistory();
-            }
+            // Reset form
+            document.getElementById('paymentForm').reset();
+            initializeDateFields();
+            
+            alert('Payment recorded successfully!');
         }
 
-        // Handle fine
-        function handleFine(e) {
+        // Load payment history
+        function loadPaymentHistory() {
+            const paymentTableBody = document.getElementById('paymentTableBody');
+            paymentTableBody.innerHTML = '';
+            
+            systemData.payments.forEach(payment => {
+                const rental = systemData.rentals.find(r => r.invoiceCode === payment.invoiceCode);
+                const customer = rental ? systemData.customers.find(c => c.id === rental.customerId) : null;
+                
+                if (rental && customer) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.invoiceCode}</td>
+                        <td>${customer.fullName}</td>
+                        <td>${payment.amount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>${formatDate(payment.date)}</td>
+                        <td>${payment.method}</td>
+                        <td>${payment.notes}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewPaymentDetails('${payment.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    `;
+                    paymentTableBody.appendChild(row);
+                }
+            });
+        }
+
+        // View payment details (placeholder)
+        function viewPaymentDetails(paymentId) {
+            alert(`View payment details functionality for ID: ${paymentId} would be implemented here.`);
+        }
+
+        // Add fine
+        function addFine(e) {
             e.preventDefault();
             
             const invoiceCode = document.getElementById('fineInvoiceCode').value;
@@ -2309,276 +2874,277 @@
             
             // Find rental
             const rental = systemData.rentals.find(r => r.invoiceCode === invoiceCode);
-            
             if (!rental) {
-                alert('Rental not found with the provided invoice code!');
+                alert('Rental with this invoice code not found!');
                 return;
             }
             
             // Create fine record
-            const fineRecord = {
+            const fine = {
                 id: generateId(),
-                rentalId: rental.id,
-                invoiceCode: rental.invoiceCode,
-                customerId: rental.customerId,
+                invoiceCode,
                 type,
                 amount,
                 date,
                 description,
                 status: 'unpaid',
-                created: new Date().toISOString()
+                createdDate: new Date().toISOString()
             };
             
-            systemData.fines.push(fineRecord);
+            systemData.fines.push(fine);
+            
+            // Save data
             saveData();
             
-            alert('Fine/Tax added successfully!');
+            // Reload lists
+            loadFineHistory();
+            
+            // Reset form
             document.getElementById('fineForm').reset();
+            initializeDateFields();
             
-            // Refresh fine history if visible
-            if (document.getElementById('fines').classList.contains('show')) {
-                refreshFineHistory();
-            }
+            alert('Fine/tax added successfully!');
         }
 
-        // Handle generate report
-        function handleGenerateReport(e) {
-            e.preventDefault();
+        // Load fine history
+        function loadFineHistory() {
+            const fineTableBody = document.getElementById('fineTableBody');
+            fineTableBody.innerHTML = '';
             
-            const reportType = document.getElementById('reportType').value;
-            const period = document.getElementById('reportPeriod').value;
-            
-            let startDate, endDate;
-            
-            // Calculate date range based on period
-            const today = new Date();
-            switch(period) {
-                case 'today':
-                    startDate = today.toISOString().split('T')[0];
-                    endDate = startDate;
-                    break;
-                case 'this_week':
-                    const firstDay = new Date(today.setDate(today.getDate() - today.getDay()));
-                    startDate = firstDay.toISOString().split('T')[0];
-                    endDate = new Date().toISOString().split('T')[0];
-                    break;
-                case 'this_month':
-                    startDate = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
-                    endDate = new Date().toISOString().split('T')[0];
-                    break;
-                case 'this_year':
-                    startDate = new Date(today.getFullYear(), 0, 1).toISOString().split('T')[0];
-                    endDate = new Date().toISOString().split('T')[0];
-                    break;
-                case 'custom':
-                    startDate = document.getElementById('reportStartDate').value;
-                    endDate = document.getElementById('reportEndDate').value;
-                    break;
-                default:
-                    alert('Please select a valid period!');
-                    return;
-            }
-            
-            // Generate report based on type
-            generateReport(reportType, startDate, endDate);
+            systemData.fines.forEach(fine => {
+                const rental = systemData.rentals.find(r => r.invoiceCode === fine.invoiceCode);
+                const customer = rental ? systemData.customers.find(c => c.id === rental.customerId) : null;
+                
+                if (rental && customer) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${fine.invoiceCode}</td>
+                        <td>${customer.fullName}</td>
+                        <td>${fine.type.replace('_', ' ').toUpperCase()}</td>
+                        <td>${fine.amount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>${formatDate(fine.date)}</td>
+                        <td>${fine.description}</td>
+                        <td>
+                            <span class="badge ${fine.status === 'paid' ? 'bg-success' : 'bg-danger'}">
+                                ${fine.status}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewFineDetails('${fine.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="editFine('${fine.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    `;
+                    fineTableBody.appendChild(row);
+                }
+            });
         }
 
-        // Handle export report
-        function handleExportReport() {
-            // In a real application, this would export the report data to Excel
-            // For this demo, we'll just show an alert
-            alert('Export to Excel functionality would be implemented here!');
+        // View fine details (placeholder)
+        function viewFineDetails(fineId) {
+            alert(`View fine details functionality for ID: ${fineId} would be implemented here.`);
+        }
+
+        // Edit fine (placeholder)
+        function editFine(fineId) {
+            alert(`Edit fine functionality for ID: ${fineId} would be implemented here.`);
         }
 
         // Generate report
-        function generateReport(type, startDate, endDate) {
-            const tableHead = document.querySelector('#reportTable thead');
-            const tableBody = document.querySelector('#reportTable tbody');
+        function generateReport(e) {
+            e.preventDefault();
             
-            // Clear previous data
-            tableHead.innerHTML = '';
-            tableBody.innerHTML = '';
+            const reportType = document.getElementById('reportType').value;
+            const startDate = document.getElementById('reportStartDate').value;
+            const endDate = document.getElementById('reportEndDate').value;
             
-            let headers = [];
-            let data = [];
-            
-            switch(type) {
-                case 'rental_report':
-                    headers = ['Invoice Code', 'Customer', 'Vehicle', 'Start Date', 'End Date', 'Amount', 'Status'];
-                    data = systemData.rentals
-                        .filter(r => r.startDate >= startDate && r.startDate <= endDate)
-                        .map(r => {
-                            const customer = systemData.customers.find(c => c.id === r.customerId);
-                            const vehicle = systemData.vehicles.find(v => v.id === r.vehicleId);
-                            return [
-                                r.invoiceCode,
-                                customer ? customer.fullName : 'Unknown',
-                                vehicle ? vehicle.name : 'Unknown',
-                                formatDate(r.startDate),
-                                formatDate(r.endDate),
-                                formatCurrency(r.totalAmount),
-                                r.status
-                            ];
-                        });
-                    break;
-                    
-                case 'payment_report':
-                    headers = ['Invoice Code', 'Customer', 'Amount', 'Date', 'Method', 'Notes'];
-                    data = systemData.payments
-                        .filter(p => p.date >= startDate && p.date <= endDate)
-                        .map(p => {
-                            const customer = systemData.customers.find(c => c.id === p.customerId);
-                            return [
-                                p.invoiceCode,
-                                customer ? customer.fullName : 'Unknown',
-                                formatCurrency(p.amount),
-                                formatDate(p.date),
-                                p.method,
-                                p.notes || '-'
-                            ];
-                        });
-                    break;
-                    
-                case 'maintenance_report':
-                    headers = ['Vehicle', 'Type', 'Date', 'Cost', 'Description', 'Status'];
-                    data = systemData.maintenance
-                        .filter(m => m.date >= startDate && m.date <= endDate)
-                        .map(m => {
-                            const vehicle = systemData.vehicles.find(v => v.id === m.vehicleId);
-                            return [
-                                vehicle ? vehicle.name : 'Unknown',
-                                m.type,
-                                formatDate(m.date),
-                                formatCurrency(m.cost),
-                                m.description,
-                                m.status
-                            ];
-                        });
-                    break;
-                    
-                case 'fine_report':
-                    headers = ['Invoice Code', 'Customer', 'Type', 'Amount', 'Date', 'Description', 'Status'];
-                    data = systemData.fines
-                        .filter(f => f.date >= startDate && f.date <= endDate)
-                        .map(f => {
-                            const customer = systemData.customers.find(c => c.id === f.customerId);
-                            return [
-                                f.invoiceCode,
-                                customer ? customer.fullName : 'Unknown',
-                                f.type,
-                                formatCurrency(f.amount),
-                                formatDate(f.date),
-                                f.description,
-                                f.status
-                            ];
-                        });
-                    break;
-                    
-                case 'vehicle_report':
-                    headers = ['Name', 'Model', 'Color', 'Plate', 'Odometer', 'Rental Price', 'Status'];
-                    data = systemData.vehicles.map(v => [
-                        v.name,
-                        v.model,
-                        v.color,
-                        v.plate,
-                        v.odometer,
-                        formatCurrency(v.rentalPrice),
-                        v.status
-                    ]);
-                    break;
-                    
-                case 'customer_report':
-                    headers = ['Full Name', 'Age', 'ID', 'Nationality', 'Contact', 'Total Rentals', 'Total Spent'];
-                    data = systemData.customers.map(c => {
-                        const customerRentals = systemData.rentals.filter(r => r.customerId === c.id);
-                        const totalSpent = customerRentals.reduce((sum, r) => sum + r.totalAmount, 0);
-                        return [
-                            c.fullName,
-                            c.age,
-                            c.idNumber,
-                            c.nationality,
-                            c.contact,
-                            customerRentals.length,
-                            formatCurrency(totalSpent)
-                        ];
-                    });
-                    break;
-                    
-                default:
-                    alert('Please select a valid report type!');
-                    return;
+            if (!reportType) {
+                alert('Please select a report type!');
+                return;
             }
             
-            // Create table headers
-            const headerRow = document.createElement('tr');
-            headers.forEach(header => {
-                const th = document.createElement('th');
-                th.textContent = header;
-                headerRow.appendChild(th);
-            });
-            tableHead.appendChild(headerRow);
+            let reportData = '';
             
-            // Create table rows
-            data.forEach(rowData => {
-                const row = document.createElement('tr');
-                rowData.forEach(cellData => {
-                    const td = document.createElement('td');
-                    td.textContent = cellData;
-                    row.appendChild(td);
-                });
-                tableBody.appendChild(row);
-            });
+            switch (reportType) {
+                case 'rental':
+                    reportData = generateRentalReport(startDate, endDate);
+                    break;
+                case 'financial':
+                    reportData = generateFinancialReport(startDate, endDate);
+                    break;
+                case 'vehicle':
+                    reportData = generateVehicleReport(startDate, endDate);
+                    break;
+                case 'customer':
+                    reportData = generateCustomerReport(startDate, endDate);
+                    break;
+                case 'maintenance':
+                    reportData = generateMaintenanceReport(startDate, endDate);
+                    break;
+            }
             
-            // Show report count
-            alert(`Report generated: ${data.length} records found for the selected period.`);
+            document.getElementById('reportResults').innerHTML = reportData;
         }
 
-        // Print invoice
-        function printInvoice(rental, customer, vehicle) {
-            // Populate invoice data
-            document.getElementById('printInvoiceCode').textContent = rental.invoiceCode;
-            document.getElementById('printInvoiceDate').textContent = formatDate(new Date().toISOString().split('T')[0]);
-            document.getElementById('printCustomerName').textContent = customer.fullName;
-            document.getElementById('printVehicleName').textContent = vehicle.name;
-            document.getElementById('printCustomerId').textContent = customer.idNumber;
-            document.getElementById('printCustomerAddress').textContent = customer.address;
-            document.getElementById('printRentalAmount').textContent = formatCurrency(rental.rentalAmount);
-            document.getElementById('printRentalDays').textContent = rental.rentalDays;
-            document.getElementById('printTotalAmount').textContent = formatCurrency(rental.totalAmount);
+        // Generate rental report
+        function generateRentalReport(startDate, endDate) {
+            const filteredRentals = systemData.rentals.filter(r => 
+                r.startDate >= startDate && r.startDate <= endDate
+            );
             
-            // Set system name and logo for printing
+            let totalRevenue = 0;
+            let html = `
+                <h4>Rental Report (${formatDate(startDate)} to ${formatDate(endDate)})</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Invoice Code</th>
+                                <th>Customer</th>
+                                <th>Vehicle</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            filteredRentals.forEach(rental => {
+                const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+                const customer = systemData.customers.find(c => c.id === rental.customerId);
+                
+                if (vehicle && customer) {
+                    totalRevenue += rental.totalAmount;
+                    
+                    html += `
+                        <tr>
+                            <td>${rental.invoiceCode}</td>
+                            <td>${customer.fullName}</td>
+                            <td>${vehicle.name}</td>
+                            <td>${formatDate(rental.startDate)}</td>
+                            <td>${formatDate(rental.endDate)}</td>
+                            <td>${rental.totalAmount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                            <td>${rental.status}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3">
+                    <h5>Summary</h5>
+                    <p><strong>Total Rentals:</strong> ${filteredRentals.length}</p>
+                    <p><strong>Total Revenue:</strong> ${totalRevenue} <span class="currency-badge">${systemData.settings.currency}</span></p>
+                </div>
+            `;
+            
+            return html;
+        }
+
+        // Generate financial report (placeholder)
+        function generateFinancialReport(startDate, endDate) {
+            return `<h4>Financial Report (${formatDate(startDate)} to ${formatDate(endDate)})</h4>
+                    <p>Financial report functionality would be implemented here.</p>`;
+        }
+
+        // Generate vehicle report (placeholder)
+        function generateVehicleReport(startDate, endDate) {
+            return `<h4>Vehicle Report (${formatDate(startDate)} to ${formatDate(endDate)})</h4>
+                    <p>Vehicle report functionality would be implemented here.</p>`;
+        }
+
+        // Generate customer report (placeholder)
+        function generateCustomerReport(startDate, endDate) {
+            return `<h4>Customer Report (${formatDate(startDate)} to ${formatDate(endDate)})</h4>
+                    <p>Customer report functionality would be implemented here.</p>`;
+        }
+
+        // Generate maintenance report (placeholder)
+        function generateMaintenanceReport(startDate, endDate) {
+            return `<h4>Maintenance Report (${formatDate(startDate)} to ${formatDate(endDate)})</h4>
+                    <p>Maintenance report functionality would be implemented here.</p>`;
+        }
+
+        // Export report (placeholder)
+        function exportReport() {
+            alert('Export to Excel functionality would be implemented here.');
+        }
+
+        // Save settings
+        function saveSettings(e) {
+            e.preventDefault();
+            
+            const systemName = document.getElementById('systemName').value;
+            const currency = document.getElementById('currency').value;
+            const dateFormat = document.getElementById('dateFormat').value;
+            
+            // Update settings
+            systemData.settings.systemName = systemName;
+            systemData.settings.currency = currency;
+            systemData.settings.dateFormat = dateFormat;
+            
+            // Handle logo upload
+            const logoInput = document.getElementById('systemLogo');
+            if (logoInput.files.length > 0) {
+                const file = logoInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    systemData.settings.logo = e.target.result;
+                    saveData();
+                    applySettings();
+                    alert('Settings saved successfully!');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                saveData();
+                applySettings();
+                alert('Settings saved successfully!');
+            }
+        }
+
+        // Apply settings
+        function applySettings() {
+            // Update system name
+            document.getElementById('headerSystemName').textContent = systemData.settings.systemName;
+            document.getElementById('sidebarSystemName').textContent = systemData.settings.systemName;
             document.getElementById('printSystemName').textContent = systemData.settings.systemName;
+            
+            // Update currency badges
+            document.querySelectorAll('.currency-badge').forEach(badge => {
+                badge.textContent = systemData.settings.currency;
+            });
+            
+            // Update logo if exists
             if (systemData.settings.logo) {
+                document.getElementById('headerLogo').src = systemData.settings.logo;
+                document.getElementById('headerLogo').style.display = 'inline';
+                document.getElementById('sidebarLogo').src = systemData.settings.logo;
+                document.getElementById('sidebarLogo').style.display = 'block';
                 document.getElementById('printLogo').src = systemData.settings.logo;
                 document.getElementById('printLogo').style.display = 'inline';
             }
-            
-            // Show rental history
-            const rentalHistory = document.getElementById('printRentalHistory');
-            rentalHistory.innerHTML = `
-                <div>Start Date: ${formatDate(rental.startDate)}</div>
-                <div>End Date: ${formatDate(rental.endDate)}</div>
-                <div>Advance Payment: ${formatCurrency(rental.advancePayment)}</div>
-                <div>Remaining Amount: ${formatCurrency(rental.remainingAmount)}</div>
-            `;
-            
-            // Print the invoice
-            window.print();
         }
 
-        // Refresh dashboard
-        function refreshDashboard() {
-            // Calculate statistics
+        // Load dashboard data
+        function loadDashboardData() {
+            // Update statistics
             const totalVehicles = systemData.vehicles.length;
             const availableVehicles = systemData.vehicles.filter(v => v.status === 'available').length;
             const rentedVehicles = systemData.vehicles.filter(v => v.status === 'rented').length;
             const totalCustomers = systemData.customers.length;
             const activeRentals = systemData.rentals.filter(r => r.status === 'active').length;
-            const totalRevenue = systemData.rentals.reduce((sum, r) => sum + r.totalAmount, 0);
+            const totalRevenue = systemData.rentals.reduce((sum, rental) => sum + rental.totalAmount, 0);
             
-            // Update dashboard stats
-            const statsHTML = `
-                <div class="col-md-3">
+            document.getElementById('dashboardStats').innerHTML = `
+                <div class="col-md-3 mb-4">
                     <div class="card dashboard-card text-white bg-primary">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -2593,7 +3159,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4">
                     <div class="card dashboard-card text-white bg-success">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -2608,7 +3174,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4">
                     <div class="card dashboard-card text-white bg-warning">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -2623,7 +3189,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4">
                     <div class="card dashboard-card text-white bg-info">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -2638,7 +3204,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mt-3">
+                <div class="col-md-3 mb-4">
                     <div class="card dashboard-card text-white bg-danger">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -2653,12 +3219,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mt-3">
+                <div class="col-md-3 mb-4">
                     <div class="card dashboard-card text-white bg-secondary">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h4>${formatCurrency(totalRevenue)}</h4>
+                                    <h4>${totalRevenue}</h4>
                                     <p>Total Revenue</p>
                                 </div>
                                 <div class="align-self-center">
@@ -2670,52 +3236,62 @@
                 </div>
             `;
             
-            document.getElementById('dashboardStats').innerHTML = statsHTML;
-            
-            // Update recent rentals
+            // Load recent rentals
             const recentRentals = systemData.rentals
-                .sort((a, b) => new Date(b.created) - new Date(a.created))
+                .sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
                 .slice(0, 5);
             
-            let recentRentalsHTML = '';
+            const recentRentalsTable = document.getElementById('recentRentalsTable');
+            recentRentalsTable.innerHTML = '';
+            
             recentRentals.forEach(rental => {
-                const customer = systemData.customers.find(c => c.id === rental.customerId);
                 const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+                const customer = systemData.customers.find(c => c.id === rental.customerId);
                 
-                recentRentalsHTML += `
-                    <tr>
-                        <td>${customer ? customer.fullName : 'Unknown'}</td>
-                        <td>${vehicle ? vehicle.name : 'Unknown'}</td>
+                if (vehicle && customer) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.fullName}</td>
+                        <td>${vehicle.name}</td>
                         <td>${formatDate(rental.startDate)}</td>
-                        <td>${formatCurrency(rental.totalAmount)}</td>
-                        <td><span class="badge ${rental.status === 'active' ? 'bg-warning' : 'bg-success'}">${rental.status}</span></td>
-                    </tr>
-                `;
+                        <td>${rental.totalAmount} <span class="currency-badge">${systemData.settings.currency}</span></td>
+                        <td>
+                            <span class="badge ${rental.status === 'active' ? 'bg-success' : 
+                                             rental.status === 'completed' ? 'bg-info' : 
+                                             rental.status === 'cancelled' ? 'bg-danger' : 'bg-warning'}">
+                                ${rental.status}
+                            </span>
+                        </td>
+                    `;
+                    recentRentalsTable.appendChild(row);
+                }
             });
             
-            document.getElementById('recentRentalsTable').innerHTML = recentRentalsHTML;
-            
-            // Update vehicle status chart
-            updateVehicleStatusChart(availableVehicles, rentedVehicles);
+            // Load vehicle status chart
+            loadVehicleStatusChart();
         }
 
-        // Update vehicle status chart
-        function updateVehicleStatusChart(available, rented) {
+        // Load vehicle status chart
+        function loadVehicleStatusChart() {
             const ctx = document.getElementById('vehicleStatusChart').getContext('2d');
             
-            // Destroy existing chart if it exists
-            if (window.vehicleStatusChart) {
-                window.vehicleStatusChart.destroy();
-            }
+            const available = systemData.vehicles.filter(v => v.status === 'available').length;
+            const rented = systemData.vehicles.filter(v => v.status === 'rented').length;
+            const maintenance = systemData.vehicles.filter(v => v.status === 'maintenance').length;
+            const other = systemData.vehicles.filter(v => !['available', 'rented', 'maintenance'].includes(v.status)).length;
             
-            window.vehicleStatusChart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Available', 'Rented'],
+                    labels: ['Available', 'Rented', 'Maintenance', 'Other'],
                     datasets: [{
-                        data: [available, rented],
-                        backgroundColor: ['#28a745', '#ffc107'],
-                        borderWidth: 1
+                        data: [available, rented, maintenance, other],
+                        backgroundColor: [
+                            '#28a745',
+                            '#ffc107',
+                            '#17a2b8',
+                            '#6c757d'
+                        ]
                     }]
                 },
                 options: {
@@ -2729,788 +3305,282 @@
             });
         }
 
-        // Refresh vehicle list
-        function refreshVehicleList() {
-            const tableBody = document.getElementById('vehicleTableBody');
-            let html = '';
+        // Setup auto-suggestions
+        function setupAutoSuggestions() {
+            // Color suggestions
+            const colors = ['Red', 'Blue', 'Green', 'Black', 'White', 'Silver', 'Gray', 'Yellow', 'Orange', 'Purple', 'Brown'];
+            setupSuggestionField('vehicleColor', 'colorSuggestions', colors);
             
-            systemData.vehicles.forEach(vehicle => {
-                html += `
-                    <tr>
-                        <td>
-                            ${vehicle.image ? 
-                                `<img src="${vehicle.image}" class="vehicle-image" alt="${vehicle.name}">` : 
-                                '<i class="fas fa-car fa-2x text-muted"></i>'
-                            }
-                        </td>
-                        <td>${vehicle.name}</td>
-                        <td>${vehicle.model}</td>
-                        <td>${vehicle.color}</td>
-                        <td>${vehicle.plate}</td>
-                        <td>${vehicle.odometer}</td>
-                        <td>${formatCurrency(vehicle.rentalPrice)}</td>
-                        <td>
-                            <span class="badge ${vehicle.status === 'available' ? 'bg-success' : 'bg-warning'}">
-                                ${vehicle.status}
-                            </span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-info view-vehicle" data-id="${vehicle.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            ${systemData.permissions.edit ? `
-                                <button class="btn btn-sm btn-warning edit-vehicle" data-id="${vehicle.id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            ` : ''}
-                            ${systemData.permissions.delete ? `
-                                <button class="btn btn-sm btn-danger delete-vehicle" data-id="${vehicle.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
+            // Model suggestions
+            const models = ['2020', '2021', '2022', '2023', '2024'];
+            setupSuggestionField('vehicleModel', 'modelSuggestions', models);
             
-            tableBody.innerHTML = html;
+            // Customer suggestions
+            setupCustomerSuggestions();
             
-            // Add event listeners to action buttons
-            document.querySelectorAll('.view-vehicle').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const vehicleId = this.getAttribute('data-id');
-                    viewVehicleDetails(vehicleId);
-                });
-            });
+            // Vehicle suggestions
+            setupVehicleSuggestions();
             
-            document.querySelectorAll('.edit-vehicle').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const vehicleId = this.getAttribute('data-id');
-                    editVehicle(vehicleId);
-                });
-            });
+            // Nationality suggestions
+            const nationalities = ['United Arab Emirates', 'Saudi Arabia', 'Kuwait', 'Qatar', 'Oman', 'Bahrain', 'Egypt', 'Jordan', 'Lebanon', 'Syria', 'Yemen', 'India', 'Pakistan', 'Bangladesh', 'Philippines', 'United States', 'United Kingdom', 'Canada', 'Australia', 'France', 'Germany', 'Italy', 'Spain', 'China', 'Japan', 'South Korea'];
+            setupSuggestionField('customerNationality', 'nationalitySuggestions', nationalities);
             
-            document.querySelectorAll('.delete-vehicle').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const vehicleId = this.getAttribute('data-id');
-                    deleteVehicle(vehicleId);
-                });
-            });
+            // Invoice suggestions for returns
+            setupInvoiceSuggestions('returnInvoiceCode', 'invoiceSuggestions');
+            
+            // Invoice suggestions for payments
+            setupInvoiceSuggestions('paymentInvoiceCode', 'paymentInvoiceSuggestions');
+            
+            // Invoice suggestions for fines
+            setupInvoiceSuggestions('fineInvoiceCode', 'fineInvoiceSuggestions');
+            
+            // Vehicle suggestions for maintenance
+            setupVehicleSuggestions('maintenanceVehicle', 'maintenanceVehicleSuggestions');
         }
 
-        // View vehicle details
-        function viewVehicleDetails(vehicleId) {
-            const vehicle = systemData.vehicles.find(v => v.id === vehicleId);
-            if (!vehicle) return;
+        // Setup suggestion field
+        function setupSuggestionField(inputId, suggestionId, suggestions) {
+            const input = document.getElementById(inputId);
+            const suggestionList = document.getElementById(suggestionId);
             
-            const detailsContent = document.getElementById('vehicleDetailsContent');
-            
-            let html = `
-                <div class="row">
-                    <div class="col-md-4">
-                        ${vehicle.image ? 
-                            `<img src="${vehicle.image}" class="img-fluid" alt="${vehicle.name}">` : 
-                            '<div class="text-center"><i class="fas fa-car fa-5x text-muted"></i></div>'
-                        }
-                    </div>
-                    <div class="col-md-8">
-                        <h4>${vehicle.name}</h4>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Model</th>
-                                <td>${vehicle.model}</td>
-                            </tr>
-                            <tr>
-                                <th>Color</th>
-                                <td>${vehicle.color}</td>
-                            </tr>
-                            <tr>
-                                <th>Plate Number</th>
-                                <td>${vehicle.plate}</td>
-                            </tr>
-                            <tr>
-                                <th>VIN #</th>
-                                <td>${vehicle.vin}</td>
-                            </tr>
-                            <tr>
-                                <th>Odometer</th>
-                                <td>${vehicle.odometer}</td>
-                            </tr>
-                            <tr>
-                                <th>Rental Price</th>
-                                <td>${formatCurrency(vehicle.rentalPrice)}</td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td>
-                                    <span class="badge ${vehicle.status === 'available' ? 'bg-success' : 'bg-warning'}">
-                                        ${vehicle.status}
-                                    </span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <h5>Rental History</h5>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Invoice Code</th>
-                                        <th>Customer</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-            `;
-            
-            const vehicleRentals = systemData.rentals.filter(r => r.vehicleId === vehicleId);
-            if (vehicleRentals.length > 0) {
-                vehicleRentals.forEach(rental => {
-                    const customer = systemData.customers.find(c => c.id === rental.customerId);
-                    html += `
-                        <tr>
-                            <td>${rental.invoiceCode}</td>
-                            <td>${customer ? customer.fullName : 'Unknown'}</td>
-                            <td>${formatDate(rental.startDate)}</td>
-                            <td>${formatDate(rental.endDate)}</td>
-                            <td>${formatCurrency(rental.totalAmount)}</td>
-                            <td>
-                                <span class="badge ${rental.status === 'active' ? 'bg-warning' : 'bg-success'}">
-                                    ${rental.status}
-                                </span>
-                            </td>
-                        </tr>
-                    `;
-                });
-            } else {
-                html += `<tr><td colspan="6" class="text-center">No rental history found</td></tr>`;
-            }
-            
-            html += `
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            detailsContent.innerHTML = html;
-            document.getElementById('vehicleDetailsCard').style.display = 'block';
-        }
-
-        // Edit vehicle
-        function editVehicle(vehicleId) {
-            // In a real application, this would open a modal or form to edit the vehicle
-            alert('Edit vehicle functionality would be implemented here!');
-        }
-
-        // Delete vehicle
-        function deleteVehicle(vehicleId) {
-            if (confirm('Are you sure you want to delete this vehicle?')) {
-                systemData.vehicles = systemData.vehicles.filter(v => v.id !== vehicleId);
-                saveData();
-                refreshVehicleList();
-                alert('Vehicle deleted successfully!');
-            }
-        }
-
-        // Refresh customer list
-        function refreshCustomerList() {
-            const tableBody = document.getElementById('customerTableBody');
-            let html = '';
-            
-            systemData.customers.forEach(customer => {
-                const customerRentals = systemData.rentals.filter(r => r.customerId === customer.id);
-                const totalDebt = customerRentals.reduce((sum, r) => sum + r.remainingAmount, 0);
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+                suggestionList.innerHTML = '';
                 
-                html += `
-                    <tr>
-                        <td>${customer.fullName}</td>
-                        <td>${customer.age}</td>
-                        <td>${customer.idNumber}</td>
-                        <td>${customer.nationality}</td>
-                        <td>${customer.contact}</td>
-                        <td>${formatCurrency(totalDebt)}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info view-customer" data-id="${customer.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            ${systemData.permissions.edit ? `
-                                <button class="btn btn-sm btn-warning edit-customer" data-id="${customer.id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            ` : ''}
-                            ${systemData.permissions.delete ? `
-                                <button class="btn btn-sm btn-danger delete-customer" data-id="${customer.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
-            
-            // Add event listeners to action buttons
-            document.querySelectorAll('.view-customer').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const customerId = this.getAttribute('data-id');
-                    viewCustomerDetails(customerId);
-                });
-            });
-            
-            document.querySelectorAll('.edit-customer').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const customerId = this.getAttribute('data-id');
-                    editCustomer(customerId);
-                });
-            });
-            
-            document.querySelectorAll('.delete-customer').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const customerId = this.getAttribute('data-id');
-                    deleteCustomer(customerId);
-                });
-            });
-        }
-
-        // View customer details
-        function viewCustomerDetails(customerId) {
-            const customer = systemData.customers.find(c => c.id === customerId);
-            if (!customer) return;
-            
-            const detailsContent = document.getElementById('customerDetailsContent');
-            
-            let html = `
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>${customer.fullName}</h4>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Age</th>
-                                <td>${customer.age}</td>
-                            </tr>
-                            <tr>
-                                <th>ID Number</th>
-                                <td>${customer.idNumber}</td>
-                            </tr>
-                            <tr>
-                                <th>Nationality</th>
-                                <td>${customer.nationality}</td>
-                            </tr>
-                            <tr>
-                                <th>Contact</th>
-                                <td>${customer.contact}</td>
-                            </tr>
-                            <tr>
-                                <th>Address</th>
-                                <td>${customer.address}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <h5>Rental History</h5>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Invoice Code</th>
-                                        <th>Vehicle</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Amount</th>
-                                        <th>Remaining</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-            `;
-            
-            const customerRentals = systemData.rentals.filter(r => r.customerId === customerId);
-            if (customerRentals.length > 0) {
-                customerRentals.forEach(rental => {
-                    const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
-                    html += `
-                        <tr>
-                            <td>${rental.invoiceCode}</td>
-                            <td>${vehicle ? vehicle.name : 'Unknown'}</td>
-                            <td>${formatDate(rental.startDate)}</td>
-                            <td>${formatDate(rental.endDate)}</td>
-                            <td>${formatCurrency(rental.totalAmount)}</td>
-                            <td>${formatCurrency(rental.remainingAmount)}</td>
-                            <td>
-                                <span class="badge ${rental.status === 'active' ? 'bg-warning' : 'bg-success'}">
-                                    ${rental.status}
-                                </span>
-                            </td>
-                        </tr>
-                    `;
-                });
-            } else {
-                html += `<tr><td colspan="7" class="text-center">No rental history found</td></tr>`;
-            }
-            
-            html += `
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            detailsContent.innerHTML = html;
-            document.getElementById('customerDetailsCard').style.display = 'block';
-        }
-
-        // Edit customer
-        function editCustomer(customerId) {
-            // In a real application, this would open a modal or form to edit the customer
-            alert('Edit customer functionality would be implemented here!');
-        }
-
-        // Delete customer
-        function deleteCustomer(customerId) {
-            if (confirm('Are you sure you want to delete this customer?')) {
-                systemData.customers = systemData.customers.filter(c => c.id !== customerId);
-                saveData();
-                refreshCustomerList();
-                alert('Customer deleted successfully!');
-            }
-        }
-
-        // Refresh rental list
-        function refreshRentalList() {
-            const tableBody = document.getElementById('rentalTableBody');
-            let html = '';
-            
-            systemData.rentals.forEach(rental => {
-                const customer = systemData.customers.find(c => c.id === rental.customerId);
-                const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
-                
-                html += `
-                    <tr>
-                        <td>${rental.invoiceCode}</td>
-                        <td>${customer ? customer.fullName : 'Unknown'}</td>
-                        <td>${vehicle ? vehicle.name : 'Unknown'}</td>
-                        <td>${formatDate(rental.startDate)}</td>
-                        <td>${formatDate(rental.endDate)}</td>
-                        <td>${formatCurrency(rental.totalAmount)}</td>
-                        <td>
-                            <span class="badge ${rental.status === 'active' ? 'bg-warning' : 'bg-success'}">
-                                ${rental.status}
-                            </span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-info view-rental" data-id="${rental.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            ${systemData.permissions.edit ? `
-                                <button class="btn btn-sm btn-warning edit-rental" data-id="${rental.id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            ` : ''}
-                            ${systemData.permissions.delete ? `
-                                <button class="btn btn-sm btn-danger delete-rental" data-id="${rental.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
-        }
-
-        // Refresh return history
-        function refreshReturnHistory() {
-            const tableBody = document.getElementById('returnHistoryTableBody');
-            let html = '';
-            
-            systemData.returns.forEach(returnRecord => {
-                const rental = systemData.rentals.find(r => r.id === returnRecord.rentalId);
-                const customer = systemData.customers.find(c => c.id === returnRecord.customerId);
-                const vehicle = systemData.vehicles.find(v => v.id === returnRecord.vehicleId);
-                
-                if (rental && customer && vehicle) {
-                    html += `
-                        <tr>
-                            <td>${returnRecord.invoiceCode}</td>
-                            <td>${customer.fullName}</td>
-                            <td>${vehicle.name}</td>
-                            <td>${formatDate(returnRecord.returnDate)}</td>
-                            <td>${returnRecord.condition}</td>
-                            <td>${returnRecord.odometer}</td>
-                            <td>
-                                <button class="btn btn-sm btn-info view-return" data-id="${returnRecord.id}">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                ${systemData.permissions.delete ? `
-                                    <button class="btn btn-sm btn-danger delete-return" data-id="${returnRecord.id}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                ` : ''}
-                            </td>
-                        </tr>
-                    `;
+                if (value) {
+                    const filtered = suggestions.filter(s => s.toLowerCase().includes(value));
+                    
+                    if (filtered.length > 0) {
+                        filtered.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = item;
+                            div.addEventListener('click', function() {
+                                input.value = item;
+                                suggestionList.style.display = 'none';
+                            });
+                            suggestionList.appendChild(div);
+                        });
+                        suggestionList.style.display = 'block';
+                    } else {
+                        suggestionList.style.display = 'none';
+                    }
+                } else {
+                    suggestionList.style.display = 'none';
                 }
             });
             
-            tableBody.innerHTML = html;
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== input) {
+                    suggestionList.style.display = 'none';
+                }
+            });
         }
 
-        // Refresh maintenance history
-        function refreshMaintenanceHistory() {
-            const tableBody = document.getElementById('maintenanceHistoryTableBody');
-            let html = '';
+        // Setup customer suggestions
+        function setupCustomerSuggestions() {
+            const input = document.getElementById('rentalCustomer');
+            const suggestionList = document.getElementById('customerSuggestions');
             
-            systemData.maintenance.forEach(maintenance => {
-                const vehicle = systemData.vehicles.find(v => v.id === maintenance.vehicleId);
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+                suggestionList.innerHTML = '';
                 
-                if (vehicle) {
-                    html += `
-                        <tr>
-                            <td>${vehicle.name}</td>
-                            <td>${maintenance.type}</td>
-                            <td>${formatDate(maintenance.date)}</td>
-                            <td>${formatCurrency(maintenance.cost)}</td>
-                            <td>${maintenance.description}</td>
-                            <td>
-                                <span class="badge bg-success">${maintenance.status}</span>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-info view-maintenance" data-id="${maintenance.id}">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                ${systemData.permissions.edit ? `
-                                    <button class="btn btn-sm btn-warning edit-maintenance" data-id="${maintenance.id}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                ` : ''}
-                                ${systemData.permissions.delete ? `
-                                    <button class="btn btn-sm btn-danger delete-maintenance" data-id="${maintenance.id}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                ` : ''}
-                            </td>
-                        </tr>
-                    `;
+                if (value) {
+                    const filtered = systemData.customers.filter(c => 
+                        c.fullName.toLowerCase().includes(value) || 
+                        c.idNumber.includes(value)
+                    );
+                    
+                    if (filtered.length > 0) {
+                        filtered.forEach(customer => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = `${customer.fullName} (${customer.idNumber})`;
+                            div.addEventListener('click', function() {
+                                input.value = customer.fullName;
+                                suggestionList.style.display = 'none';
+                            });
+                            suggestionList.appendChild(div);
+                        });
+                        suggestionList.style.display = 'block';
+                    } else {
+                        suggestionList.style.display = 'none';
+                    }
+                } else {
+                    suggestionList.style.display = 'none';
                 }
             });
             
-            tableBody.innerHTML = html;
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== input) {
+                    suggestionList.style.display = 'none';
+                }
+            });
         }
 
-        // Refresh payment history
-        function refreshPaymentHistory() {
-            const tableBody = document.getElementById('paymentHistoryTableBody');
-            let html = '';
+        // Setup vehicle suggestions
+        function setupVehicleSuggestions(inputId = 'rentalVehicle', suggestionId = 'vehicleSuggestions') {
+            const input = document.getElementById(inputId);
+            const suggestionList = document.getElementById(suggestionId);
             
-            systemData.payments.forEach(payment => {
-                const customer = systemData.customers.find(c => c.id === payment.customerId);
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+                suggestionList.innerHTML = '';
                 
-                if (customer) {
-                    html += `
-                        <tr>
-                            <td>${payment.invoiceCode}</td>
-                            <td>${customer.fullName}</td>
-                            <td>${formatCurrency(payment.amount)}</td>
-                            <td>${formatDate(payment.date)}</td>
-                            <td>${payment.method}</td>
-                            <td>${payment.notes || '-'}</td>
-                            <td>
-                                <button class="btn btn-sm btn-info view-payment" data-id="${payment.id}">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                ${systemData.permissions.edit ? `
-                                    <button class="btn btn-sm btn-warning edit-payment" data-id="${payment.id}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                ` : ''}
-                                ${systemData.permissions.delete ? `
-                                    <button class="btn btn-sm btn-danger delete-payment" data-id="${payment.id}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                ` : ''}
-                            </td>
-                        </tr>
-                    `;
+                if (value) {
+                    const filtered = systemData.vehicles.filter(v => 
+                        v.name.toLowerCase().includes(value) || 
+                        v.plate.toLowerCase().includes(value)
+                    );
+                    
+                    if (filtered.length > 0) {
+                        filtered.forEach(vehicle => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = `${vehicle.name} (${vehicle.plate}) - ${vehicle.status}`;
+                            div.addEventListener('click', function() {
+                                input.value = vehicle.name;
+                                suggestionList.style.display = 'none';
+                                
+                                // If this is the rental vehicle field, set the rental amount
+                                if (inputId === 'rentalVehicle') {
+                                    document.getElementById('rentalAmount').value = vehicle.rentalPrice;
+                                }
+                            });
+                            suggestionList.appendChild(div);
+                        });
+                        suggestionList.style.display = 'block';
+                    } else {
+                        suggestionList.style.display = 'none';
+                    }
+                } else {
+                    suggestionList.style.display = 'none';
                 }
             });
             
-            tableBody.innerHTML = html;
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== input) {
+                    suggestionList.style.display = 'none';
+                }
+            });
         }
 
-        // Refresh fine history
-        function refreshFineHistory() {
-            const tableBody = document.getElementById('fineHistoryTableBody');
-            let html = '';
+        // Setup invoice suggestions
+        function setupInvoiceSuggestions(inputId, suggestionId) {
+            const input = document.getElementById(inputId);
+            const suggestionList = document.getElementById(suggestionId);
             
-            systemData.fines.forEach(fine => {
-                const customer = systemData.customers.find(c => c.id === fine.customerId);
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+                suggestionList.innerHTML = '';
                 
-                if (customer) {
-                    html += `
-                        <tr>
-                            <td>${fine.invoiceCode}</td>
-                            <td>${customer.fullName}</td>
-                            <td>${fine.type}</td>
-                            <td>${formatCurrency(fine.amount)}</td>
-                            <td>${formatDate(fine.date)}</td>
-                            <td>${fine.description}</td>
-                            <td>
-                                <span class="badge ${fine.status === 'paid' ? 'bg-success' : 'bg-warning'}">
-                                    ${fine.status}
-                                </span>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-info view-fine" data-id="${fine.id}">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                ${systemData.permissions.edit ? `
-                                    <button class="btn btn-sm btn-warning edit-fine" data-id="${fine.id}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                ` : ''}
-                                ${systemData.permissions.delete ? `
-                                    <button class="btn btn-sm btn-danger delete-fine" data-id="${fine.id}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                ` : ''}
-                            </td>
-                        </tr>
-                    `;
+                if (value) {
+                    const filtered = systemData.rentals.filter(r => 
+                        r.invoiceCode.toLowerCase().includes(value)
+                    );
+                    
+                    if (filtered.length > 0) {
+                        filtered.forEach(rental => {
+                            const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
+                            const customer = systemData.customers.find(c => c.id === rental.customerId);
+                            
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = `${rental.invoiceCode} - ${customer ? customer.fullName : 'Unknown'} - ${vehicle ? vehicle.name : 'Unknown'}`;
+                            div.addEventListener('click', function() {
+                                input.value = rental.invoiceCode;
+                                suggestionList.style.display = 'none';
+                            });
+                            suggestionList.appendChild(div);
+                        });
+                        suggestionList.style.display = 'block';
+                    } else {
+                        suggestionList.style.display = 'none';
+                    }
+                } else {
+                    suggestionList.style.display = 'none';
                 }
             });
             
-            tableBody.innerHTML = html;
-        }
-
-        // Refresh user table
-        function refreshUserTable() {
-            const tableBody = document.getElementById('userTableBody');
-            let html = '';
-            
-            systemData.users.forEach(user => {
-                html += `
-                    <tr>
-                        <td>${user.username}</td>
-                        <td>
-                            <span class="badge ${user.role === 'admin' ? 'bg-danger' : 'bg-primary'}">
-                                ${user.role}
-                            </span>
-                        </td>
-                        <td>${user.lastLogin ? formatDate(user.lastLogin.split('T')[0]) : 'Never'}</td>
-                        <td>
-                            <span class="badge bg-success">Active</span>
-                        </td>
-                        <td>
-                            ${user.username !== systemData.currentUser.username ? `
-                                <button class="btn btn-sm btn-warning edit-user" data-username="${user.username}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger delete-user" data-username="${user.username}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== input) {
+                    suggestionList.style.display = 'none';
+                }
             });
-            
-            tableBody.innerHTML = html;
-            
-            // Also update user management modal table
-            document.getElementById('userManagementTableBody').innerHTML = html;
         }
 
-        // Search vehicles
-        function searchVehicles() {
-            const query = document.getElementById('vehicleSearch').value.toLowerCase();
-            const filteredVehicles = systemData.vehicles.filter(v => 
-                v.name.toLowerCase().includes(query) || 
-                v.plate.toLowerCase().includes(query) ||
-                v.model.toLowerCase().includes(query) ||
-                v.color.toLowerCase().includes(query)
-            );
-            
-            const tableBody = document.getElementById('vehicleTableBody');
-            let html = '';
-            
-            filteredVehicles.forEach(vehicle => {
-                html += `
-                    <tr>
-                        <td>
-                            ${vehicle.image ? 
-                                `<img src="${vehicle.image}" class="vehicle-image" alt="${vehicle.name}">` : 
-                                '<i class="fas fa-car fa-2x text-muted"></i>'
-                            }
-                        </td>
-                        <td>${vehicle.name}</td>
-                        <td>${vehicle.model}</td>
-                        <td>${vehicle.color}</td>
-                        <td>${vehicle.plate}</td>
-                        <td>${vehicle.odometer}</td>
-                        <td>${formatCurrency(vehicle.rentalPrice)}</td>
-                        <td>
-                            <span class="badge ${vehicle.status === 'available' ? 'bg-success' : 'bg-warning'}">
-                                ${vehicle.status}
-                            </span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-info view-vehicle" data-id="${vehicle.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            ${systemData.permissions.edit ? `
-                                <button class="btn btn-sm btn-warning edit-vehicle" data-id="${vehicle.id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            ` : ''}
-                            ${systemData.permissions.delete ? `
-                                <button class="btn btn-sm btn-danger delete-vehicle" data-id="${vehicle.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
-        }
-
-        // Search customers
-        function searchCustomers() {
-            const query = document.getElementById('customerSearch').value.toLowerCase();
-            const filteredCustomers = systemData.customers.filter(c => 
-                c.fullName.toLowerCase().includes(query) || 
-                c.idNumber.toLowerCase().includes(query) ||
-                c.nationality.toLowerCase().includes(query) ||
-                c.contact.toLowerCase().includes(query)
-            );
-            
-            const tableBody = document.getElementById('customerTableBody');
-            let html = '';
-            
-            filteredCustomers.forEach(customer => {
-                const customerRentals = systemData.rentals.filter(r => r.customerId === customer.id);
-                const totalDebt = customerRentals.reduce((sum, r) => sum + r.remainingAmount, 0);
-                
-                html += `
-                    <tr>
-                        <td>${customer.fullName}</td>
-                        <td>${customer.age}</td>
-                        <td>${customer.idNumber}</td>
-                        <td>${customer.nationality}</td>
-                        <td>${customer.contact}</td>
-                        <td>${formatCurrency(totalDebt)}</td>
-                        <td>
-                            <button class="btn btn-sm btn-info view-customer" data-id="${customer.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            ${systemData.permissions.edit ? `
-                                <button class="btn btn-sm btn-warning edit-customer" data-id="${customer.id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            ` : ''}
-                            ${systemData.permissions.delete ? `
-                                <button class="btn btn-sm btn-danger delete-customer" data-id="${customer.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
-        }
-
-        // Search rentals
-        function searchRentals() {
-            const query = document.getElementById('rentalSearch').value.toLowerCase();
-            const filteredRentals = systemData.rentals.filter(r => 
-                r.invoiceCode.toLowerCase().includes(query)
-            );
-            
-            const tableBody = document.getElementById('rentalTableBody');
-            let html = '';
-            
-            filteredRentals.forEach(rental => {
-                const customer = systemData.customers.find(c => c.id === rental.customerId);
-                const vehicle = systemData.vehicles.find(v => v.id === rental.vehicleId);
-                
-                html += `
-                    <tr>
-                        <td>${rental.invoiceCode}</td>
-                        <td>${customer ? customer.fullName : 'Unknown'}</td>
-                        <td>${vehicle ? vehicle.name : 'Unknown'}</td>
-                        <td>${formatDate(rental.startDate)}</td>
-                        <td>${formatDate(rental.endDate)}</td>
-                        <td>${formatCurrency(rental.totalAmount)}</td>
-                        <td>
-                            <span class="badge ${rental.status === 'active' ? 'bg-warning' : 'bg-success'}">
-                                ${rental.status}
-                            </span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-info view-rental" data-id="${rental.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            ${systemData.permissions.edit ? `
-                                <button class="btn btn-sm btn-warning edit-rental" data-id="${rental.id}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            ` : ''}
-                            ${systemData.permissions.delete ? `
-                                <button class="btn btn-sm btn-danger delete-rental" data-id="${rental.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tableBody.innerHTML = html;
-        }
-
-        // Utility functions
+        // Generate unique ID
         function generateId() {
             return Date.now().toString(36) + Math.random().toString(36).substr(2);
         }
 
+        // Generate invoice code
         function generateInvoiceCode() {
-            return 'INV-' + Date.now().toString(36).toUpperCase();
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `INV-${year}${month}${day}-${random}`;
         }
 
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: systemData.settings.currency
-            }).format(amount);
-        }
-
+        // Format date
         function formatDate(dateString) {
-            const date = new Date(dateString);
-            const format = systemData.settings.dateFormat;
+            if (!dateString) return 'N/A';
             
-            if (format === 'dd/mm/yyyy') {
-                return date.toLocaleDateString('en-GB');
-            } else if (format === 'mm/dd/yyyy') {
-                return date.toLocaleDateString('en-US');
-            } else {
-                return date.toISOString().split('T')[0];
-            }
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            
+            return `${year}-${month}-${day}`;
+        }
+
+        // Generate invoice
+        function generateInvoice(rental, customer, vehicle) {
+            // Update print invoice content
+            document.getElementById('printInvoiceCode').textContent = rental.invoiceCode;
+            document.getElementById('printInvoiceDate').textContent = formatDate(new Date().toISOString());
+            document.getElementById('printCustomerName').textContent = customer.fullName;
+            document.getElementById('printVehicleName').textContent = vehicle.name;
+            document.getElementById('printCustomerId').textContent = customer.idNumber;
+            document.getElementById('printCustomerAddress').textContent = customer.address;
+            document.getElementById('printRentalAmount').textContent = `${rental.dailyRate} ${systemData.settings.currency} per day`;
+            document.getElementById('printRentalDays').textContent = rental.rentalDays;
+            document.getElementById('printTotalAmount').textContent = `${rental.totalAmount} ${systemData.settings.currency}`;
+            
+            // Generate rental history for print
+            const rentalHistory = `
+                <div>Start Date: ${formatDate(rental.startDate)}</div>
+                <div>End Date: ${formatDate(rental.endDate)}</div>
+                <div>Days: ${rental.rentalDays}</div>
+                <div>Daily Rate: ${rental.dailyRate} ${systemData.settings.currency}</div>
+                <div>Total Amount: ${rental.totalAmount} ${systemData.settings.currency}</div>
+                ${rental.advancePayment > 0 ? `<div>Advance Payment: ${rental.advancePayment} ${systemData.settings.currency}</div>` : ''}
+            `;
+            document.getElementById('printRentalHistory').innerHTML = rentalHistory;
+            
+            // Show print dialog
+            printInvoice(rental.invoiceCode);
+        }
+
+        // Print invoice
+        function printInvoice(invoiceCode) {
+            // Show print section
+            document.getElementById('invoicePrint').style.display = 'block';
+            
+            // Print
+            window.print();
+            
+            // Hide print section after printing
+            setTimeout(() => {
+                document.getElementById('invoicePrint').style.display = 'none';
+            }, 500);
         }
     </script>
 </body>
