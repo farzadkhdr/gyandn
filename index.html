@@ -834,7 +834,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Invoice for Printing -->
+                            <!-- Invoice for Printing - UPDATED VERSION -->
                             <div id="invoicePrint" class="print-only" style="display: none;">
                                 <div class="invoice-logo">
                                     <img id="printLogo" src="" style="max-width: 200px; display: none;">
@@ -854,11 +854,16 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- System Information -->
+                                        <!-- Customer Information -->
                                         <div class="row mb-3">
-                                            <div class="col-12 text-center">
-                                                <img id="printSystemLogo" src="" style="max-height: 80px; display: none;">
-                                                <h4 id="printCompanyName">Car Rental System</h4>
+                                            <div class="col-12">
+                                                <h5>Customer Information</h5>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Name:</strong> <span id="printCustomerName"></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Mobile:</strong> <span id="printCustomerMobile"></span>
                                             </div>
                                         </div>
                                         
@@ -866,56 +871,22 @@
                                         <div class="row mb-3">
                                             <div class="col-12">
                                                 <h5>Vehicle Information</h5>
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <img id="printVehicleImage" src="" style="max-width: 150px; max-height: 100px; display: none;">
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <table class="table table-bordered">
-                                                            <tr>
-                                                                <th>Vehicle Name:</th>
-                                                                <td id="printVehicleName"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Vehicle Model:</th>
-                                                                <td id="printVehicleModel"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Vehicle Color:</th>
-                                                                <td id="printVehicleColor"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Plate Number:</th>
-                                                                <td id="printVehiclePlate"></td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <strong>Vehicle Name:</strong> <span id="printVehicleName"></span>
+                                            </div>
+                                            <div class="col-4">
+                                                <strong>Model:</strong> <span id="printVehicleModel"></span>
+                                            </div>
+                                            <div class="col-4">
+                                                <strong>Color:</strong> <span id="printVehicleColor"></span>
                                             </div>
                                         </div>
                                         
-                                        <!-- Customer Information -->
+                                        <!-- Vehicle Image -->
                                         <div class="row mb-3">
-                                            <div class="col-12">
-                                                <h5>Customer Information</h5>
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <th>Customer Name:</th>
-                                                        <td id="printCustomerName"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Customer ID:</th>
-                                                        <td id="printCustomerId"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Mobile Number:</th>
-                                                        <td id="printCustomerContact"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Address:</th>
-                                                        <td id="printCustomerAddress"></td>
-                                                    </tr>
-                                                </table>
+                                            <div class="col-12 text-center">
+                                                <img id="printVehicleImage" src="" style="max-width: 300px; max-height: 200px; display: none;" class="img-fluid">
                                             </div>
                                         </div>
                                         
@@ -923,41 +894,34 @@
                                         <div class="row mb-3">
                                             <div class="col-12">
                                                 <h5>Rental Details</h5>
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Start Date</th>
-                                                            <th>End Date</th>
-                                                            <th>Rental Days</th>
-                                                            <th>Daily Rate</th>
-                                                            <th>Total Amount</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="printRentalHistory">
-                                                        <!-- Rental details will be populated here -->
-                                                    </tbody>
-                                                </table>
+                                            </div>
+                                            <div class="col-3">
+                                                <strong>Rental Days:</strong> <span id="printRentalDays"></span>
+                                            </div>
+                                            <div class="col-3">
+                                                <strong>Price per Day:</strong> <span id="printRentalAmount"></span>
+                                            </div>
+                                            <div class="col-3">
+                                                <strong>Advance Payment:</strong> <span id="printAdvancePayment"></span>
+                                            </div>
+                                            <div class="col-3">
+                                                <strong>Remaining Amount:</strong> <span id="printRemainingAmount"></span>
                                             </div>
                                         </div>
                                         
-                                        <!-- Payment Summary -->
+                                        <!-- Rental History Table -->
                                         <div class="row mb-3">
                                             <div class="col-12">
-                                                <h5>Payment Summary</h5>
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <th>Advance Payment:</th>
-                                                        <td id="printAdvancePayment">0 AED</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Remaining Balance:</th>
-                                                        <td id="printRemainingBalance">0 AED</td>
-                                                    </tr>
-                                                    <tr class="table-primary">
-                                                        <th><strong>Total Amount:</strong></th>
-                                                        <td><strong id="printTotalAmount">0 AED</strong></td>
-                                                    </tr>
-                                                </table>
+                                                <strong>Rental History:</strong>
+                                                <div id="printRentalHistory"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Totals -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <hr>
+                                                <h4 class="text-end">Total Amount: <span id="printTotalAmount"></span></h4>
                                             </div>
                                         </div>
                                         
@@ -965,20 +929,11 @@
                                         <div class="row signature-area">
                                             <div class="col-6">
                                                 <strong>Customer Signature:</strong>
-                                                <div style="height: 50px; border-bottom: 1px solid #000; margin-top: 10px;"></div>
+                                                <div style="height: 50px; border-bottom: 1px solid #000;"></div>
                                             </div>
                                             <div class="col-6 text-end">
                                                 <strong>Company Signature:</strong>
-                                                <div style="height: 50px; border-bottom: 1px solid #000; margin-top: 10px;"></div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Footer Notes -->
-                                        <div class="row mt-4">
-                                            <div class="col-12">
-                                                <small class="text-muted">
-                                                    <strong>Notes:</strong> Please return the vehicle in the same condition. Late returns will incur additional charges.
-                                                </small>
+                                                <div style="height: 50px; border-bottom: 1px solid #000;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -2575,34 +2530,24 @@
             }
         }
 
-        // Print invoice - Updated Version
+        // Print invoice - UPDATED VERSION
         function printInvoice(rental, customer, vehicle) {
+            // Calculate remaining amount
+            const totalAmount = rental.rentalAmount * rental.rentalDays;
+            const remainingAmount = totalAmount - rental.advancePayment;
+            
             // Update print content
             document.getElementById('printInvoiceCode').textContent = rental.invoiceCode;
             document.getElementById('printInvoiceDate').textContent = formatDate(rental.created);
             
-            // System information
-            document.getElementById('printSystemName').textContent = systemData.settings.systemName;
-            document.getElementById('printCompanyName').textContent = systemData.settings.systemName;
-            
-            // Set logos
-            const printLogo = document.getElementById('printLogo');
-            const printSystemLogo = document.getElementById('printSystemLogo');
-            if (systemData.settings.logo) {
-                printLogo.src = systemData.settings.logo;
-                printLogo.style.display = 'block';
-                printSystemLogo.src = systemData.settings.logo;
-                printSystemLogo.style.display = 'block';
-            } else {
-                printLogo.style.display = 'none';
-                printSystemLogo.style.display = 'none';
-            }
+            // Customer information
+            document.getElementById('printCustomerName').textContent = customer.fullName;
+            document.getElementById('printCustomerMobile').textContent = customer.contact;
             
             // Vehicle information
             document.getElementById('printVehicleName').textContent = vehicle.name;
             document.getElementById('printVehicleModel').textContent = vehicle.model;
             document.getElementById('printVehicleColor').textContent = vehicle.color;
-            document.getElementById('printVehiclePlate').textContent = vehicle.plate;
             
             // Vehicle image
             const printVehicleImage = document.getElementById('printVehicleImage');
@@ -2613,31 +2558,46 @@
                 printVehicleImage.style.display = 'none';
             }
             
-            // Customer information
-            document.getElementById('printCustomerName').textContent = customer.fullName;
-            document.getElementById('printCustomerId').textContent = customer.idNumber;
-            document.getElementById('printCustomerContact').textContent = customer.contact;
-            document.getElementById('printCustomerAddress').textContent = customer.address;
-            
             // Rental details
-            const rentalHistory = document.getElementById('printRentalHistory');
-            const totalAmount = rental.rentalAmount * rental.rentalDays;
-            const remainingBalance = totalAmount - rental.advancePayment;
-            
-            rentalHistory.innerHTML = `
-                <tr>
-                    <td>${formatDate(rental.startDate)}</td>
-                    <td>${formatDate(rental.endDate)}</td>
-                    <td>${rental.rentalDays} days</td>
-                    <td>${rental.rentalAmount} ${systemData.settings.currency}</td>
-                    <td>${totalAmount} ${systemData.settings.currency}</td>
-                </tr>
-            `;
-            
-            // Payment summary
+            document.getElementById('printRentalDays').textContent = rental.rentalDays;
+            document.getElementById('printRentalAmount').textContent = `${rental.rentalAmount} ${systemData.settings.currency}`;
             document.getElementById('printAdvancePayment').textContent = `${rental.advancePayment} ${systemData.settings.currency}`;
-            document.getElementById('printRemainingBalance').textContent = `${remainingBalance} ${systemData.settings.currency}`;
+            document.getElementById('printRemainingAmount').textContent = `${remainingAmount} ${systemData.settings.currency}`;
             document.getElementById('printTotalAmount').textContent = `${totalAmount} ${systemData.settings.currency}`;
+            
+            // Set logo if available
+            const printLogo = document.getElementById('printLogo');
+            if (systemData.settings.logo) {
+                printLogo.src = systemData.settings.logo;
+                printLogo.style.display = 'block';
+            } else {
+                printLogo.style.display = 'none';
+            }
+            
+            // Show rental history
+            const rentalHistory = document.getElementById('printRentalHistory');
+            rentalHistory.innerHTML = `
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Days</th>
+                            <th>Amount/Day</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${formatDate(rental.startDate)}</td>
+                            <td>${formatDate(rental.endDate)}</td>
+                            <td>${rental.rentalDays}</td>
+                            <td>${rental.rentalAmount} ${systemData.settings.currency}</td>
+                            <td>${totalAmount} ${systemData.settings.currency}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
             
             // Print the invoice
             window.print();
@@ -3553,7 +3513,7 @@
                             </tr>
                             <tr>
                                 <th>Plate Number</th>
-                                <td>${vehicle.plate}</td>
+                                <td>${vehicle.plate</td>
                             </tr>
                             <tr>
                                 <th>VIN #</th>
