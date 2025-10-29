@@ -865,6 +865,12 @@
                                             <div class="col-6">
                                                 <strong>Mobile:</strong> <span id="printCustomerMobile"></span>
                                             </div>
+                                            <div class="col-6">
+                                                <strong>ID Number:</strong> <span id="printCustomerId"></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong>Address:</strong> <span id="printCustomerAddress"></span>
+                                            </div>
                                         </div>
                                         
                                         <!-- Vehicle Information -->
@@ -2576,6 +2582,8 @@
             // Customer information
             document.getElementById('printCustomerName').textContent = customer.fullName;
             document.getElementById('printCustomerMobile').textContent = customer.contact;
+            document.getElementById('printCustomerId').textContent = customer.idNumber;
+            document.getElementById('printCustomerAddress').textContent = customer.address;
             
             // Vehicle information
             document.getElementById('printVehicleName').textContent = vehicle.name;
